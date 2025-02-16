@@ -1,4 +1,4 @@
-# Solving Algorithm of Markov Decision Process
+# Solution of Markov Decision Process
 
 [TOC]
 

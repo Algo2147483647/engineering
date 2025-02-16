@@ -19,6 +19,10 @@
 
 
 
+<img src="./assets/BJT_PNP_symbol.svg" alt="BJT_PNP_symbol" style="zoom:80%;" />
+
+<img src="./assets/BJT_NPN_symbol.svg" alt="BJT_NPN_symbol" style="zoom:80%;" />
+
 基级
 发射级
 集电极

@@ -64,7 +64,7 @@ $$
 e = \frac{\frac{\Delta y}{y}}{\frac{\Delta x}{x}} = \frac{\mathrm d y}{\mathrm d x}\frac{x}{y}  \tag{Elasticity}
 $$
 
-**Elasticity** measures the responsiveness of one variable to changes in another variable. Elasticity emphasizes the proportional relationship between variables, can reflect the sensitivity of price changes to changes in demand or supply, ra+++++ther than just the rate of change at a certain point.
+**Elasticity** measures the responsiveness of one variable to changes in another variable. Elasticity emphasizes the proportional relationship between variables, can reflect the sensitivity of price changes to changes in demand or supply, rather than just the rate of change at a certain point.
 
 - If $E_s > 1$, $e$ is **elastic**.
 - If $E_s < 1$, $e$ is **inelastic**.
