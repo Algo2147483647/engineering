@@ -92,7 +92,7 @@ Layer Normalization is a regularization technique used in deep learning to accel
 
 <img src="./assets/Illustration-of-batch-normalization-BN-and-layer-normalization-LN-and-its-adapted.png" alt="Illustration of batch-normalization (BN) and layer-normalization (LN), and its adapted version for Pervasive Attention (PA)" style="zoom: 50%;" />
 
-### Decode
+### Decoder
 
 $$
 \text{DecoderLayer}_i(x, y) = \text{LayerNorm}(x + \text{MultiHead}(\text{LayerNorm}(\text{MaskedSelfAttention}(x, y))))
