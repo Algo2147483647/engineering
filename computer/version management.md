@@ -31,12 +31,6 @@ Git is a distribute version control system designed to efficiently manage and tr
 - ***clone***: Create a copy of a remote repository on your local machine.
 - ***status***: View the status of the workspace and staging area, and display information such as file modifications and untracked files.
 - ***add***: Adds changes or new files to the staging area for the next commit.
-- ***reset***: Restore the status of the files in the staging area to the status of the last commit, that is, cancel the staging. If the <file> parameter is not added, git reset will restore all files in the staging area by default.
-  - ***--soft***: Only move HEAD to the specified commit, and the contents of the staging area and the work area will not be changed. That is, all changes are still kept in the staging area, and you can resubmit these changes.
-  - ***--mixed***: Move HEAD to the specified commit, and reset the staging area to make it consistent with the contents of the specified commit, but the contents of the work area will not be changed. That is, the previous git add operation is undone, and the changes are still kept in the work area.
-  - ***--hard***: Move HEAD to the specified commit, and reset the staging area and the work area to make them consistent with the contents of the specified commit. This means that all uncommitted changes will be completely discarded and cannot be recovered.
-  - ***--patch***: Allows you to interactively select changes to be undone. It will show the differences between the work area and the staging area block by block, and you can choose to accept or reject each block of changes.
-
 - ***commit***: Records the changes mode to the repository and creates a new commit.
   - ***-m*** "commit message": Describing the content of this submission.
   - ***--amend***: Modify the most recent commit message or content, if some files are missing or the commit message is incorrect after committing.
@@ -48,7 +42,6 @@ Git is a distribute version control system designed to efficiently manage and tr
 - ***branch***: List all local branches. The current branch will be marked with an asterisk *.
   - <branch_name>: Create a new branch <branch_name>, but do not switch to the new branch.
   - ***-d*** <branch_name>: Delete the specified local branch.
-
 - ***checkout***: Switch to the specified branch <branch_name>.
 - ***merge***: Merge the specified branch into the current branch <branch_name>.
 - ***rebase*** The purpose of organizing and linearizing the commit history is to apply a series of commits to another branch in order. It will "copy" the commits in the current branch and then apply these commits in sequence on the target branch to make the commit history look more linear.
@@ -57,6 +50,66 @@ Git is a distribute version control system designed to efficiently manage and tr
 - ***pull***: Pull the code of the specified branch from the remote repository and merge it with the local current branch.
 - ***log***: View commit history, including commit hash, author, date, commit message, and more.
   - ***--pretty***=oneline: Displays the commit history in a concise one-line format.
+
+### Merge branches: Rebase & Merge
+
+<img src="./assets/rebase.svg" alt="rebase" style="zoom: 80%;" />
+
+#### Rebase
+
+***Rebase***: Apply the commits of the current branch to the top of the latest commit of the target branch in sequence to form a linear commit history.
+
+- **Workflow**:
+  - Locate common ancestor: find the most recent common ancestor commit of the current branch and the target branch
+  - Extract modifications: convert all commits of the current branch after the common ancestor into patch files
+  - Reset branch: point the current branch pointer directly to the latest commit of the target branch
+  - Apply patch: reapply the extracted patch file in sequence
+- **Conflict handling**:
+  - Git suspends rebase and prompts conflicting files
+  - Manually resolve conflicts (IDE visualization tools are recommended)
+  - Execute git add <file> to mark the conflict resolved
+  - Continue rebase: git rebase `--continue`
+  - To terminate: git rebase `--abort`
+- **Key features**:
+  - Maintains the linear structure of the commit history
+  - Often used to maintain the cleanliness of feature branches
+  - Can be interactively edited via git rebase -i
+  - Will change the SHA value of the commit
+
+#### Merge
+
+***Merge***: Create a new merge commit to integrate the history of two branches and keep the complete branch development track.
+
+- **Workflow**:
+  - Automatic merge: Git tries to intelligently merge the changes of two branches
+  - Generate a merge commit: If the merge is successful, automatically create a commit with two parent nodes
+  - Conflict handling: If there is a conflict, you need to manually resolve it before submitting it
+- Conflict handling:
+  - Git prompts conflicting files (marked with symbols such as <<<<<<<).
+  - Manually edit conflicting files (it is recommended to use the merge tool of IDE)
+  - Execute git add <file> after saving the changes
+  - Complete the merge commit: git commit -m "Merge branch..."
+- Key features:
+  - Keep the complete branch history
+  - Merge commit contains two parent nodes
+  - Support three-way merge algorithm
+  - Submit SHA value remains unchanged
+
+### Undo: Revert & Reset
+
+#### Reset
+
+***reset***: Restore the status of the files in the staging area to the status of the last commit, that is, cancel the staging. If the <file> parameter is not added, git reset will restore all files in the staging area by default.
+
+- ***--soft***: Only move HEAD to the specified commit, and the contents of the staging area and the work area will not be changed. That is, all changes are still kept in the staging area, and you can resubmit these changes.
+- ***--mixed*** (Default mode): Move HEAD to the specified commit, and reset the staging area to make it consistent with the contents of the specified commit, but the contents of the work area will not be changed. That is, the previous git add operation is undone, and the changes are still kept in the work area.
+- ***--hard***: Move HEAD to the specified commit, and reset the staging area and the work area to make them consistent with the contents of the specified commit. This means that all uncommitted changes will be completely discarded and cannot be recovered.
+- ***--hard HEAD^***: The number of ^ after HEAD represents the number of versions to roll back. For example, if you want to roll back 100 versions, you can write HEAD~100 .
+- ***--patch***: Allows you to interactively select changes to be undone. It will show the differences between the work area and the staging area block by block, and you can choose to accept or reject each block of changes.
+
+<img src="./assets/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fcx7c746kwfaa97quvnch.png" alt="img" style="zoom: 50%;" />
+
+<img src="./assets/1_lirDsZh5ZZP3l9EtulZEjw.png" alt="1_lirDsZh5ZZP3l9EtulZEjw" style="zoom:50%;" />
 
 ## Branch
 
@@ -117,3 +170,10 @@ Maintenance or hotfix branches are used to quickly patch production releases. `H
 - **Repeat if necessary**: If there are additional conflicts in other files, go back to step 2 and resolve them until all conflicts are resolved.
 - **Complete the merge or rebase & Push or continue with your workflow**: Once all conflicts are resolved, continue the merge or rebase operation using `git merge --continue` or `git rebase --continue`. After resolving the conflicts and completing the merge or rebase, you can ```git push``` the changes to the remote repository or continue with your workflow as desired. 
 
+## Special Operations
+
+### Merge commits into one commit
+
+`git rebase --soft` Method: 
+
+<img src="./assets/reset.svg" alt="reset" style="zoom:80%;" />
