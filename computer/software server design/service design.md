@@ -12,26 +12,38 @@
 
 ## Creating objects
 
-### Singleton
+![create](./assets/create.svg)
+
+### Singleton: 全局唯一
 
 Singleton refers to ensures a class has only one global instance and provides a global access entrance of access to that instance. The key to building a singleton including: 
 
 - Restrict the constructor's visibility to prevent external creation of new instances, ensuring that instances are created only at expected and unique times, such as during the first access or system initialization.
 - Provide a centralized global access point to guarantee that the singleton instance can be accessed consistently from anywhere.
 
-### Factory
+### Factory: 统一生产对象
 
 Factory determines the type of instance to create based on input, maintaining a $\text{key} \to \text{instance}$ mapping table that associates each key with its corresponding instance constructor.
 
-## Combining objects
+### 定义抽象, 实现具象
 
-### Adapter
+## Combining objects：组织对象结构
+
+### Adapter, 插件
 
 Adapter allow incompatible interfaces to work together that could not interact directly. 
 
-### Decorator
+### Decorator: 动态扩展功能
 
 Decorator adds one or more layers of functionality to a base class without modifying the class itself. Both the decorator and the decorated object adhere to the same interface, ensuring that the client remains unaware of the decorator's presence.
+
+
+
+### Observer: 对象状态变化需通知其他对象（如微信订阅号推送）
+
+### Strategy: 把算法抽离成独立策略，运行时切换
+
+把算法抽离成独立策略，运行时切换
 
 ## Manage objects
 
