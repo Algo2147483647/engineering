@@ -24,4 +24,14 @@
     - [design](./design.md)
     - [development](./development.md)
         - [version management](./version management.md)
+        - 包管理
+        - 性能优化
+          - pprof
+
+
+- 内存管理
     - [garbage collection](./garbage collection.md)
+- CPU管理
+    - 并发模型
+    - Parallel Computing
+    - 错误处理
