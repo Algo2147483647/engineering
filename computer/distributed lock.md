@@ -1,4 +1,4 @@
-# Implementation of distributed locks
+# Distributed lock
 
 [TOC]
 
