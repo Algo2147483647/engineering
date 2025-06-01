@@ -20,17 +20,17 @@ In a multi-processes environment, the entire physical memory is shared by multip
 
 
 
-一个现代内存管理系统需在以下相互制约的目标之间寻求平衡：隔离 vs. 效率 vs. 灵活性 vs. 扩展性
+一个现代内存管理系统需在以下相互制约的目标之间寻求平衡: 隔离 vs. 效率 vs. 灵活性 vs. 扩展性
 
-**Isolation**: 确保每个进程（或虚拟机）拥有自己独立的、受保护的地址空间。一个进程的错误或恶意行为不能访问或破坏其他进程或内核的内存。
+**Isolation**: 确保每个进程(或虚拟机)拥有自己独立的、受保护的地址空间。一个进程的错误或恶意行为不能访问或破坏其他进程或内核的内存。
 
-**Efficiency**: 最大化内存访问速度，最小化地址转换带来的开销（时间、空间）。目标是让虚拟内存访问的速度尽可能接近直接访问物理内存的速度。
-- 内部碎片： 进程分配的内存块可能远大于其实际需求。
-- 外部碎片： 进程加载/卸载后，物理内存中留下大量难以利用的小空隙。
+**Efficiency**: 最大化内存访问速度，最小化地址转换带来的开销(时间、空间)。目标是让虚拟内存访问的速度尽可能接近直接访问物理内存的速度。
+- 内部碎片:  进程分配的内存块可能远大于其实际需求。
+- 外部碎片:  进程加载/卸载后，物理内存中留下大量难以利用的小空隙。
 
-**Flexibility**: 内存管理系统能够适应多样化的应用需求、硬件架构和内存使用模式。例如：支持不同大小的内存区域（段、页、大页）、高效的内存共享（进程间、内核与用户态）、稀疏地址空间、动态内存分配/回收策略、与新型硬件（如NVM、异构内存）的集成等。
+**Flexibility**: 内存管理系统能够适应多样化的应用需求、硬件架构和内存使用模式。例如: 支持不同大小的内存区域(段、页、大页)、高效的内存共享(进程间、内核与用户态)、稀疏地址空间、动态内存分配/回收策略、与新型硬件(如NVM、异构内存)的集成等。
 
-**Scalability**: 内存管理系统能够有效地支持不断增长的系统资源规模，包括：物理内存容量、CPU核心数量、并发进程/线程数量、地址空间大小等。性能（吞吐量、延迟）不应随规模增长而显著劣化。
+**Scalability**: 内存管理系统能够有效地支持不断增长的系统资源规模，包括: 物理内存容量、CPU核心数量、并发进程/线程数量、地址空间大小等。性能(吞吐量、延迟)不应随规模增长而显著劣化。
 
 那么最简单的方式就是虚拟内存是一块连续的地址然后映射到实际内存也是一个连续的区段这些区段之间是之间的间隔, 那么我们需要考虑的内容是内存的扩展性当虚拟内存需要添加的时候怎么样在实际内存中实现这个内存的扩展这是我们需要考虑的关键之一
 
@@ -112,19 +112,54 @@ Limitations of segmentation: Complex memory allocation, finding the right space 
 
 $$
 \begin{align*}
-\text{logic address} &\overset{\mathrm{def}}{=} (\text{virtual page number, offset})\\
+\text{logic address} &\overset{\mathrm{def}}{=} (\text{virtual page number, offset}) \xrightarrow{\text{page table}} \text{page frame number}\\
 \text{physical address} &= \text{page frame number} \times \text{page size} + \text{offset}
 \end{align*}
 $$
 
 > - Page Directory Base Register: Stores physical starting address of current process's page table
+> - Flags of Page Table Item: 
+>
+>   - V(Valid Bit): Is the page valid (1 = mapped to physical memory, 0 = not mapped/on disk)
+>
+>   - R/W(Read/Write Bit): Read/write permissions (0 = read-only, 1 = writable)
+>
+>   - U/S(User/Supervisor Bit): Access permissions (0 = kernel mode, 1 = user mode)
+>
+>   - A(Accessed Bit): Access mark (hardware set, indicating that the page has been read)
+>
+>   - D(Dirty Bit): Dirty page mark (hardware set, indicating that the page has been written)
 
 ![page](./assets/page.svg)
 
+#### Page Fault Handling
+
+当进程访问的虚拟页不在物理内存时（PTE的 Present=0），MMU触发缺页异常。操作系统接管处理流程：
+
+Page Replacement Algorithms 当物理内存不足时，需选择牺牲页（Victim Page）换出到磁盘。目标：最小化未来缺页次数。
+
+最优置换算法（OPT, Optimal Replacement）: 换出未来最长时间不再访问的页（预知未来）。理论最优（Belady证明），但无法实现（需预知未来访问序列）。
+
+先进先出（FIFO, First-In First-Out）换出最早进入内存的页。Belady异常：分配的页框数增加时，缺页率可能反而上升。忽略访问频率（可能换出高频使用的老页）。
+
+最近最久未使用（LRU, Least Recently Used）换出最长时间未被访问的页（基于局部性原理）。页表项中的 Accessed Bit：每次访问时由硬件置1。周期性清零 Accessed Bit → 软件模拟访问历史。近似实现（Clock算法）：接近OPT效果，缺页率显著低于FIFO。无Belady异常。
+
+- **活跃链表（active_list）**：存放近期访问的页。
+- **非活跃链表（inactive_list）**：候选换出页（从中选择牺牲页）。
+
+| **算法**  | 缺页率  | 实现开销 | 是否可在线实现 | 典型应用场景   |
+| :-------- | :------ | :------- | :------------- | :------------- |
+| **OPT**   | 最低    | 不可能   | ❌              | 理论基准       |
+| **FIFO**  | 较高    | 极低     | ✅              | 嵌入式简单系统 |
+| **LRU**   | 接近OPT | 中等     | ✅              | 通用操作系统   |
+| **Clock** | 近似LRU | 低       | ✅              | Linux, Windows |
+
+
+
 #### Multilevel Page Tables
 
-**多级页表**:  单级页表需要覆盖整个虚拟地址空间（如 64 位下巨大无比），即使大部分区域未使用也会占用海量内存。将页表树形化（如二级、三级、四级页表）。只有实际被使用的顶级目录和中间目录需要分配内存。**稀疏地址空间下节省大量内存。**
+**多级页表**:  单级页表需要覆盖整个虚拟地址空间(如 64 位下巨大无比)，即使大部分区域未使用也会占用海量内存。将页表树形化(如二级、三级、四级页表)。只有实际被使用的顶级目录和中间目录需要分配内存。**稀疏地址空间下节省大量内存。**
 
 ### Translation Lookaside Buffer (TLB)
 
-转换后备缓冲器 (TLB): 问题： 即使单级页表，每次内存访问都需查页表（在内存中），速度太慢。解决： 在 CPU 内引入专用的高速硬件缓存 (TLB)，存储最近使用的 VPN -> PPN 映射。TLB 命中时，地址转换无需访问内存中的页表，速度极快。大幅抵消了多级页表和多级页表带来的潜在访问延迟，使分页效率极高。固定大小的页是 TLB 高效工作的前提。
+转换后备缓冲器 (TLB): 问题:  即使单级页表，每次内存访问都需查页表(在内存中)，速度太慢。解决:  在 CPU 内引入专用的高速硬件缓存 (TLB)，存储最近使用的 VPN -> PPN 映射。TLB 命中时，地址转换无需访问内存中的页表，速度极快。大幅抵消了多级页表和多级页表带来的潜在访问延迟，使分页效率极高。固定大小的页是 TLB 高效工作的前提。

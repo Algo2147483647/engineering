@@ -1,4 +1,4 @@
-# Memory management
+# Memory Management
 
 [TOC]
 
@@ -22,16 +22,11 @@ Expection
 
 安全隔离、高效利用、透明扩展
 
-## 
-
-
-
-
-
 ## Include
 
-- [address space abstruction](./address space abstruction.md)
+- [address space abstraction](./address space abstraction.md)
 - [memory partitioning](./memory partitioning.md)
+- [garbage collection](./garbage collection.md)
 
 ## Parents
 

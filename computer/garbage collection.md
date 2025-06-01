@@ -8,7 +8,7 @@ unreachable objects
 
 Garbage collection (GC) is an automatic memory management mechanism that helps developers manage memory more efficiently by reclaiming memory that is no longer in use. 
 
-## Solution
+## Resolution
 
 ### Marking Garbage
 

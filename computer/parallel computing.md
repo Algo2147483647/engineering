@@ -13,6 +13,20 @@ Synchronous: Tasks are performed one after the other, in a sequence. Each task m
 
 Asynchronous: Tasks are performed independently of each other. A task can start before the previous one is completed.
 
+Synchronous
+
+- 必须一件一件事做, 等前一件做完了才能做下一件事.  
+
+Asynchronous
+
+- 一个异步过程调用发出后, 调用者在没有得到结果之前, 就可以继续执行后续操作. 当这个调用完成后, 一般通过状态、通知和回调来通知调用者. 对于异步调用, 调用的返回并不受调用者控制. 
+  - 状态  
+    监听被调用者的状态（轮询）, 调用者需要每隔一定时间检查一次, 效率会很低. 
+  - 通知  
+    当被调用者执行完成后, 发出通知告知调用者, 无需消耗太多性能. 
+  - 回调  
+    与通知类似, 当被调用者执行完成后, 会调用调用者提供的回调函数. 
+
 ## Communication between processes
 
 - Information channel between processes
