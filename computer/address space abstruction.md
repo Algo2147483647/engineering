@@ -25,10 +25,18 @@ In a multi-processes environment, the entire physical memory is shared by multip
 **Isolation**: 确保每个进程（或虚拟机）拥有自己独立的、受保护的地址空间。一个进程的错误或恶意行为不能访问或破坏其他进程或内核的内存。
 
 **Efficiency**: 最大化内存访问速度，最小化地址转换带来的开销（时间、空间）。目标是让虚拟内存访问的速度尽可能接近直接访问物理内存的速度。
+- 内部碎片： 进程分配的内存块可能远大于其实际需求。
+- 外部碎片： 进程加载/卸载后，物理内存中留下大量难以利用的小空隙。
 
 **Flexibility**: 内存管理系统能够适应多样化的应用需求、硬件架构和内存使用模式。例如：支持不同大小的内存区域（段、页、大页）、高效的内存共享（进程间、内核与用户态）、稀疏地址空间、动态内存分配/回收策略、与新型硬件（如NVM、异构内存）的集成等。
 
 **Scalability**: 内存管理系统能够有效地支持不断增长的系统资源规模，包括：物理内存容量、CPU核心数量、并发进程/线程数量、地址空间大小等。性能（吞吐量、延迟）不应随规模增长而显著劣化。
+
+那么最简单的方式就是虚拟内存是一块连续的地址然后映射到实际内存也是一个连续的区段这些区段之间是之间的间隔, 那么我们需要考虑的内容是内存的扩展性当虚拟内存需要添加的时候怎么样在实际内存中实现这个内存的扩展这是我们需要考虑的关键之一
+
+第二点是资源利用的效率能够更高效地利用所有的物理内存而不产生碎片和无法利用的空间
+
+第三点则是能够保证不同进程之间内存的隔离性和安全性
 
 ## Resolution
 
@@ -48,51 +56,70 @@ $$
 
 ### History Evolution
 
-那么最简单的方式就是虚拟内存是一块连续的地址然后映射到实际内存也是一个连续的区段这些区段之间是之间的间隔, 那么我们需要考虑的内容是内存的扩展性当虚拟内存需要添加的时候怎么样在实际内存中实现这个内存的扩展这是我们需要考虑的关键之一
+#### Relocation + Boundary Check
 
-第二点是资源利用的效率能够更高效地利用所有的物理内存而不产生碎片和无法利用的空间
+**Static Relocation**: This method establishes a logical-to-physical address mapping through simple addition. The mapping occurs when the program is loaded into memory, while the loader modifies all address-related instructions and the data (absolute or relocatable addresses) to point to the actual starting physical address of the program.
 
-第三点则是能够保证不同进程之间内存的隔离性和安全性
+- base address: the actual starting physical address of the program.
 
+$$
+\text{logic address} +\text{base address} = \text{physical address}
+$$
 
+**Base and Bounds** (Dynamic Relocation + Boundary Check): Each process owns a pair of hardware registers (base register, bounds register). CPU performs dynamic address translation.
 
+- **Dynamic Relocation**: Converts a logical address issued by the process by adding it to the Base Register value. This implements dynamic relocation, where the actual location (base address) of a program in physical memory can be changed by simply updating the base address register, without modifying the program code itself.
+- **Boundary Check**: verifies whether the logical address < Bounds Register value. If ≥ Bounds, triggers a hardware exception (memory out-of-bounds error), blocking illegal access. This provides basic process isolation, so that a process cannot access memory outside its boundaries (usually other processes or the operating system).
+$$
+\text{logic address} +\text{base address} = \text{physical address} < \text{bounds address}
+$$
 
+> - base address: The starting physical address of the process, stored by base register.
+> - bound address: The maximum memory length of the process, stored by bounds register.
+>
 
-静态重定位: 物理地址 = 逻辑地址 + 基址寄存器
-
-
-
-Base and Bounds: 每个进程拥有一个基址寄存器（存储其物理内存起始地址）和一个界限寄存器（存储其最大长度）。CPU 将进程发出的地址加上基址得到物理地址，并检查是否越界。
-
-- 内部碎片： 进程分配的内存块可能远大于其实际需求。
-- 外部碎片： 进程加载/卸载后，物理内存中留下大量难以利用的小空隙。
-- 难以共享： 共享内存（如代码库）困难。
-- 地址空间不灵活： 堆、栈、代码等不同类型数据难以独立增长/保护。
-- 要求连续内存分配
+Limitations of Base and Bounds: Memory Fragmentation (internal and external). Inflexible Address Space, hinders independent growth/protection of segments (heap, stack, code). Demands contiguous physical memory allocation, leads to the problems such as complicated implementation of memory sharing (e.g., common code libraries).
 
 #### Segmentation
 
-Segmentation:  将进程的地址空间划分为逻辑段（代码段、数据段、堆段、栈段等）。每个段有独立的基址和界限寄存器（段表）。逻辑地址 = `<段号, 段内偏移>`。硬件通过段号查段表找到基址和界限，加上偏移得到物理地址并检查界限。解决了基址-界限的单一线性地址空间问题，地址空间更符合程序逻辑结构。解决了基址-界限的单一线性地址空间问题，地址空间更符合程序逻辑结构。将程序逻辑结构（代码、数据、堆栈等）划分为独立段（Segment），每段在内存中连续存储。逻辑地址 = 段号（Segment Number） + 段内偏移（Offset）。
+**Segmentation** (Multiply Base-Bounds + Segment table) divides a process's address space into distinct logical segments based on its structure (e.g., code, heap, stack, data). Memory is allocated in these variable-length segments. Each segment uses a base and bounds register mechanism for protection and relocation, and its metadata (base address, limit, permissions) is stored in a segment table, indexed by a segment number. Each segment is independently allocated in physical memory, and contiguous storage within each segment, but the segments may not be adjacent. This approach overcomes the limitations of a single linear address space, aligning memory organization with program logic.
 
-进程的地址空间：按照程序自身的逻辑关系划分为若干个段，每个段都有一个段名（在低级语言中，程序员使用段名来编程），每段从0开始编址。
-内存分配规则：以段为单位进行分配，每个段在内存中占连续空间，但各段之间可以不相邻。
+- **Segment Table**: $\text{segment number} \to (\text{base address}, \text{limit}, \text{permissions})$. Segment table stores metadata for each segment in the form of a table, with the segment number as the primary key. Segment table translates logical addresses into physical addresses at runtime via the hardware MMU (Memory Management Unit) .
 
-- **内存分配复杂：** 为变长段寻找合适空间是复杂的动态存储分配问题（首次适应、最佳适应等算法效果有限）。
-- **地址转换开销相对大：** 每次访问需查段表（在内存中）。
-- **外部碎片依然严重：** 段的大小可变，加载/卸载后物理内存中产生不规则空隙，需要复杂的碎片整理（紧缩），代价高昂且通常需停止所有进程。
-- **通用性差：** 段的最大尺寸受限于物理内存大小（或段长寄存器位数）。
+$$
+\begin{align*}
+\text{logic address} &\overset{\mathrm{def}}{=} (\text{segment number}, \text{offset}) \xrightarrow{\text{segment table}} (\text{base address}, \text{limit}, \text{permissions})\\
+\text{physical address} &= \text{base address} + \text{offset} < \text{base address} + \text{limit}
+\end{align*}
+$$
+
+> - Segment number: The primary key in segment table for a segment.
+> - Offset: the offset bits in a segment.
+> - Limit: Maximum length of the segment
+> - Permissions (Protection Bits): Read/Write/Execute flags (R/W/X)
+>
+
+Limitations of segmentation: Complex memory allocation, finding the right space for variable-length segments is a complex dynamic storage allocation problem (first fit, best fit, etc. algorithms have limited effectiveness). Relatively large address translation overhead, each access requires a segment table lookup (in memory). External fragmentation is still serious. The maximum size of a segment is limited by the size of physical memory (or the number of bits in the segment length register).
 
 #### Segmentation with Paging
 
 ### Paging
 
-Paging: **将物理内存和虚拟地址空间都划分为固定大小的块（页框和页）**，通过**页表**建立虚拟页到物理页框的映射。分页方案的成功在于它通过固定大小的页这一核心抽象，系统性地、优雅地解决了内存虚拟化的核心矛盾
+**Paging** (Fixed-Size Paging + Scatter dynamic mapping). Paging has become the standard solution for memory address space virtualization in modern OS.
 
-消除外部碎片： 页是固定大小的单元。任何空闲的物理页框都可以分配给任何需要的虚拟页。内存分配器只需管理一个简单的空闲页框列表。外部碎片几乎不存在（只有最后不足一页的内部碎片）。彻底解决了变长分配导致的复杂外部碎片问题。
+- **Fixed-Size Paging**: Physical memory is pre-divided into a equal-sized page frames. Virtual address space is logically split into equal virtual pages (same size as frames). OS allocates memory in frame units, significantly simplifying management. The memory allocator only needs to manage a simple free frame list. External fragmentation is virtually eliminated, with only internal fragmentation within the last allocated page remaining. This completely resolves the complex external fragmentation issues inherent to variable-size allocation schemes.
+- **Scatter dynamic mapping (Page Table)**: Physical frame act as discrete "building blocks" assignable to any virtual page. Page table stores mapping $\text{virtual page number} \to \text{physical free number}$. Virtual page initially lack physical mapping. and frames are located on assets in demand. This allows the total virtual pages to far exceed physical frames, solving the problem of program scale limited by physical memory capacity. When physical memory is insufficient, the Swap mechanism transfers inactive pages to disk, extending effective memory capacity.
 
-- 彻底解决外部碎片问题
-- 支持虚拟内存扩展
-- 成为现代OS标准方案
+$$
+\begin{align*}
+\text{logic address} &\overset{\mathrm{def}}{=} (\text{virtual page number, offset})\\
+\text{physical address} &= \text{page frame number} \times \text{page size} + \text{offset}
+\end{align*}
+$$
+
+> - Page Directory Base Register: Stores physical starting address of current process's page table
+
+![page](./assets/page.svg)
 
 #### Multilevel Page Tables
 
