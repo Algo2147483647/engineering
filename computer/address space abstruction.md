@@ -4,32 +4,39 @@
 
 ## Context
 
-
+In a multi-processes environment, the entire physical memory is shared by multiple processes.
 
 ## Problem
 
-物理地址直接暴露:  程序直接使用物理地址，导致进程间内存无法隔离（一个程序崩溃可能破坏整个系统）、内存碎片严重（外部碎片）、程序大小受物理内存限制、重定位困难。
+**Bare Physical Addressing**: Direct use of physical addresses by programs leads to severe issues.
 
-需要地址空间隔离
+- **Inter-process memory interference**. Errors or malicious actions cannot be contained, potentially damaging other processes or kernel memory. For example, a single program crash may corrupt the entire system; processes may erroneously assess or corrupt others processes' memory. 
 
-- 消除外部碎片
-- 简化内存分配与管理
-- the problem need to resolve: 物理内存碎片, 进程间内存隔离与保护
-- 程序规模受限于物理内存大小
+- **External memory fragmentation**. External memory fragmentation refers to the wasted "gaps" scattered between allocated memory blocks, which are free memory but too fragmented to be used. Frequent allocation and of physical memory create numerous small, unusable fragments, drastically lowering memory utilization, and large blocks of memory can no longer be allocated.
+- **Inefficient memory management**. Due to physical memory is divided into countless scattered blocks, the system cannot coordinate memory space holistically. In this chaotic memory space, programs cannot accurately locate their own memory regions.
+- **Relocation Difficulty**. Programs bound to physical addresses cannot be dynamically moved in memory. If the operating system needs to relocate a program (e.g., to defragment memory or reallocate resources), or physical address is referenced by program become invalid, causing crashes or data corruption.
 
-随着多道程序设计和分时系统的普及，操作系统需要一种机制让**每个程序认为自己独占内存**，同时实现物理资源的共享与保护。这催生了地址空间抽象的概念。
-
-核心矛盾：隔离 vs. 效率 vs. 灵活性 vs. 扩展性
-
-### Evaluation
+- **Program scale limited by physical memory capacity**. Both individual program size and the total memory footprint of concurrently running processes are constrained by available physical RAM. Programs cannot exceed physical memory limits, and the system cannot run workloads whose combined memory demands surpass installed RAM—even if portions of memory are idle.
 
 
+
+一个现代内存管理系统需在以下相互制约的目标之间寻求平衡：隔离 vs. 效率 vs. 灵活性 vs. 扩展性
+
+**Isolation**: 确保每个进程（或虚拟机）拥有自己独立的、受保护的地址空间。一个进程的错误或恶意行为不能访问或破坏其他进程或内核的内存。
+
+**Efficiency**: 最大化内存访问速度，最小化地址转换带来的开销（时间、空间）。目标是让虚拟内存访问的速度尽可能接近直接访问物理内存的速度。
+
+**Flexibility**: 内存管理系统能够适应多样化的应用需求、硬件架构和内存使用模式。例如：支持不同大小的内存区域（段、页、大页）、高效的内存共享（进程间、内核与用户态）、稀疏地址空间、动态内存分配/回收策略、与新型硬件（如NVM、异构内存）的集成等。
+
+**Scalability**: 内存管理系统能够有效地支持不断增长的系统资源规模，包括：物理内存容量、CPU核心数量、并发进程/线程数量、地址空间大小等。性能（吞吐量、延迟）不应随规模增长而显著劣化。
 
 ## Resolution
 
 ### Address virtualization: Logic Address
 
-Address virtualization is the fundamental solution to the problem of exposing physical addresses directly, with the logical address serving as its key mechanism. **Logical address** provides a program with an independent, contiguous and protected virtual memory space, freeing it from concerns about the actual layout and limitations of the physical memory.
+**Decoupling of address space and physical storage**: In a multi-processes environment the operating system requires a mechanism that allows each program to believe it has a exclusive use of memory, while simultaneously enabling the sharing and protection a physical resources. Actual data may be scattered across physical memory and disk storage. This necessity gave rise to the concept of address space abstraction (address virtualization) which the couples address from physical storage. Address virtualization is the fundamental solution to the problem of exposing physical addresses directly, with the logical address serving as its key mechanism. 
+
+**Logical address** provides a program with an independent, contiguous and protected virtual memory space, freeing it from concerns about the actual layout and limitations of the physical memory.
 
 - **Isolation**: This isolation ensures that the address space of different processes do not interfere with each other, effectively preventing programmer errors or malicious actions from corrupting the memorial data of other processes or the kernel.
 - **Contiguity**: The contiguity of logical addresses is an abstraction presented to the program; the actual physical memorial may be fragmented. The mapping table dynamically allocates physical page frames, mapping non-contiguous physical addresses to contiguous virtual addresses.
@@ -39,8 +46,17 @@ $$
 \text{logic address}  \xrightarrow{\text{mapping table}} \text{physical address}
 $$
 
-
 ### History Evolution
+
+那么最简单的方式就是虚拟内存是一块连续的地址然后映射到实际内存也是一个连续的区段这些区段之间是之间的间隔, 那么我们需要考虑的内容是内存的扩展性当虚拟内存需要添加的时候怎么样在实际内存中实现这个内存的扩展这是我们需要考虑的关键之一
+
+第二点是资源利用的效率能够更高效地利用所有的物理内存而不产生碎片和无法利用的空间
+
+第三点则是能够保证不同进程之间内存的隔离性和安全性
+
+
+
+
 
 静态重定位: 物理地址 = 逻辑地址 + 基址寄存器
 
