@@ -1,4 +1,4 @@
-# JVM (Java Virtual Machine)
+# Java Virtual Machine
 
 [TOC]
 
