@@ -14,20 +14,20 @@
 
 ![create](./assets/create.svg)
 
-### Singleton: 全局唯一
+### Singleton: Globally Unique
 
 Singleton refers to ensures a class has only one global instance and provides a global access entrance of access to that instance. The key to building a singleton including: 
 
-- Restrict the constructor's visibility to prevent external creation of new instances, ensuring that instances are created only at expected and unique times, such as during the first access or system initialization.
-- Provide a centralized global access point to guarantee that the singleton instance can be accessed consistently from anywhere.
+- **Hide constructor**: Restrict the constructor's visibility to prevent external creation of new instances, ensuring that instances are created only at expected and unique times, such as during the first access or system initialization.
+- **Global access point**: Provide a centralized global access point to guarantee that the singleton instance can be accessed consistently from anywhere.
 
-### Factory: 统一生产对象
+### Factory: Unified production object
 
 Factory determines the type of instance to create based on input, maintaining a $\text{key} \to \text{instance}$ mapping table that associates each key with its corresponding instance constructor.
 
 ### 定义抽象, 实现具象
 
-## Combining objects：组织对象结构
+## Combining objects: Organizational object association
 
 ### Adapter, 插件
 
@@ -45,7 +45,7 @@ Decorator adds one or more layers of functionality to a base class without modif
 
 把算法抽离成独立策略，运行时切换
 
-## Manage objects
+## Manage object set
 
 ### Pool
 

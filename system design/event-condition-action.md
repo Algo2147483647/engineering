@@ -20,9 +20,7 @@ A detectable occurrence, which carries the attribute parameters and type of the 
 
 ### Condition
 
-Condition 的解析通过规则引擎实现
-
-Condition 所需的数据可以从 Trigger 中获取, 也可以调用其他渠道获取数据. 从 Trigger 中获取的化, 需要二者协同配合.
+Condition 所需的数据可以从 Trigger 中获取, 也可以调用其他渠道获取数据. 从 Trigger 中获取的化, 需要二者协同配合. Condition 的解析通过规则引擎实现, 
 
 ### Action
 
@@ -33,17 +31,26 @@ When multiple actions are executed sequentially, the processing mechanism operat
 
 ![202505252226](./assets/202505252226.svg)
 
-## Condition Rule Engine
+## Rule Engine: Core implementation
 
-- **Rule script definition**: Define rules using a format that is easy to understand and modify, such as JSON or a DSL (Domain Specific Language).
+Pattern Matching: 引擎将事实与规则条件进行匹配，触发符合条件的规则。
+
+Condition 本身的构建分为 Condition Template, 静态数据, 动态数据. Condition Template 通过 script 描述, 是一个框架用于参数填充后便构成完整可解析的 Condition. 静态数据在运行前构造时已经知道的参数, 动态数据是运行时才能得到的数据, 包含运行时上下文. 
+
+**规则库**: Define rules using a format that is easy to understand and modify, such as JSON or a DSL (Domain Specific Language).
+
+
+
 - **Rule Parser**: Parses user-defined rule scripts into internal data structures that can be used by the condition engine.
 - **Data Retrieval**: Retrieve the necessary field values from the event object using the dictionary or object accessors.
 - **Condition Engine**: Implement conditional operations based on Boolean logic, expression calculation, etc.
 - **Caching**: Cache the results of evaluated conditions to improve performance.
 
-## Event System
+![condition](./assets/condition.svg)
 
-The hierarchical architecture of Event System adopts a tree topology structure, divided into three tiers from top to bottom to form a complete execution framework:
+## Rule System
+
+The hierarchical architecture of Rule System adopts a tree topology structure, divided into three tiers from top to bottom to form a complete execution framework:
 
 - **Policy Group**: Serves as the root node and global container, coordinating a series of policy through centralized orchestration.
 - **Policy**: The fundamental unit of complete strategic plan, with each policy has a set of rules.
