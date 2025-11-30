@@ -12,8 +12,6 @@
 
 ## Creating objects
 
-![create](./assets/create.svg)
-
 ### Singleton: Globally Unique
 
 Singleton refers to ensures a class has only one global instance and provides a global access entrance of access to that instance. The key to building a singleton including: 
@@ -24,6 +22,8 @@ Singleton refers to ensures a class has only one global instance and provides a 
 ### Factory: Unified production object
 
 Factory determines the type of instance to create based on input, maintaining a $\text{key} \to \text{instance}$ mapping table that associates each key with its corresponding instance constructor.
+
+![202508091443](./assets/202508091443.svg)
 
 ### 定义抽象, 实现具象
 
