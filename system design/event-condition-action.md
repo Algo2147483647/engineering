@@ -95,4 +95,8 @@ ECA graphs themselves, as well as each step within them, can be executed concurr
 
 ## Complex System: Strategy Group
 
+
+
+![202602060036](./assets/202602060036.svg)
+
 ## Core implementation: Rule Engine
