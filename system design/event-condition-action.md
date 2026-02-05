@@ -2,29 +2,41 @@
 
 [TOC]
 
-## Event-Condition-Action
+## Basic model: ECA
 
-> WHEN <*event*> IF <*condition*> THEN <*action*>.
+> **WHEN**  <*event*>  **IF**  <*condition*>  **THEN**  <*action*>.
 
-An Event-Condition-Action (ECA) model is a rule-based paradigm used in event-driven systems to automate responses based on specific conditions.
+The event-driven model is a software architecture paradigm that places events at its core. Its central idea is that the occurrence of events drives the program’s execution flow, rather than relying on traditional sequential control flow. In this model, the system’s behavior revolves around event generation, detection, dispatch, and handling, thereby enabling a highly decoupled, asynchronous, and reactive system design.
 
-- **Events**: A detectable occurrence, which carries the attribute parameters and type of the event, and defines when the event is triggered, including timed triggering, asynchronous events and synchronous calls.
-- **Conditions**:  A set of criteria that must be met before actions is allowed to execute.
-- **Actions**: The operations that are executed when the event occurs and the condition is met.
+- **Events**: A detectable occurrence, which carries the attribute parameters and type of the event, and defines specific events or signals that can cause a change in the system state or require a system response. It is the starting point of the entire model’s execution and may originate from external inputs (such as user clicks), internal state changes (such as data updates), or time-based conditions (such as a timer expiring).
+- **Conditions**: After the event is triggered, this consists of the logical rules or preconditions used to determine whether the corresponding action should be executed. The execution prerequisites ensure that subsequent actions are performed only when specific conditions are met.
+- **Actions**: The concrete operations or behaviors performed by the model when the event occurs and the conditions are satisfied. It represents the final realization of event handling and may include updating data, invoking services, granting rewards, sending messages, or triggering new events, thereby completing a full event-response cycle.
 
 ![ECA](assets/ECA.svg)
 
-### Event
+### Events Triggering
 
-A detectable occurrence, which carries the attribute parameters and type of the event, and defines when the event is triggered, including timed triggering, asynchronous events and synchronous calls. Events may be triggered synchronously through API calls or asynchronously via MQ messages.
+#### Attributes
 
-### Condition
+**Attributes** are data fields carried by a specific business event, containing explicit business information. When an identifiable event occurs in the system (such as “user login” or “order payment success”), the event object is not merely a signal—it is a data packet. The various pieces of information contained in this packet are the event attributes. These attributes give the event concrete business meaning, transforming it from an abstract notification into a contextual object that can be used for logical decisions and business processing.
 
-Condition parsing is achieved through a rule engine.
+**Core issue: Which Events can be combined with which Conditions and Actions?** Each Event, when fired, provides a set of event attributes carrying specific business information (e.g., user ID, order amount). Each Condition and Action, in turn, declares the set of attributes it requires for execution (for example, “check amount” requires order amount; “grant reward” requires user ID). The system automatically determines whether a combination is valid and executable by checking whether the attributes provided by the Event satisfy the requirements of the Condition and Action. This mechanism allows Events, Conditions, and Actions to automatically adapt based on their data interfaces, supporting a flexible, reliable, and dynamically configurable business rules system.
 
+#### Design Considerations
 
+**Consistency issues in data dependencies between Events and Conditions**: Events may indicate the occurrence of a “local event” within the system, whereas Condition evaluation requires the “global state to be ready.” The essence of the problem lies in the temporal misalignment between the “local event” and the “global state readiness”: when a event occurs, other related data required for subsequent condition evaluation may not yet have been generated, persisted, or may still be in an inconsistent intermediate state. Because different system components process data at different speeds, a time gap emerges between cross-component state consistency and the requirements of business logic. Therefore, the key to system design is to clearly identify and define the true business moment at which “all required data are ready and consistent,” and to use that moment as a reliable triggering signal.
 
-### Action
+### Conditions Evaluation
+
+The full lifecycle from rule-template configuration to final resolution of rules is a process of progressively aggregating information and refining conditions.
+
+- **System**: Starting from a predefined condition template and static configuration, the system produces a set of baseline conditions that form the foundational framework. It then enriches these baseline conditions with dynamic contextual information to derive the final, complete condition set.
+
+- **Rule Engine**: Rule Engine performs the final condition evaluation and emit resolution results.. Taking the complete condition as input and incorporating external system data (for example, payment status from third-party systems), it translates the condition into an executable internal representation (e.g., an abstract syntax tree and symbol table) that the rule engine can interpret. The engine then evaluates the logic and returns the result (decision, flags, or computed outputs).
+
+![condition](./assets/condition.svg)
+
+### Action Execution
 
 When multiple actions are executed sequentially, the processing mechanism operates in two distinct modes:
 
@@ -33,57 +45,54 @@ When multiple actions are executed sequentially, the processing mechanism operat
 
 ![202505252226](./assets/202505252226.svg)
 
-### Relationship between E-C-A
+## Relationship Model: ECA Graph
 
-The data required by the Condition can be obtained from the Trigger or from other channels. If the data is obtained from the Trigger, both the Trigger and the Condition need to work together. The ECA unit can be configured with sets of input and output parameter types; they can only be used together if the parameter sets match.
+The most common approach to designing associations among ECAs is to use a **directed acyclic graph (DAG)** to model the relationships between multiple ECAs. Each ECA can be encapsulated as a node in the graph, making it the most fundamental execution unit—referred to as a **ECA Node**—within the system. The dependencies and execution order among these units are defined by the edges of the DAG, ensuring that all ECAs are executed in topological order while also enabling scheduling opportunities for nodes that can run in parallel.
 
-## Rule Engine: Core implementation
+1. **Strategy (ECA Graph):** A directed acyclic graph composed of multiple ECA Nodes and their dependency relationships. It defines the complete execution flow in complex business scenarios. By orchestrating ECA Nodes—such as sequencing, parallel execution, and conditional branching—it describes the system’s overall behavior and decision paths.
 
-Pattern Matching: The engine matches facts with rule conditions and triggers rules that meet the conditions.
+2. **ECA Node:** The basic node within a Strategy, encapsulating a complete ECA logical unit. It receives inputs, evaluates its internal Conditions, executes the specified Action when those conditions are met, and produces outputs. The dependency relationships between ECA Nodes determine the topological execution order and make the ECA Node the smallest building block of an executable workflow.
 
-The construction of a Condition consists of a Condition Template, static data, and dynamic data. The Condition Template, described by a script, is a framework used to construct a complete and parsable Condition after parameter population. Static data consists of parameters known during the construction process before runtime, while dynamic data is data obtained at runtime and includes the runtime context.
+![202602052353](./assets/202602052353.svg)
 
-**Rule base**: Define rules using a format that is easy to understand and modify, such as JSON or a DSL (Domain Specific Language).
+### Flow Dimension: instantiating idempotency key
+
+> **Flow dimension = event attribute A + event attribute B + …**
+
+ECA graphs themselves, as well as each step within them, can be executed concurrently. To clearly track and isolate each independent business flow, the system needs to assign a **globally unique execution key** to every complete graph execution instance for identification.
+
+1. **Idempotency of ECA graph transitions**: For the same user’s single transition request, whether the system receives it once or multiple times (for example due to network retransmission or repeated user clicks), the system will produce exactly one correct transition effect (such as a state update, points credit, or reward issuance) and will not cause duplicate payouts or state inconsistencies.
+2. **Flow dimension**: The flow dimension is designed to realize idempotency for ECA graph transitions; it is formed by a combination of event attributes: event attribute A + event attribute B + …. Event attributes are typically parameters carried within the triggering event (Trigger). In real business scenarios, you may choose appropriate dimensions as the basis for idempotency according to the product’s specifics — for example user UID, order ID, estimated-call ID (used for callback operations), etc.
+
+### Run
+
+1. **Triggering and Initial ECA Selection**: When the system receives this event, it first retrieves all ECAs that are currently in the “in progress” state. Then, based on the trigger conditions, it traverses these ECAs to select the first ECA in each ECA path (i.e., the Head ECA) and aggregates them into a Head ECA set. The core purpose of this step is to focus on the starting ECA of each path, avoiding repeated processing of ECAs within the same path, thereby ensuring process efficiency and logical clarity.
+2. **Iterate over Head ECAs and Execute Calculation Logic**: The system processes each ECA in the Head ECA set sequentially. For each Head ECA, the rule engine is first invoked to execute the calculation logic for the ECA—this is the core computational step, determining the that the ECA should receive. Next, the system checks whether the ECA has been completed: if the ECA is not completed, subsequent processing is skipped, and the system moves directly to the next Head ECA; if the ECA is completed, it proceeds to handle subsequent ECAs, advancing the ECA status forward.
+3. **Recursive Processing of Subsequent ECAs (Core Logic)**: After the current Head ECA is completed, the system retrieves all ECAs associated as its subsequent ECAs and evaluates each one. It first checks whether the subsequent ECA currently meets its start conditions; if it cannot start, it is temporarily skipped. If it can start, its status is updated to “in progress,” and the system immediately executes the full “ECA Calculation Logic” recursively for this ECA. This loop continues, forming a recursive processing mechanism that allows the ECA chain to automatically and coherently advance step by step until the path ends.
+4. **Process Completion**: Once the last ECA in the Head ECA set has been processed—that is, all starting ECAs and their triggered subsequent recursive chains have completed calculation and status evaluation—the entire calculation process concludes. At this point, the system has completed all ECA computations and status updates driven by the triggering event for this round.
+
+![202512310127](./assets/202512310127.svg)
 
 
 
-- **Rule Parser**: Parses user-defined rule scripts into internal data structures that can be used by the condition engine.
-- **Data Retrieval**: Retrieve the necessary field values from the event object using the dictionary or object accessors.
-- **Condition Engine**: Implement conditional operations based on Boolean logic, expression calculation, etc.
-- **Caching**: Cache the results of evaluated conditions to improve performance.
+**Transitions between ECAs**:
 
-![condition](./assets/condition.svg)
+**Transitions between parent and child nodes (vertical transitions)**: This defines how a child node can be initiated. Conditions can be set for when the current ECA can be activated, such as after all parent nodes are completed or when specific criteria are met.
 
-## Rule System
+- **All Completed (AND)**: The current node is set to Ready when all parent nodes are in the Completed state. Suitable for strict linear processes or scenarios where all prerequisite ECAs must be completed.
+- **Any One Completed (OR)**: The current node is set to Ready when any one of the parent nodes is in the Completed state. Suitable for multi-path selection scenarios, where completing any prerequisite ECA can initiate subsequent ECAs.
+- **Custom Quantity (M-of-N)**: The current node is set to Ready when M out of N parent nodes are in the Completed state. Suitable for scenarios that require a certain proportion of prerequisite conditions to be met.
 
-The hierarchical architecture of Rule System adopts a tree topology structure, divided into three tiers from top to bottom to form a complete execution framework:
+**Transitions between sibling nodes (horizontal transitions)**: This defines the mutual influence between child nodes under the same parent node. ECAs can be established for transitions between child nodes under the same parent node.
 
-- **Policy Group**: Serves as the root node and global container, coordinating a series of policy through centralized orchestration. A policy group itself may not exist; instead, a policy group ID is provided as an identifier to manage a set of policies.
-- **Policy**: The fundamental unit of complete strategic plan, with each policy has a set of rules.
-- **Rule**: Rules serve as fundamental execution units. Their execution dependencies are defined via a directed acyclic graph, ensuring that rules can be scheduled in parallel according to the topological order. The core logic of each rule is implemented using the event-driven model.
+- **Mutual Exclusion**: Multiple branches where only one can be selected. Once one path is chosen, the others are closed. When one sibling node is unlocked (becomes Ready) or activated (becomes Active), all other sibling nodes immediately become Invalid.
+- **Parallel**: All sibling nodes are independent of each other and can individually become Ready based on the parent-child ECAs.
+- **Dependency**: There is an implicit sequential dependency among sibling nodes.
 
-![202508091223](./assets/202508091223.svg)
+### Cross-ECA Node Communication
 
-### Circulation between Rules
+### Scope of DAG Support Capabilities
 
-**Policy Flow**: 
+## Complex System: Strategy Group
 
-- **Idempotent key**: Each policy transition instance is identified by a designated unique key. This unique key can be input or customized according to specific business requirements. We combine the external unique key with the policy ID to form a composite idempotent key, which can be further combined with a round number to create a complete idempotent identifier `uniqu_key-polcy_id-round_number`. This mechanism not only ensures the uniqueness of each policy flow but also supports initiating multiple independent and distinguishable flow processes for the same policy.
-
-- **Independence**: Each policy flow can be circulated independently.
-
-**Policy-Rule State Synchronization:** When an policy officially launches, its state transitions to *In Progress*. Simultaneously, the topologically first associated rule in the ordered sequence is unlocked, transitioning its state to *In Progress* and initiating its execution. The policy concludes once all its constituent tasks have ended.
-
-Storage: The Policy must track which Rule the current processing flow has reached. Each Rule can be assigned a state or state machine mechanism, or simply flagged to indicate whether it should be executed in the current flow.
-
-**Transitions between Rules**:
-
-- **Transitions between parent and child nodes (vertical transitions)**: This defines how a child node can be initiated. Conditions can be set for when the current rule can be activated, such as after all parent nodes are completed or when specific criteria are met.
-  - **All Completed (AND)**: The current node is set to Ready when all parent nodes are in the Completed state. Suitable for strict linear processes or scenarios where all prerequisite tasks must be completed.
-  - **Any One Completed (OR)**: The current node is set to Ready when any one of the parent nodes is in the Completed state. Suitable for multi-path selection scenarios, where completing any prerequisite task can initiate subsequent tasks.
-  - **Custom Quantity (M-of-N)**: The current node is set to Ready when M out of N parent nodes are in the Completed state. Suitable for scenarios that require a certain proportion of prerequisite conditions to be met.
-- **Transitions between sibling nodes (horizontal transitions)**: This defines the mutual influence between child nodes under the same parent node. Rules can be established for transitions between child nodes under the same parent node.
-  - Mutual Exclusion: Multiple branches where only one can be selected. Once one path is chosen, the others are closed. When one sibling node is unlocked (becomes Ready) or activated (becomes Active), all other sibling nodes immediately become Invalid.
-  - Parallel: All sibling nodes are independent of each other and can individually become Ready based on the parent-child rules.
-  - Dependency: There is an implicit sequential dependency among sibling nodes.
-
+## Core implementation: Rule Engine
