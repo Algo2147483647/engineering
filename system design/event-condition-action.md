@@ -55,16 +55,20 @@ The most common approach to designing associations among ECAs is to use a **dire
 
 ![202602052353](./assets/202602052353.svg)
 
-### Flow Dimension: instantiating idempotency key
+### Instantiating Dimension: instantiating idempotency key
 
-> **Flow dimension = event attribute A + event attribute B + …**
+> **Instantiating dimension = event attribute A + event attribute B + …**
 
-ECA graphs themselves, as well as each step within them, can be executed concurrently. To clearly track and isolate each independent business flow, the system needs to assign a **globally unique execution key** to every complete graph execution instance for identification.
+ECA graphs themselves, as well as each ECA within them, can be executed concurrently. To clearly track and isolate each independent business instantiating, the system needs to assign a **globally unique execution key** to every complete graph execution instance for identification.
 
 1. **Idempotency of ECA graph transitions**: For the same user’s single transition request, whether the system receives it once or multiple times (for example due to network retransmission or repeated user clicks), the system will produce exactly one correct transition effect (such as a state update, points credit, or reward issuance) and will not cause duplicate payouts or state inconsistencies.
-2. **Flow dimension**: The flow dimension is designed to realize idempotency for ECA graph transitions; it is formed by a combination of event attributes: event attribute A + event attribute B + …. Event attributes are typically parameters carried within the triggering event (Trigger). In real business scenarios, you may choose appropriate dimensions as the basis for idempotency according to the product’s specifics — for example user UID, order ID, estimated-call ID (used for callback operations), etc.
+2. **Instantiating dimension**: The Instantiating dimension is designed to realize idempotency for ECA graph transitions; it is formed by a combination of event attributes: event attribute A + event attribute B + …. Event attributes are typically parameters carried within the triggering event (Trigger). In real business scenarios, you may choose appropriate dimensions as the basis for idempotency according to the product’s specifics — for example user UID, order ID, estimated-call ID (used for callback operations), etc.
 
-### Run
+#### Multiple Instantiations: Rounds
+
+To support multiple instantiations and executions of a single *Meta ECA Graph*, we introduce a instantiating dimension field, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating dimension. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
+
+### Execution flow
 
 1. **Triggering and Initial ECA Selection**: When the system receives this event, it first retrieves all ECAs that are currently in the “in progress” state. Then, based on the trigger conditions, it traverses these ECAs to select the first ECA in each ECA path (i.e., the Head ECA) and aggregates them into a Head ECA set. The core purpose of this step is to focus on the starting ECA of each path, avoiding repeated processing of ECAs within the same path, thereby ensuring process efficiency and logical clarity.
 2. **Iterate over Head ECAs and Execute Calculation Logic**: The system processes each ECA in the Head ECA set sequentially. For each Head ECA, the rule engine is first invoked to execute the calculation logic for the ECA—this is the core computational step, determining the that the ECA should receive. Next, the system checks whether the ECA has been completed: if the ECA is not completed, subsequent processing is skipped, and the system moves directly to the next Head ECA; if the ECA is completed, it proceeds to handle subsequent ECAs, advancing the ECA status forward.
@@ -75,7 +79,7 @@ ECA graphs themselves, as well as each step within them, can be executed concurr
 
 
 
-**Transitions between ECAs**:
+#### Transitions between ECAs
 
 **Transitions between parent and child nodes (vertical transitions)**: This defines how a child node can be initiated. Conditions can be set for when the current ECA can be activated, such as after all parent nodes are completed or when specific criteria are met.
 
@@ -98,5 +102,7 @@ ECA graphs themselves, as well as each step within them, can be executed concurr
 
 
 ![202602060036](./assets/202602060036.svg)
+
+### Cross-Strategy Communication
 
 ## Core implementation: Rule Engine
