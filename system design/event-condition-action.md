@@ -49,24 +49,24 @@ When multiple actions are executed sequentially, the processing mechanism operat
 
 The most common approach to designing associations among ECAs is to use a **directed acyclic graph (DAG)** to model the relationships between multiple ECAs. Each ECA can be encapsulated as a node in the graph, making it the most fundamental execution unit—referred to as a **ECA Node**—within the system. The dependencies and execution order among these units are defined by the edges of the DAG, ensuring that all ECAs are executed in topological order while also enabling scheduling opportunities for nodes that can run in parallel.
 
-1. **Strategy (ECA Graph):** A directed acyclic graph composed of multiple ECA Nodes and their dependency relationships. It defines the complete execution flow in complex business scenarios. By orchestrating ECA Nodes—such as sequencing, parallel execution, and conditional branching—it describes the system’s overall behavior and decision paths.
+1. **Strategy (ECA Graph):** A directed acyclic graph composed of multiple ECA Nodes and their dependency relationships. It defines the complete execution flow in complex scenarios. By orchestrating ECA Nodes—such as sequencing, parallel execution, and conditional branching—it describes the system’s overall behavior and decision paths.
 
 2. **ECA Node:** The basic node within a Strategy, encapsulating a complete ECA logical unit. It receives inputs, evaluates its internal Conditions, executes the specified Action when those conditions are met, and produces outputs. The dependency relationships between ECA Nodes determine the topological execution order and make the ECA Node the smallest building block of an executable workflow.
 
 ![202602052353](./assets/202602052353.svg)
 
-### Instantiating Dimension: instantiating idempotency key
+### Instantiating idempotency key
 
-> **Instantiating dimension = event attribute A + event attribute B + …**
+> **Instantiating idempotency key = event attribute A + event attribute B + …**
 
-ECA graphs themselves, as well as each ECA within them, can be executed concurrently. To clearly track and isolate each independent business instantiating, the system needs to assign a **globally unique execution key** to every complete graph execution instance for identification.
+ECA graphs themselves, as well as each ECA within them, can be executed concurrently. To clearly track and isolate each independent instantiating, the system needs to assign a **globally unique execution key** to every complete graph execution instance for identification.
 
 1. **Idempotency of ECA graph transitions**: For the same user’s single transition request, whether the system receives it once or multiple times (for example due to network retransmission or repeated user clicks), the system will produce exactly one correct transition effect (such as a state update, points credit, or reward issuance) and will not cause duplicate payouts or state inconsistencies.
-2. **Instantiating dimension**: The Instantiating dimension is designed to realize idempotency for ECA graph transitions; it is formed by a combination of event attributes: event attribute A + event attribute B + …. Event attributes are typically parameters carried within the triggering event (Trigger). In real business scenarios, you may choose appropriate dimensions as the basis for idempotency according to the product’s specifics — for example user UID, order ID, estimated-call ID (used for callback operations), etc.
+2. **Instantiating idempotency key**: This is designed to realize idempotency for ECA graph transitions; it is formed by a combination of event attributes: event attribute A + event attribute B + …. Event attributes are typically parameters carried within the triggering event (Trigger). In real scenarios, you may choose appropriate dimensions as the basis for idempotency according to the product’s specifics — for example user UID, order ID, estimated-call ID (used for callback operations), etc.
 
 #### Multiple Instantiations: Rounds
 
-To support multiple instantiations and executions of a single *Meta ECA Graph*, we introduce a instantiating dimension field, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating dimension. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
+To support multiple instantiations and executions of a single *Meta ECA Graph* in a instantiating idempotency key, we introduce a instantiating idempotency key dimension, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating idempotency key. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
 
 ### Execution flow
 
