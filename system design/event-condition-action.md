@@ -95,6 +95,10 @@ To support multiple instantiations and executions of a single *Meta ECA Graph* i
 
 ### Cross-ECA Node Communication
 
+Communication by event:
+
+Communication to condition: 
+
 ### Scope of DAG Support Capabilities
 
 ## Complex System: Strategy Group
