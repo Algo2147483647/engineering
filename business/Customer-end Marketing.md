@@ -1,4 +1,4 @@
-# C-end Marketing
+# Customer-end Marketing
 
 ## Value Exchange System
 
@@ -42,6 +42,8 @@ Treat users as a state machine, any meaningful change along any dimension can on
 |                    |      |      |
 |                    |      |      |
 
+![202602252152](./assets/202602252152.svg)
+
 Here is the reverse application of the same framework. Use it to falsify whether a marketing initiative is addressing a real user need or a pseudo-need. You can quickly test whether a marketing plan stands up logically with the following five questions. If any of them cannot be answered clearly, it is pseudo-marketing.
 
 1. **Which user state is it trying to change?**
@@ -55,9 +57,11 @@ Here is the reverse application of the same framework. Use it to falsify whether
 5. **Does this behavior compound long-term value for the platform?**
     → If it does not improve retention, frequency, or LTV, it is a one-off spike, not growth.
 
+## C-end Subsidy System
 
 
-## C-end marketing activities
+
+## C-end Marketing Activities
 
 The core purpose of the marketing activities is to induce user behavior, prompting users to complete the behavioral instructions expected by the enterprise or to form a continuous behavioral habit. When users achieve the preset goals, the reward mechanism is immediately triggered, thus establishing a complete positive feedback reinforcement loop.
 
