@@ -99,3 +99,19 @@ Typical cases include subscription plans, monthly membership passes.
 Integrated marketing activities platform, as solution that integrates multiple marketing tools, channels and strategies into a unified marketing zone, usually used to release demand at a specific marketing time point (e.g. promotional season, product launch), and can also exist as a regular marketing area for a long time. The marketing zone must follow the F-type visual heat map rules and reasonably plan the information hierarchy, divisions and pages. Long-term free activities are often used as a tool to induce users to enter the marketing zone.
 
 Typical cases include grand sale campaign landing page, 11-11 shopping festival, game center, welfare center.
+
+
+
+## Examples
+
+### A
+
+Construct a viral growth marketing mechanism centered on “fulfillment completion” as the core trigger point. The underlying logic is to transform a single completed transaction into a sustainably amplifiable growth engine. After fulfillment completion, User A receives a shareable benefit and shares it. Follower B claims the benefit, enters the main venue, and participates in the core journey. Upon completing fulfillment, B triggers rewards and sharing again, forming a self-reinforcing viral growth loop.
+
+**Incentive System**: 
+
+1. Drive Entry — Expand the Traffic Pool: Lower the entry barrier and create a compelling “reason to enter.” Real-time subsidy create instant stimulation and a sense of scarcity to quickly drive traffic.
+2. Drive Completion of the Core Journey — Strengthen Fulfillment Motivation. Place incentives at key fulfillment milestones to drive users toward payment completion. Order Completion Rewards Issued upon fulfillment completion to create positive reinforcement. 
+3. Drive Social Acquisition — Build Viral Propagation Capability. Use the subsidy as the viral carrier to construct sharing incentives. A shareable benefit that motivates users to actively share after completing an order.
+
+![202603030115](./assets/202603030115.svg)
