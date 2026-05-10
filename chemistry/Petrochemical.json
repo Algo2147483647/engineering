@@ -1,0 +1,4853 @@
+{
+  "Crude_Oil": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "LPG": "atmospheric distillation",
+      "Light_Naphtha": "atmospheric distillation",
+      "Heavy_Naphtha": "atmospheric distillation",
+      "Kerosene": "atmospheric distillation",
+      "Diesel": "refining and blending",
+      "Atmospheric_Residue": "atmospheric distillation",
+      "Sulfur": "hydrodesulfurization and sulfur recovery",
+      "Naphtha": "atmospheric distillation and blending",
+      "Gasoline": "refining and blending",
+      "Jet_Fuel": "refining and blending",
+      "Fuel_Oil": "residue blending",
+      "Asphalt": "residue processing",
+      "Petrochemical_Feed_Naphtha": "refinery naphtha production"
+    },
+    "category": "feedstock",
+    "description": "Complex liquid hydrocarbon feedstock refined into fuels, petrochemical feedstocks, base oils, waxes, coke, sulfur, and asphalt.",
+    "typical_uses": "refining, petrochemical feedstock, fuel production",
+    "industry_segment": "upstream and refining"
+  },
+  "Natural_Gas": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Methane": "gas processing and methane purification",
+      "Natural_Gas_Liquids": "cryogenic gas processing",
+      "LNG": "liquefaction",
+      "Hydrogen_Sulfide": "acid gas removal",
+      "Syngas": "steam reforming",
+      "Hydrogen": "steam reforming and PSA",
+      "Methanol": "reforming to syngas followed by methanol synthesis",
+      "Ammonia": "reforming to hydrogen followed by Haber-Bosch synthesis",
+      "Urea": "ammonia synthesis followed by urea synthesis"
+    },
+    "category": "feedstock",
+    "description": "Gaseous hydrocarbon feedstock dominated by methane with recoverable ethane, propane, butanes, and condensate.",
+    "typical_uses": "fuel gas, hydrogen production, ammonia, methanol, olefins feedstock",
+    "industry_segment": "gas processing and petrochemicals"
+  },
+  "Natural_Gas_Liquids": {
+    "define": "",
+    "parents": {
+      "Natural_Gas": "cryogenic gas processing",
+      "Associated_Gas": "gas processing"
+    },
+    "children": {
+      "Ethane": "NGL fractionation",
+      "Propane": "NGL fractionation",
+      "Normal_Butane": "NGL fractionation",
+      "Isobutane": "NGL fractionation",
+      "Naphtha": "natural gasoline separation",
+      "LPG": "fractionation and blending",
+      "Petrochemical_Feed_Ethane": "ethane recovery",
+      "Petrochemical_Feed_Propane": "propane recovery"
+    },
+    "category": "feedstock",
+    "description": "Recovered ethane, propane, butanes, and natural gasoline used as petrochemical and refinery feedstocks.",
+    "typical_uses": "steam cracking, LPG, alkylation, dehydrogenation",
+    "industry_segment": "gas processing"
+  },
+  "Associated_Gas": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Natural_Gas_Liquids": "gas processing",
+      "Methane": "gas processing"
+    }
+  },
+  "Shale_Gas": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Ethane": "cryogenic ethane recovery",
+      "Propane": "cryogenic propane recovery"
+    }
+  },
+  "Gas_Condensate": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Naphtha": "condensate fractionation",
+      "Kerosene": "condensate fractionation",
+      "Solvent_Naphtha": "fractionation and hydrotreating"
+    }
+  },
+  "Methane": {
+    "define": "",
+    "parents": {
+      "Natural_Gas": "gas processing and methane purification",
+      "Associated_Gas": "gas processing",
+      "LNG": "regasification and purification"
+    },
+    "children": {
+      "Syngas": "steam methane reforming",
+      "Grey_Hydrogen": "steam methane reforming",
+      "Blue_Hydrogen": "steam methane reforming with carbon capture",
+      "Acetylene": "partial oxidation and high-temperature cracking",
+      "Methyl_Chloride": "chlorination",
+      "Carbon_Monoxide": "partial oxidation",
+      "Carbon_Dioxide": "steam reforming shift by-product",
+      "LNG": "liquefaction"
+    }
+  },
+  "Ethane": {
+    "define": "",
+    "parents": {
+      "Shale_Gas": "cryogenic ethane recovery",
+      "Natural_Gas_Liquids": "NGL fractionation",
+      "Ethane_Ethylene_Stream": "cryogenic separation and recycle"
+    },
+    "children": {
+      "Ethylene": "steam cracking",
+      "Ethane_Ethylene_Stream": "steam cracking",
+      "Steam_Cracker_Feed": "feedstock preparation"
+    }
+  },
+  "Propane": {
+    "define": "",
+    "parents": {
+      "FCC_LPG": "LPG fractionation",
+      "Shale_Gas": "cryogenic propane recovery",
+      "Natural_Gas_Liquids": "NGL fractionation",
+      "Propane_Propylene_Stream": "propane recycle separation",
+      "LPG": "fractionation"
+    },
+    "children": {
+      "LPG": "LPG blending",
+      "Ethylene": "steam cracking",
+      "Propylene": "steam cracking coproduct recovery",
+      "Propane_Propylene_Stream": "propane dehydrogenation",
+      "Steam_Cracker_Feed": "feedstock preparation"
+    }
+  },
+  "Normal_Butane": {
+    "define": "",
+    "parents": {
+      "FCC_LPG": "LPG fractionation",
+      "Natural_Gas_Liquids": "NGL fractionation",
+      "LPG": "fractionation"
+    },
+    "children": {
+      "LPG": "LPG blending",
+      "Butadiene": "steam cracking and C4 extraction",
+      "Isobutane": "butane isomerization",
+      "Maleic_Anhydride": "selective oxidation",
+      "Butene_1": "dehydrogenation and isomerization",
+      "Butene_2": "dehydrogenation"
+    }
+  },
+  "Isobutane": {
+    "define": "",
+    "parents": {
+      "Natural_Gas_Liquids": "NGL fractionation",
+      "Normal_Butane": "butane isomerization",
+      "LPG": "fractionation"
+    },
+    "children": {
+      "Alkylate": "alkylation with olefins",
+      "LPG": "LPG blending",
+      "Isobutylene": "isobutane dehydrogenation"
+    }
+  },
+  "LPG": {
+    "define": "",
+    "parents": {
+      "Crude_Oil": "atmospheric distillation",
+      "Propane": "LPG blending",
+      "Normal_Butane": "LPG blending",
+      "Isobutane": "LPG blending",
+      "Natural_Gas_Liquids": "fractionation and blending"
+    },
+    "children": {
+      "Propane": "fractionation",
+      "Normal_Butane": "fractionation",
+      "Isobutane": "fractionation"
+    }
+  },
+  "LNG": {
+    "define": "",
+    "parents": {
+      "Natural_Gas": "liquefaction",
+      "Methane": "liquefaction"
+    },
+    "children": {
+      "Methane": "regasification and purification"
+    }
+  },
+  "Naphtha": {
+    "define": "",
+    "parents": {
+      "Hydrocracked_Naphtha": "naphtha product blending",
+      "Coker_Naphtha": "hydrotreating and blending",
+      "Gas_Condensate": "condensate fractionation",
+      "Natural_Gas_Liquids": "natural gasoline separation",
+      "Crude_Oil": "atmospheric distillation and blending",
+      "Light_Naphtha": "naphtha pooling",
+      "Heavy_Naphtha": "naphtha pooling",
+      "Hydrotreated_Naphtha": "naphtha blending"
+    },
+    "children": {
+      "Hydrotreated_Naphtha": "naphtha hydrotreating",
+      "Ethylene": "steam cracking",
+      "Propylene": "steam cracking",
+      "Butadiene": "steam cracking and C4 extraction",
+      "Pyrolysis_Gasoline": "steam cracking by-product recovery",
+      "Pyrolysis_Fuel_Oil": "steam cracking by-product recovery",
+      "Mixed_C4_Stream": "steam cracking C4 recovery",
+      "C5_Fraction": "steam cracking C5 recovery",
+      "C9_Aromatics": "steam cracking heavy aromatics recovery",
+      "Hexane": "fractionation",
+      "Heptane": "fractionation",
+      "Solvent_Naphtha": "hydrotreating and fractionation",
+      "Olefinic_Gasoline": "steam cracking gasoline hydrogenation",
+      "Sulfur": "hydrodesulfurization by-product recovery",
+      "Benzene": "catalytic reforming and extraction",
+      "Toluene": "catalytic reforming and extraction",
+      "Mixed_Xylenes": "catalytic reforming and extraction",
+      "Olefin_Polymerization_Catalyst": "catalyst carrier preparation"
+    },
+    "category": "refinery_product",
+    "description": "Light refinery liquid used as a steam cracker feedstock, reformer feedstock, and gasoline blending component.",
+    "typical_uses": "ethylene production, aromatics production, gasoline blending",
+    "industry_segment": "refining and basic petrochemicals"
+  },
+  "Light_Naphtha": {
+    "define": "",
+    "parents": {
+      "Crude_Oil": "atmospheric distillation"
+    },
+    "children": {
+      "Isomerate": "light naphtha isomerization",
+      "Naphtha": "naphtha pooling"
+    }
+  },
+  "Heavy_Naphtha": {
+    "define": "",
+    "parents": {
+      "Crude_Oil": "atmospheric distillation"
+    },
+    "children": {
+      "Naphtha": "naphtha pooling"
+    }
+  },
+  "Kerosene": {
+    "define": "",
+    "parents": {
+      "Crude_Oil": "atmospheric distillation",
+      "Gas_Condensate": "condensate fractionation"
+    },
+    "children": {
+      "Jet_Fuel": "kerosene hydrotreating and fractionation",
+      "Kerosene_Paraffins": "molecular sieve extraction",
+      "Mineral_Spirits": "hydrotreating and distillation"
+    }
+  },
+  "Jet_Fuel": {
+    "define": "",
+    "parents": {
+      "Kerosene": "kerosene hydrotreating and fractionation",
+      "Hydrocracked_Jet_Fuel": "jet fuel finishing",
+      "Crude_Oil": "refining and blending"
+    },
+    "children": {}
+  },
+  "Diesel": {
+    "define": "",
+    "parents": {
+      "Crude_Oil": "refining and blending",
+      "Hydrotreated_Diesel": "diesel product finishing",
+      "Hydrocracked_Diesel": "diesel product blending"
+    },
+    "children": {
+      "Hydrotreated_Diesel": "diesel hydrotreating",
+      "Sulfur": "hydrodesulfurization by-product recovery"
+    }
+  },
+  "Gasoline": {
+    "define": "",
+    "parents": {
+      "FCC_Gasoline": "gasoline blending",
+      "Alkylate": "gasoline blending",
+      "Isomerate": "gasoline blending",
+      "Reformate": "gasoline blending",
+      "Olefinic_Gasoline": "gasoline blending",
+      "MTBE": "oxygenate blending",
+      "ETBE": "oxygenate blending",
+      "TAME": "oxygenate blending",
+      "Methyl_Tert_Amyl_Ether": "oxygenate blending",
+      "Crude_Oil": "refining and blending"
+    },
+    "children": {}
+  },
+  "Fuel_Oil": {
+    "define": "",
+    "parents": {
+      "Vacuum_Residue": "residue blending",
+      "Crude_Oil": "residue blending"
+    },
+    "children": {}
+  },
+  "Vacuum_Gas_Oil": {
+    "define": "",
+    "parents": {
+      "Atmospheric_Residue": "vacuum distillation"
+    },
+    "children": {
+      "FCC_Gasoline": "fluid catalytic cracking",
+      "FCC_LPG": "fluid catalytic cracking",
+      "Light_Cycle_Oil": "fluid catalytic cracking",
+      "Heavy_Cycle_Oil": "fluid catalytic cracking",
+      "Slurry_Oil": "fluid catalytic cracking",
+      "Hydrocracked_Naphtha": "hydrocracking",
+      "Hydrocracked_Diesel": "hydrocracking",
+      "Hydrocracked_Jet_Fuel": "hydrocracking",
+      "Base_Oil": "solvent extraction and dewaxing",
+      "Paraffin_Wax": "solvent dewaxing",
+      "Rubber_Process_Oil": "solvent extraction and refining",
+      "Sulfur": "hydrodesulfurization by-product recovery"
+    }
+  },
+  "Atmospheric_Residue": {
+    "define": "",
+    "parents": {
+      "Crude_Oil": "atmospheric distillation"
+    },
+    "children": {
+      "Vacuum_Gas_Oil": "vacuum distillation",
+      "Vacuum_Residue": "vacuum distillation"
+    }
+  },
+  "Vacuum_Residue": {
+    "define": "",
+    "parents": {
+      "Atmospheric_Residue": "vacuum distillation"
+    },
+    "children": {
+      "Asphalt": "asphalt blowing and residue separation",
+      "Petroleum_Coke": "delayed coking",
+      "Fuel_Oil": "residue blending",
+      "Bitumen": "air blowing and blending",
+      "Coker_Naphtha": "delayed coking naphtha recovery"
+    }
+  },
+  "Petroleum_Coke": {
+    "define": "",
+    "parents": {
+      "Vacuum_Residue": "delayed coking"
+    },
+    "children": {
+      "Green_Coke": "delayed coking",
+      "Needle_Coke": "premium coking of aromatic feedstock",
+      "Anode_Coke": "calcination and grading"
+    }
+  },
+  "Asphalt": {
+    "define": "",
+    "parents": {
+      "Vacuum_Residue": "asphalt blowing and residue separation",
+      "Crude_Oil": "residue processing"
+    },
+    "children": {}
+  },
+  "Base_Oil": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "solvent extraction and dewaxing"
+    },
+    "children": {
+      "Lubricating_Oil": "additive blending",
+      "White_Oil": "hydrotreating and dewaxing"
+    }
+  },
+  "Lubricating_Oil": {
+    "define": "",
+    "parents": {
+      "Base_Oil": "additive blending"
+    },
+    "children": {}
+  },
+  "Paraffin_Wax": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "solvent dewaxing"
+    },
+    "children": {
+      "Wax": "wax blending",
+      "Petroleum_Jelly": "deoiling and blending",
+      "Paraffin": "deoiling and refining"
+    }
+  },
+  "Sulfur": {
+    "define": "",
+    "parents": {
+      "Claus_Sulfur": "sulfur degassing and forming",
+      "Hydrogen_Sulfide": "Claus sulfur recovery",
+      "Refinery_Hydrogen": "hydrodesulfurization and sulfur recovery",
+      "Crude_Oil": "hydrodesulfurization and sulfur recovery",
+      "Diesel": "hydrodesulfurization by-product recovery",
+      "Naphtha": "hydrodesulfurization by-product recovery",
+      "Vacuum_Gas_Oil": "hydrodesulfurization by-product recovery",
+      "Hydrogen": "hydrodesulfurization support and sulfur recovery"
+    },
+    "children": {
+      "Sulfuric_Acid": "contact process",
+      "Styrene_Butadiene_Rubber": "vulcanization",
+      "Nitrile_Rubber": "vulcanization",
+      "Polybutadiene_Rubber": "vulcanization"
+    },
+    "category": "by_product",
+    "description": "Recovered by-product from hydrodesulfurization and acid gas processing.",
+    "typical_uses": "sulfuric acid, fertilizers, chemicals",
+    "industry_segment": "refining by-products"
+  },
+  "Hydrogen": {
+    "define": "",
+    "parents": {
+      "Reformate": "catalytic reforming by-product recovery",
+      "Grey_Hydrogen": "pressure swing adsorption",
+      "Blue_Hydrogen": "pressure swing adsorption",
+      "Natural_Gas": "steam reforming and PSA",
+      "Water": "electrolysis",
+      "Steam": "steam reforming participation",
+      "Syngas": "water-gas shift and PSA",
+      "Methanol": "methanol steam reforming",
+      "Refinery_Hydrogen": "hydrogen purification",
+      "Salt_Brine": "chlor-alkali electrolysis"
+    },
+    "children": {
+      "Ammonia": "Haber-Bosch synthesis with nitrogen",
+      "Ethylene_Dichloride": "hydrogen chloride synthesis for oxychlorination",
+      "Chlorine": "hydrogen chloride synthesis feed",
+      "Hydrochloric_Acid": "hydrogen chloride synthesis",
+      "Refinery_Hydrogen": "refinery hydrogen network purification",
+      "Peroxide": "anthraquinone process hydrogenation and oxidation",
+      "Methanol": "CO2 hydrogenation or syngas synthesis",
+      "Fischer_Tropsch_Syngas": "syngas adjustment",
+      "Sulfur": "hydrodesulfurization support and sulfur recovery",
+      "Hydrogen_Peroxide": "anthraquinone process hydrogenation"
+    }
+  },
+  "Reformate": {
+    "define": "",
+    "parents": {
+      "Hydrotreated_Naphtha": "catalytic reforming"
+    },
+    "children": {
+      "Benzene": "aromatics extraction",
+      "Toluene": "aromatics extraction",
+      "Mixed_Xylenes": "aromatics extraction",
+      "Hydrogen": "catalytic reforming by-product recovery",
+      "Raffinate": "aromatics extraction raffinate separation",
+      "Gasoline": "gasoline blending",
+      "Aromatic_Extract": "solvent extraction",
+      "BTX_Aromatics": "aromatics extraction"
+    }
+  },
+  "Raffinate": {
+    "define": "",
+    "parents": {
+      "Reformate": "aromatics extraction raffinate separation"
+    },
+    "children": {}
+  },
+  "Pyrolysis_Gasoline": {
+    "define": "",
+    "parents": {
+      "Naphtha": "steam cracking by-product recovery",
+      "Steam_Cracker_Feed": "steam cracking by-product recovery"
+    },
+    "children": {
+      "Hydrogenated_Pyrolysis_Gasoline": "selective hydrogenation"
+    }
+  },
+  "Pyrolysis_Fuel_Oil": {
+    "define": "",
+    "parents": {
+      "Naphtha": "steam cracking by-product recovery"
+    },
+    "children": {
+      "Carbon_Black": "partial combustion carbon black process",
+      "Petroleum_Resin": "thermal polymerization"
+    }
+  },
+  "Coker_Naphtha": {
+    "define": "",
+    "parents": {
+      "Vacuum_Residue": "delayed coking naphtha recovery"
+    },
+    "children": {
+      "Naphtha": "hydrotreating and blending",
+      "Hydrotreated_Naphtha": "hydrotreating"
+    }
+  },
+  "FCC_Gasoline": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "fluid catalytic cracking"
+    },
+    "children": {
+      "Gasoline": "gasoline blending",
+      "Benzene": "gasoline aromatics extraction",
+      "Toluene": "gasoline aromatics extraction",
+      "Mixed_Xylenes": "gasoline aromatics extraction"
+    }
+  },
+  "FCC_LPG": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "fluid catalytic cracking"
+    },
+    "children": {
+      "Propylene": "propylene recovery",
+      "Isobutylene": "C4 olefin recovery",
+      "Propane": "LPG fractionation",
+      "Normal_Butane": "LPG fractionation",
+      "Refinery_Grade_Propylene": "refinery propylene recovery"
+    }
+  },
+  "Alkylate": {
+    "define": "",
+    "parents": {
+      "Isobutane": "alkylation with olefins",
+      "Refinery_Grade_Propylene": "alkylation feed"
+    },
+    "children": {
+      "Gasoline": "gasoline blending"
+    }
+  },
+  "Isomerate": {
+    "define": "",
+    "parents": {
+      "Light_Naphtha": "light naphtha isomerization"
+    },
+    "children": {
+      "Gasoline": "gasoline blending"
+    }
+  },
+  "MTBE": {
+    "define": "",
+    "parents": {
+      "Isobutylene": "etherification with methanol",
+      "Methanol": "etherification with isobutylene"
+    },
+    "children": {
+      "Gasoline": "oxygenate blending"
+    }
+  },
+  "ETBE": {
+    "define": "",
+    "parents": {
+      "Isobutylene": "etherification with ethanol"
+    },
+    "children": {
+      "Gasoline": "oxygenate blending"
+    }
+  },
+  "TAME": {
+    "define": "",
+    "parents": {
+      "Propylene": "etherification after isoamylene production"
+    },
+    "children": {
+      "Gasoline": "oxygenate blending"
+    }
+  },
+  "Benzene": {
+    "define": "",
+    "parents": {
+      "Reformate": "aromatics extraction",
+      "Pygas_Benzene": "benzene purification",
+      "Toluene": "hydrodealkylation",
+      "BTX_Aromatics": "BTX fractionation",
+      "FCC_Gasoline": "gasoline aromatics extraction",
+      "Naphtha": "catalytic reforming and extraction",
+      "Petrochemical_Feed_Naphtha": "pyrolysis gasoline hydrogenation and extraction"
+    },
+    "children": {
+      "Ethylbenzene": "alkylation with ethylene",
+      "Cumene": "alkylation with propylene",
+      "Cyclohexane": "hydrogenation",
+      "Nitrobenzene": "nitration",
+      "Linear_Alkylbenzene": "alkylation with linear olefins",
+      "Maleic_Anhydride": "oxidation",
+      "Alkylbenzenes": "alkylation",
+      "Benzoic_Acid": "toluene oxidation route integration",
+      "BTX_Aromatics": "aromatics extraction",
+      "Anisole": "methylation of phenol route integration",
+      "Phenol": "cumene process via cumene",
+      "Acetone": "cumene process coproduct via cumene",
+      "Cyclohexane_Solvent": "hydrogenation and solvent purification",
+      "Cumene_Hydroperoxide": "cumene route via alkylation and oxidation",
+      "Benzene_Cumene_Stream": "benzene feed purification"
+    },
+    "category": "aromatic",
+    "description": "BTX aromatic used for styrene, cumene, cyclohexane, aniline, alkylbenzene, and maleic anhydride.",
+    "typical_uses": "polystyrene, phenol, nylon intermediates, polyurethane intermediates, detergents",
+    "industry_segment": "aromatics"
+  },
+  "Toluene": {
+    "define": "",
+    "parents": {
+      "Reformate": "aromatics extraction",
+      "Pygas_Toluene": "toluene purification",
+      "BTX_Aromatics": "BTX fractionation",
+      "FCC_Gasoline": "gasoline aromatics extraction",
+      "Naphtha": "catalytic reforming and extraction",
+      "Petrochemical_Feed_Naphtha": "pyrolysis gasoline hydrogenation and extraction"
+    },
+    "children": {
+      "Benzene": "hydrodealkylation",
+      "Mixed_Xylenes": "toluene disproportionation",
+      "Toluene_Diisocyanate": "nitration, hydrogenation, and phosgenation",
+      "TDI": "nitration, hydrogenation, and phosgenation",
+      "Benzyl_Chloride": "side-chain chlorination",
+      "Toluene_Solvent": "solvent-grade purification",
+      "Solvent_Naphtha": "aromatic solvent blending",
+      "Nitric_Acid_Mixture": "nitration feed preparation",
+      "Benzoic_Acid": "liquid-phase oxidation",
+      "Aromatic_Solvents": "solvent blending"
+    },
+    "category": "aromatic",
+    "description": "Aromatic solvent and feedstock for TDI, benzene, xylenes, and specialty derivatives.",
+    "typical_uses": "solvents, TDI, benzene conversion, gasoline blending",
+    "industry_segment": "aromatics"
+  },
+  "Mixed_Xylenes": {
+    "define": "",
+    "parents": {
+      "Reformate": "aromatics extraction",
+      "Pygas_Xylenes": "xylene purification",
+      "Toluene": "toluene disproportionation",
+      "BTX_Aromatics": "BTX fractionation",
+      "FCC_Gasoline": "gasoline aromatics extraction",
+      "Naphtha": "catalytic reforming and extraction",
+      "Xylene_Isomerate": "isomerization product recycle",
+      "Petrochemical_Feed_Naphtha": "pyrolysis gasoline hydrogenation and extraction"
+    },
+    "children": {
+      "Ortho_Xylene": "xylene isomer separation",
+      "Meta_Xylene": "xylene isomer separation",
+      "Para_Xylene": "xylene isomer separation",
+      "Xylene_Isomerate": "xylene isomerization",
+      "Xylene_Solvent": "solvent-grade fractionation",
+      "Trimellitic_Anhydride": "oxidation of pseudocumene-rich C9 aromatics",
+      "Heavy_Aromatics": "xylene fractionation bottoms",
+      "Aromatic_Solvents": "solvent blending"
+    }
+  },
+  "Ortho_Xylene": {
+    "define": "",
+    "parents": {
+      "Mixed_Xylenes": "xylene isomer separation",
+      "Xylene_Isomerate": "fractional distillation"
+    },
+    "children": {
+      "Phthalic_Anhydride": "catalytic oxidation"
+    }
+  },
+  "Meta_Xylene": {
+    "define": "",
+    "parents": {
+      "Mixed_Xylenes": "xylene isomer separation"
+    },
+    "children": {
+      "Isophthalic_Acid": "oxidation"
+    }
+  },
+  "Para_Xylene": {
+    "define": "",
+    "parents": {
+      "Mixed_Xylenes": "xylene isomer separation",
+      "Xylene_Isomerate": "adsorptive separation and crystallization"
+    },
+    "children": {
+      "Purified_Terephthalic_Acid": "liquid-phase oxidation",
+      "Terephthalic_Acid": "oxidation",
+      "Dimethyl_Terephthalate": "oxidation and esterification",
+      "Polyester_Fiber": "PX oxidation to PTA followed by polyester polycondensation"
+    },
+    "category": "aromatic",
+    "description": "Xylene isomer oxidized to purified terephthalic acid for polyester and PET.",
+    "typical_uses": "PTA, PET, polyester fiber, polyester film",
+    "industry_segment": "aromatics and polyester chain"
+  },
+  "Ethylbenzene": {
+    "define": "",
+    "parents": {
+      "Ethylene": "benzene alkylation",
+      "Benzene": "alkylation with ethylene"
+    },
+    "children": {
+      "Styrene": "dehydrogenation"
+    }
+  },
+  "Styrene": {
+    "define": "",
+    "parents": {
+      "Ethylene": "alkylation with benzene followed by dehydrogenation via ethylbenzene",
+      "Ethylbenzene": "dehydrogenation"
+    },
+    "children": {
+      "Polystyrene": "bulk or suspension polymerization",
+      "Expandable_Polystyrene": "suspension polymerization with blowing agent",
+      "SAN": "copolymerization with acrylonitrile",
+      "ABS": "graft copolymerization with acrylonitrile and butadiene",
+      "Styrene_Butadiene_Rubber": "emulsion or solution copolymerization",
+      "Styrene_Butadiene_Latex": "emulsion copolymerization with butadiene",
+      "Thermoplastic_Elastomers": "block copolymerization with dienes"
+    }
+  },
+  "Cumene": {
+    "define": "",
+    "parents": {
+      "Propylene": "benzene alkylation",
+      "Benzene": "alkylation with propylene",
+      "Benzene_Cumene_Stream": "benzene alkylation with propylene",
+      "Chemical_Grade_Propylene": "benzene alkylation"
+    },
+    "children": {
+      "Cumene_Hydroperoxide": "air oxidation",
+      "Cumene_Process_Alpha_Methylstyrene": "cumene oxidation by-product recovery"
+    }
+  },
+  "Phenol": {
+    "define": "",
+    "parents": {
+      "Cumene_Hydroperoxide": "acid cleavage",
+      "Benzoic_Acid": "oxidative decarboxylation route",
+      "Benzene": "cumene process via cumene",
+      "Cumene_Phenol_Coproduct_Acetone": "product fractionation"
+    },
+    "children": {
+      "Bisphenol_A": "condensation with acetone",
+      "Polycarbonate": "bisphenol A route",
+      "Epoxy_Resin": "bisphenol A and epichlorohydrin route",
+      "Anisole": "methylation with methanol",
+      "Nonylphenol": "alkylation with nonene"
+    }
+  },
+  "Acetone": {
+    "define": "",
+    "parents": {
+      "Isopropanol": "dehydrogenation",
+      "Cumene_Hydroperoxide": "acid cleavage",
+      "Propylene": "cumene process coproduct recovery",
+      "Benzene": "cumene process coproduct via cumene",
+      "Cumene_Phenol_Coproduct_Acetone": "product fractionation"
+    },
+    "children": {
+      "Methyl_Isobutyl_Ketone": "aldol condensation and hydrogenation",
+      "Acetone_Solvent": "solvent-grade purification",
+      "Ketone_Solvents": "solvent blending",
+      "MMA": "acetone cyanohydrin route",
+      "Bisphenol_A": "condensation with phenol"
+    }
+  },
+  "Cyclohexane": {
+    "define": "",
+    "parents": {
+      "Benzene": "hydrogenation"
+    },
+    "children": {
+      "Cyclohexanone": "air oxidation",
+      "Cyclohexanol": "air oxidation",
+      "Cyclohexane_Solvent": "solvent-grade purification",
+      "Nylon_6": "oxidation to cyclohexanone followed by caprolactam route",
+      "Nylon_66": "oxidation to adipic acid followed by polycondensation"
+    }
+  },
+  "Cyclohexanone": {
+    "define": "",
+    "parents": {
+      "Cyclohexane": "air oxidation"
+    },
+    "children": {
+      "Caprolactam": "oximation and Beckmann rearrangement",
+      "Adipic_Acid": "nitric acid oxidation"
+    }
+  },
+  "Cyclohexanol": {
+    "define": "",
+    "parents": {
+      "Cyclohexane": "air oxidation"
+    },
+    "children": {
+      "Adipic_Acid": "nitric acid oxidation"
+    }
+  },
+  "Adipic_Acid": {
+    "define": "",
+    "parents": {
+      "Cyclohexanol": "nitric acid oxidation",
+      "Cyclohexanone": "nitric acid oxidation"
+    },
+    "children": {
+      "Nylon_66": "polycondensation with hexamethylenediamine",
+      "Adipate_Plasticizers": "esterification with plasticizer alcohols",
+      "Polyester_Polyols": "esterification with glycols",
+      "Nylon_Fiber": "nylon 66 polycondensation and spinning"
+    }
+  },
+  "Caprolactam": {
+    "define": "",
+    "parents": {
+      "Cyclohexanone": "oximation and Beckmann rearrangement"
+    },
+    "children": {
+      "Nylon_6": "ring-opening polymerization",
+      "Polyamide_6": "ring-opening polymerization",
+      "Nylon_Fiber": "polymerization and spinning"
+    }
+  },
+  "Purified_Terephthalic_Acid": {
+    "define": "",
+    "parents": {
+      "Para_Xylene": "liquid-phase oxidation",
+      "Oxygen": "p-xylene oxidation",
+      "Acetic_Acid": "oxidation solvent recovery loop"
+    },
+    "children": {
+      "PET": "polycondensation with ethylene glycol",
+      "Polyester_Fiber": "polycondensation with ethylene glycol and spinning",
+      "Polyester_Resin": "polycondensation with ethylene glycol",
+      "Dioctyl_Terephthalate": "esterification with 2-ethylhexanol",
+      "Polyethylene_Terephthalate": "polycondensation with ethylene glycol"
+    }
+  },
+  "Dimethyl_Terephthalate": {
+    "define": "",
+    "parents": {
+      "Para_Xylene": "oxidation and esterification"
+    },
+    "children": {
+      "PET": "transesterification with ethylene glycol"
+    }
+  },
+  "Phthalic_Anhydride": {
+    "define": "",
+    "parents": {
+      "Ortho_Xylene": "catalytic oxidation",
+      "Oxygen": "o-xylene oxidation"
+    },
+    "children": {
+      "Di_2_Ethylhexyl_Phthalate": "esterification with 2-ethylhexanol",
+      "Diisononyl_Phthalate": "esterification with isononanol",
+      "Unsaturated_Polyester_Resin": "polycondensation modifier",
+      "Plasticizer_Alcohols": "esterification feed preparation",
+      "Alkyd_Resin": "esterification with polyols and fatty acids"
+    },
+    "category": "plasticizer_intermediate",
+    "description": "Aromatic anhydride used for phthalate plasticizers, alkyd resins, and unsaturated polyester resins.",
+    "typical_uses": "DEHP, DINP, alkyd resins, UPR",
+    "industry_segment": "plasticizers and resins"
+  },
+  "Maleic_Anhydride": {
+    "define": "",
+    "parents": {
+      "Benzene": "oxidation",
+      "Normal_Butane": "selective oxidation",
+      "Oxygen": "butane oxidation"
+    },
+    "children": {
+      "Unsaturated_Polyester_Resin": "polycondensation",
+      "Polyester_Polyols": "esterification with glycols"
+    }
+  },
+  "Bisphenol_A": {
+    "define": "",
+    "parents": {
+      "Phenol": "condensation with acetone",
+      "Acetone": "condensation with phenol"
+    },
+    "children": {
+      "Polycarbonate": "phosgene or melt transesterification",
+      "Epoxy_Resin": "reaction with epichlorohydrin",
+      "Dimethyl_Carbonate": "melt polycarbonate feed preparation"
+    }
+  },
+  "Methyl_Isobutyl_Ketone": {
+    "define": "",
+    "parents": {
+      "Acetone": "aldol condensation and hydrogenation"
+    },
+    "children": {
+      "Ketone_Solvents": "solvent blending"
+    }
+  },
+  "Ethylene": {
+    "define": "",
+    "parents": {
+      "Ethane": "steam cracking",
+      "Propane": "steam cracking",
+      "Naphtha": "steam cracking",
+      "Olefins_From_Methanol": "MTO product separation",
+      "Dimethyl_Ether": "oxygenate-to-olefins conversion",
+      "Steam_Cracker_Feed": "steam cracking",
+      "Petrochemical_Feed_Naphtha": "steam cracking",
+      "Petrochemical_Feed_Ethane": "steam cracking"
+    },
+    "children": {
+      "Polymer_Grade_Ethylene": "cryogenic purification",
+      "Polyethylene": "polymerization",
+      "LDPE": "high-pressure radical polymerization",
+      "LLDPE": "solution or gas-phase copolymerization",
+      "HDPE": "Ziegler-Natta or chromium-catalyzed polymerization",
+      "EVA": "copolymerization with vinyl acetate",
+      "Alpha_Olefins": "oligomerization",
+      "Linear_Alpha_Olefins": "oligomerization",
+      "Ethylene_Oxide": "direct oxidation",
+      "Ethylene_Dichloride": "direct chlorination or oxychlorination",
+      "Acetaldehyde": "Wacker oxidation",
+      "Ethanol": "direct hydration",
+      "Vinyl_Acetate": "acetoxylation with acetic acid",
+      "Vinyl_Acetate_Monomer": "acetoxylation with acetic acid",
+      "Styrene": "alkylation with benzene followed by dehydrogenation via ethylbenzene",
+      "Ethylbenzene": "benzene alkylation",
+      "Propionaldehyde": "hydroformylation",
+      "Ethylene_Propylene_Copolymer": "coordination copolymerization",
+      "EP_Rubber": "copolymerization with propylene and diene",
+      "EPDM_Rubber": "terpolymerization with propylene and diene",
+      "Ethyl_Chloride": "hydrochlorination",
+      "Polyolefin_Elastomer": "metallocene copolymerization",
+      "Acetic_Acid": "oxidative carbonylation route",
+      "Oxo_Alcohols": "hydroformylation to propionaldehyde and hydrogenation",
+      "Vinyl_Ester_Monomers": "acetoxylation route",
+      "Ethylene_Vinyl_Alcohol": "copolymerization and hydrolysis",
+      "Dichloroethane": "direct chlorination",
+      "Polyethylene_Wax": "low molecular weight polymerization",
+      "Acrylic_Acid": "ethylene carbonylation route",
+      "Ethylene_Acrylic_Acid_Copolymer": "copolymerization",
+      "Final_Polyethylene_Product": "polymerization and conversion"
+    },
+    "category": "basic_petrochemical",
+    "description": "Primary light olefin and major building block for polyethylene, ethylene oxide, ethylene dichloride, vinyl acetate, and styrene.",
+    "typical_uses": "polyethylene, PVC chain, PET chain, solvents, surfactants",
+    "industry_segment": "olefins"
+  },
+  "Propylene": {
+    "define": "",
+    "parents": {
+      "FCC_LPG": "propylene recovery",
+      "Propane": "steam cracking coproduct recovery",
+      "Naphtha": "steam cracking",
+      "Butene_2": "olefin metathesis with ethylene",
+      "Olefins_From_Methanol": "MTO product separation",
+      "Dimethyl_Ether": "oxygenate-to-olefins conversion",
+      "Steam_Cracker_Feed": "steam cracking",
+      "Petrochemical_Feed_Naphtha": "steam cracking",
+      "Petrochemical_Feed_Propane": "dehydrogenation or steam cracking"
+    },
+    "children": {
+      "Polymer_Grade_Propylene": "propylene purification",
+      "Chemical_Grade_Propylene": "fractionation",
+      "Polypropylene": "coordination polymerization",
+      "Propylene_Random_Copolymer": "copolymerization with ethylene",
+      "Propylene_Impact_Copolymer": "impact copolymerization with ethylene rubber phase",
+      "Polyolefin_Elastomer": "copolymerization with ethylene and alpha olefins",
+      "Propylene_Oxide": "HPPO oxidation",
+      "Acrylonitrile": "ammoxidation",
+      "Hydrogen_Cyanide": "ammoxidation by-product recovery",
+      "Acrylic_Acid": "two-step oxidation",
+      "Isopropanol": "direct hydration",
+      "Butanol": "oxo synthesis via hydroformylation and hydrogenation",
+      "Butyraldehyde": "hydroformylation",
+      "Cumene": "benzene alkylation",
+      "Allyl_Chloride": "chlorination",
+      "Acrolein": "oxidation",
+      "TAME": "etherification after isoamylene production",
+      "Oxo_Alcohols": "hydroformylation and hydrogenation",
+      "EPDM_Rubber": "terpolymerization with ethylene and diene",
+      "Acetone": "cumene process coproduct recovery",
+      "Acetone_Solvent": "cumene process coproduct and purification",
+      "Benzene_Cumene_Stream": "propylene feed purification",
+      "Nonene": "propylene trimerization"
+    },
+    "category": "basic_petrochemical",
+    "description": "Primary light olefin used for polypropylene, propylene oxide, acrylonitrile, acrylic acid, oxo alcohols, and cumene.",
+    "typical_uses": "polypropylene, polyols, acrylics, nitriles, solvents",
+    "industry_segment": "olefins"
+  },
+  "Butadiene": {
+    "define": "",
+    "parents": {
+      "Normal_Butane": "steam cracking and C4 extraction",
+      "Naphtha": "steam cracking and C4 extraction",
+      "Mixed_C4_Stream": "extractive distillation",
+      "Steam_Cracker_Feed": "steam cracking",
+      "Petrochemical_Feed_Naphtha": "steam cracking"
+    },
+    "children": {
+      "Polybutadiene_Rubber": "solution polymerization",
+      "Styrene_Butadiene_Rubber": "emulsion or solution copolymerization",
+      "Styrene_Butadiene_Latex": "emulsion copolymerization with styrene",
+      "ABS": "graft copolymerization with acrylonitrile and styrene",
+      "Nitrile_Rubber": "copolymerization with acrylonitrile",
+      "Chloroprene": "chlorination and dehydrochlorination",
+      "Adiponitrile": "hydrocyanation",
+      "Thermoplastic_Elastomers": "anion block copolymerization with styrene",
+      "EPDM_Rubber": "diene comonomer production and terpolymerization",
+      "Cyclododecatriene": "trimerization"
+    },
+    "category": "basic_petrochemical",
+    "description": "C4 diolefin recovered from steam cracking and used mainly in synthetic rubbers and ABS.",
+    "typical_uses": "SBR, polybutadiene rubber, nitrile rubber, ABS",
+    "industry_segment": "C4 petrochemicals"
+  },
+  "Isoprene": {
+    "define": "",
+    "parents": {
+      "C5_Fraction": "extractive distillation"
+    },
+    "children": {
+      "Polyisoprene_Rubber": "coordination polymerization",
+      "Butyl_Rubber": "low-temperature copolymerization with isobutylene"
+    }
+  },
+  "Butene_1": {
+    "define": "",
+    "parents": {
+      "C4_Raffinate": "C4 fractionation",
+      "Normal_Butane": "dehydrogenation and isomerization"
+    },
+    "children": {
+      "LLDPE": "copolymerization with ethylene",
+      "HDPE": "copolymerization with ethylene",
+      "Alpha_Olefins": "oligomerization and fractionation",
+      "MEK": "hydration and dehydrogenation",
+      "Oxo_Alcohols": "hydroformylation and hydrogenation",
+      "Polybutene": "cationic polymerization"
+    }
+  },
+  "Butene_2": {
+    "define": "",
+    "parents": {
+      "C4_Raffinate": "C4 fractionation",
+      "Normal_Butane": "dehydrogenation"
+    },
+    "children": {
+      "Methyl_Ethyl_Ketone": "hydration and dehydrogenation",
+      "Propylene": "olefin metathesis with ethylene",
+      "Oxo_Alcohols": "hydroformylation and hydrogenation",
+      "Polybutene": "cationic polymerization"
+    }
+  },
+  "Isobutylene": {
+    "define": "",
+    "parents": {
+      "FCC_LPG": "C4 olefin recovery",
+      "Isobutane": "isobutane dehydrogenation",
+      "C4_Raffinate": "selective etherification and back-cracking"
+    },
+    "children": {
+      "MTBE": "etherification with methanol",
+      "Methyl_Tert_Butyl_Ether": "etherification with methanol",
+      "ETBE": "etherification with ethanol",
+      "Polyisobutylene": "cationic polymerization",
+      "Butyl_Rubber": "cationic copolymerization",
+      "Polybutene": "cationic polymerization"
+    }
+  },
+  "Alpha_Olefins": {
+    "define": "",
+    "parents": {
+      "Butene_1": "oligomerization and fractionation",
+      "Ethylene": "oligomerization"
+    },
+    "children": {
+      "Sulfonated_Alpha_Olefins": "sulfonation",
+      "Oxo_Alcohols": "hydroformylation and hydrogenation"
+    }
+  },
+  "C4_Raffinate": {
+    "define": "",
+    "parents": {
+      "Mixed_C4_Stream": "butadiene extraction raffinate separation"
+    },
+    "children": {
+      "Isobutylene": "selective etherification and back-cracking",
+      "Butene_1": "C4 fractionation",
+      "Butene_2": "C4 fractionation"
+    }
+  },
+  "C5_Fraction": {
+    "define": "",
+    "parents": {
+      "Naphtha": "steam cracking C5 recovery"
+    },
+    "children": {
+      "Isoprene": "extractive distillation",
+      "Cyclopentadiene": "dimer cracking and separation",
+      "C5_Resin": "cationic polymerization"
+    }
+  },
+  "C9_Aromatics": {
+    "define": "",
+    "parents": {
+      "Naphtha": "steam cracking heavy aromatics recovery",
+      "Heavy_Aromatics": "aromatics fractionation"
+    },
+    "children": {
+      "C9_Resin": "cationic polymerization",
+      "Heavy_Aromatics": "heavy aromatics blending"
+    }
+  },
+  "Dicyclopentadiene": {
+    "define": "",
+    "parents": {
+      "Cyclopentadiene": "thermal dimerization"
+    },
+    "children": {
+      "Petroleum_Resin": "cationic polymerization"
+    }
+  },
+  "Cyclopentadiene": {
+    "define": "",
+    "parents": {
+      "C5_Fraction": "dimer cracking and separation"
+    },
+    "children": {
+      "Dicyclopentadiene": "thermal dimerization"
+    }
+  },
+  "Vinyl_Acetate": {
+    "define": "",
+    "parents": {
+      "Ethylene": "acetoxylation with acetic acid",
+      "Acetic_Acid": "ethylene acetoxylation",
+      "Acetylene": "acetoxylation"
+    },
+    "children": {
+      "Vinyl_Acetate_Monomer": "monomer purification",
+      "EVA": "copolymerization with ethylene",
+      "Polyvinyl_Acetate": "polymerization",
+      "Ethylene_Vinyl_Alcohol": "copolymerization and hydrolysis"
+    }
+  },
+  "Acetic_Acid": {
+    "define": "",
+    "parents": {
+      "Acetaldehyde": "oxidation",
+      "Methanol": "carbonylation",
+      "Carbon_Monoxide": "methanol carbonylation",
+      "Ethylene": "oxidative carbonylation route",
+      "Methyl_Acetate": "hydrolysis",
+      "Oxygen": "acetaldehyde oxidation"
+    },
+    "children": {
+      "Vinyl_Acetate_Monomer": "ethylene acetoxylation",
+      "Acetic_Anhydride": "ketene process or carbonylation",
+      "Methyl_Acetate": "esterification with methanol",
+      "Ethyl_Acetate": "esterification with ethanol",
+      "Butyl_Acetate": "esterification with butanol",
+      "Isopropyl_Acetate": "esterification with isopropanol",
+      "Acetic_Ester_Solvents": "esterification",
+      "Vinyl_Acetate": "ethylene acetoxylation",
+      "Acetate_Solvents": "esterification",
+      "Cellulose_Acetate": "acetylation with acetic anhydride",
+      "Propylene_Glycol_Monomethyl_Ether_Acetate": "esterification with propylene glycol monomethyl ether",
+      "Purified_Terephthalic_Acid": "oxidation solvent recovery loop"
+    }
+  },
+  "Acetaldehyde": {
+    "define": "",
+    "parents": {
+      "Ethylene": "Wacker oxidation"
+    },
+    "children": {
+      "Acetic_Acid": "oxidation",
+      "Ethyl_Acetate": "Tishchenko reaction"
+    }
+  },
+  "Ethanol": {
+    "define": "",
+    "parents": {
+      "Ethylene": "direct hydration"
+    },
+    "children": {
+      "Ethyl_Acetate": "esterification with acetic acid",
+      "Alcohol_Solvents": "solvent blending"
+    }
+  },
+  "Ethylene_Oxide": {
+    "define": "",
+    "parents": {
+      "Ethylene": "direct oxidation",
+      "Oxygen": "ethylene oxidation",
+      "Polymer_Grade_Ethylene": "oxidation"
+    },
+    "children": {
+      "Ethylene_Glycol": "catalytic hydration",
+      "Diethylene_Glycol": "hydration by-product recovery",
+      "Triethylene_Glycol": "hydration by-product recovery",
+      "Polyethylene_Glycol": "ring-opening polymerization",
+      "Ethoxylates": "ethoxylation",
+      "Ethanolamines": "reaction with ammonia",
+      "Ethylene_Glycol_Monomethyl_Ether": "reaction with methanol",
+      "Ethylene_Glycol_Monobutyl_Ether": "reaction with butanol",
+      "Ethylene_Carbonate": "carbon dioxide cycloaddition",
+      "Monoethanolamine": "ammonolysis",
+      "Diethanolamine": "ammonolysis",
+      "Triethanolamine": "ammonolysis",
+      "Fatty_Alcohol_Ethoxylates": "ethoxylation of detergent alcohols",
+      "Ethoxylated_Alcohol_Sulfates": "ethoxylation followed by sulfation"
+    },
+    "category": "intermediate",
+    "description": "Reactive epoxide from ethylene oxidation, used mainly for glycols and ethoxylates.",
+    "typical_uses": "ethylene glycol, surfactants, ethanolamines, glycol ethers",
+    "industry_segment": "ethylene derivatives"
+  },
+  "Ethylene_Glycol": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "catalytic hydration",
+      "Water": "ethylene oxide hydration"
+    },
+    "children": {
+      "PET": "polycondensation with PTA or DMT",
+      "Glycol_Ethers": "etherification",
+      "Polyester_Resin": "polycondensation with terephthalic acid",
+      "Polyester_Fiber": "polycondensation with PTA followed by spinning",
+      "Ethylene_Glycol_Monomethyl_Ether": "etherification with methanol",
+      "Ethylene_Glycol_Monobutyl_Ether": "etherification with butanol",
+      "Polyester_Polyols": "esterification with diacids",
+      "Antifreeze": "formulation",
+      "Polyethylene_Terephthalate": "polycondensation with PTA"
+    }
+  },
+  "Diethylene_Glycol": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "hydration by-product recovery"
+    },
+    "children": {
+      "Unsaturated_Polyester_Resin": "polycondensation with maleic anhydride",
+      "Polyester_Polyols": "esterification with diacids",
+      "Gas_Dehydration_Solvent": "solvent formulation",
+      "Polyester_Resin": "polycondensation modifier"
+    }
+  },
+  "Triethylene_Glycol": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "hydration by-product recovery"
+    },
+    "children": {
+      "Gas_Dehydration_Solvent": "solvent formulation",
+      "Polyester_Resin": "polycondensation modifier"
+    }
+  },
+  "Ethoxylates": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "ethoxylation"
+    },
+    "children": {
+      "Alkylphenol_Ethoxylates": "ethoxylation of alkylphenols",
+      "Fatty_Alcohol_Ethoxylates": "product finishing"
+    }
+  },
+  "Ethylene_Dichloride": {
+    "define": "",
+    "parents": {
+      "Ethylene": "direct chlorination or oxychlorination",
+      "Chlorine": "direct chlorination of ethylene",
+      "Hydrochloric_Acid": "oxychlorination recycle",
+      "Hydrogen": "hydrogen chloride synthesis for oxychlorination",
+      "Polymer_Grade_Ethylene": "chlorination"
+    },
+    "children": {
+      "Vinyl_Chloride": "thermal cracking",
+      "Hydrochloric_Acid": "VCM cracking by-product recovery"
+    }
+  },
+  "Vinyl_Chloride": {
+    "define": "",
+    "parents": {
+      "Ethylene_Dichloride": "thermal cracking",
+      "Dichloroethane": "thermal cracking",
+      "Acetylene": "hydrochlorination"
+    },
+    "children": {
+      "Polyvinyl_Chloride": "suspension polymerization",
+      "PVC_Paste_Resin": "emulsion polymerization",
+      "Vinylidene_Chloride": "chlorination and dehydrochlorination",
+      "Hydrochloric_Acid": "thermal cracking by-product recovery"
+    }
+  },
+  "Chloroethylene": {
+    "define": "",
+    "parents": {
+      "Dichloroethane": "thermal cracking"
+    },
+    "children": {
+      "Polyvinyl_Chloride": "polymerization"
+    }
+  },
+  "Polyvinyl_Chloride": {
+    "define": "",
+    "parents": {
+      "Vinyl_Chloride": "suspension polymerization",
+      "Chloroethylene": "polymerization"
+    },
+    "children": {
+      "Chlorinated_PVC": "post-chlorination",
+      "PVC_Pipe": "extrusion",
+      "PVC_Profile": "profile extrusion",
+      "PVC_Film": "calendering",
+      "Final_PVC_Product": "compounding and conversion"
+    },
+    "category": "polymer",
+    "description": "Chlorinated vinyl polymer made from vinyl chloride monomer.",
+    "typical_uses": "pipes, profiles, flooring, cable insulation, films",
+    "industry_segment": "vinyls"
+  },
+  "Polyethylene": {
+    "define": "",
+    "parents": {
+      "Ethylene": "polymerization",
+      "Olefin_Polymerization_Catalyst": "coordination polymerization catalyst use",
+      "Polymer_Grade_Ethylene": "polymerization"
+    },
+    "children": {
+      "Polyethylene_Wax": "thermal degradation or low-molecular-weight polymerization",
+      "Chlorinated_Polyethylene": "chlorination",
+      "HDPE": "grade classification",
+      "LDPE": "grade classification",
+      "LLDPE": "grade classification",
+      "Polyethylene_Film": "film extrusion"
+    },
+    "category": "polymer",
+    "description": "Major polyolefin polymer produced from ethylene in LDPE, LLDPE, and HDPE grades.",
+    "typical_uses": "film, packaging, pipes, containers, wire and cable",
+    "industry_segment": "polymers"
+  },
+  "LDPE": {
+    "define": "",
+    "parents": {
+      "Ethylene": "high-pressure radical polymerization",
+      "Polyethylene": "grade classification"
+    },
+    "children": {
+      "Polyethylene_Film": "film blowing"
+    }
+  },
+  "LLDPE": {
+    "define": "",
+    "parents": {
+      "Butene_1": "copolymerization with ethylene",
+      "Ethylene": "solution or gas-phase copolymerization",
+      "Polyethylene": "grade classification"
+    },
+    "children": {
+      "Polyethylene_Film": "film blowing",
+      "Stretch_Film": "film extrusion"
+    }
+  },
+  "HDPE": {
+    "define": "",
+    "parents": {
+      "Butene_1": "copolymerization with ethylene",
+      "Ethylene": "Ziegler-Natta or chromium-catalyzed polymerization",
+      "Polyethylene": "grade classification"
+    },
+    "children": {
+      "Polyethylene_Pipe": "pipe extrusion"
+    }
+  },
+  "EVA": {
+    "define": "",
+    "parents": {
+      "Ethylene": "copolymerization with vinyl acetate",
+      "Vinyl_Acetate": "copolymerization with ethylene"
+    },
+    "children": {}
+  },
+  "Polypropylene": {
+    "define": "",
+    "parents": {
+      "Propylene": "coordination polymerization",
+      "Olefin_Polymerization_Catalyst": "coordination polymerization catalyst use",
+      "Polymer_Grade_Propylene": "polymerization"
+    },
+    "children": {
+      "BOPP_Film": "biaxial orientation",
+      "Propylene_Random_Copolymer": "grade classification",
+      "Propylene_Impact_Copolymer": "grade classification",
+      "Polypropylene_Fiber": "melt spinning",
+      "Final_Polypropylene_Product": "compounding and conversion"
+    },
+    "category": "polymer",
+    "description": "Major polyolefin polymer produced from propylene in homopolymer, random copolymer, and impact copolymer grades.",
+    "typical_uses": "packaging, fibers, automotive parts, appliances, medical products",
+    "industry_segment": "polymers"
+  },
+  "Propylene_Oxide": {
+    "define": "",
+    "parents": {
+      "Propylene": "HPPO oxidation",
+      "Hydrogen_Peroxide": "HPPO oxidation",
+      "Oxygen": "HPPO or oxidation route",
+      "Polymer_Grade_Propylene": "oxidation"
+    },
+    "children": {
+      "Propylene_Glycol": "hydrolysis",
+      "Polyether_Polyols": "ring-opening polymerization",
+      "Propylene_Glycol_Monomethyl_Ether": "reaction with methanol",
+      "Propylene_Carbonate": "carbon dioxide cycloaddition",
+      "Polypropylene_Glycol": "ring-opening polymerization"
+    },
+    "category": "intermediate",
+    "description": "Epoxide from propylene used for polyether polyols, propylene glycol, and glycol ethers.",
+    "typical_uses": "polyurethane polyols, propylene glycol, solvents",
+    "industry_segment": "propylene derivatives"
+  },
+  "Propylene_Glycol": {
+    "define": "",
+    "parents": {
+      "Propylene_Oxide": "hydrolysis",
+      "Water": "propylene oxide hydration"
+    },
+    "children": {
+      "Glycol_Ethers": "etherification",
+      "Unsaturated_Polyester_Resin": "polycondensation",
+      "Propylene_Glycol_Monomethyl_Ether": "etherification with methanol",
+      "Polyester_Polyols": "esterification with diacids",
+      "Antifreeze": "formulation"
+    }
+  },
+  "Polyether_Polyols": {
+    "define": "",
+    "parents": {
+      "Propylene_Oxide": "ring-opening polymerization"
+    },
+    "children": {
+      "Polyurethane": "reaction with isocyanates",
+      "Polyurethane_Foam": "reaction with TDI or MDI"
+    }
+  },
+  "Acrylonitrile": {
+    "define": "",
+    "parents": {
+      "Propylene": "ammoxidation",
+      "Ammonia": "propylene ammoxidation nitrogen source",
+      "Oxygen": "propylene ammoxidation oxidant",
+      "Polymer_Grade_Propylene": "ammoxidation"
+    },
+    "children": {
+      "ABS": "graft copolymerization with butadiene and styrene",
+      "Acrylonitrile_Butadiene_Styrene": "graft copolymerization",
+      "SAN": "copolymerization with styrene",
+      "Acrylic_Fiber": "polymerization and wet spinning",
+      "Polyacrylonitrile": "solution polymerization",
+      "Nitrile_Rubber": "copolymerization with butadiene",
+      "Adiponitrile": "electrohydrodimerization",
+      "Acrylamide": "hydration",
+      "Acetonitrile": "ammoxidation by-product recovery",
+      "Hydrogen_Cyanide": "ammoxidation by-product recovery"
+    },
+    "category": "intermediate",
+    "description": "Nitrile monomer produced by propylene ammoxidation and used in acrylic fiber, ABS, nitrile rubber, and adiponitrile.",
+    "typical_uses": "ABS, acrylic fiber, nitrile rubber, carbon fiber precursor",
+    "industry_segment": "nitriles"
+  },
+  "Acrylic_Acid": {
+    "define": "",
+    "parents": {
+      "Propylene": "two-step oxidation",
+      "Acrolein": "oxidation",
+      "Oxygen": "propylene oxidation",
+      "Polymer_Grade_Propylene": "oxidation",
+      "Ethylene": "ethylene carbonylation route"
+    },
+    "children": {
+      "Sodium_Acrylate": "neutralization",
+      "Methyl_Acrylate": "esterification with methanol",
+      "Ethyl_Acrylate": "esterification with ethanol",
+      "Butyl_Acrylate": "esterification with butanol",
+      "2_Ethylhexyl_Acrylate": "esterification with 2-ethylhexanol",
+      "Acrylic_Emulsion": "emulsion polymerization",
+      "Acrylic_Resin": "polymerization and formulation",
+      "Acrylates": "esterification",
+      "Superabsorbent_Polymer": "neutralization and crosslinked polymerization",
+      "Ethylene_Acrylic_Acid_Copolymer": "copolymerization"
+    }
+  },
+  "Acrylates": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "esterification"
+    },
+    "children": {
+      "Acrylic_Resin": "polymerization"
+    }
+  },
+  "Butanol": {
+    "define": "",
+    "parents": {
+      "Propylene": "oxo synthesis via hydroformylation and hydrogenation",
+      "Butyraldehyde": "hydrogenation"
+    },
+    "children": {
+      "Alcohol_Solvents": "solvent blending",
+      "Butyl_Acetate": "esterification with acetic acid"
+    }
+  },
+  "Isopropanol": {
+    "define": "",
+    "parents": {
+      "Propylene": "direct hydration",
+      "Chemical_Grade_Propylene": "hydration"
+    },
+    "children": {
+      "Acetone": "dehydrogenation",
+      "Alcohol_Solvents": "solvent blending",
+      "Isopropyl_Acetate": "esterification with acetic acid"
+    }
+  },
+  "Acrolein": {
+    "define": "",
+    "parents": {
+      "Propylene": "oxidation"
+    },
+    "children": {
+      "Acrylic_Acid": "oxidation"
+    }
+  },
+  "Epichlorohydrin": {
+    "define": "",
+    "parents": {
+      "Allyl_Chloride": "hypochlorination and dehydrochlorination",
+      "Sodium_Hypochlorite": "allyl chloride hypochlorination route",
+      "Caustic_Soda": "dehydrochlorination"
+    },
+    "children": {
+      "Glycerol": "hydrolysis",
+      "Epoxy_Chloropropane": "purification",
+      "Epoxy_Resin": "reaction with bisphenol A"
+    }
+  },
+  "Allyl_Chloride": {
+    "define": "",
+    "parents": {
+      "Propylene": "chlorination"
+    },
+    "children": {
+      "Epichlorohydrin": "hypochlorination and dehydrochlorination"
+    }
+  },
+  "Glycerol": {
+    "define": "",
+    "parents": {
+      "Epichlorohydrin": "hydrolysis"
+    },
+    "children": {}
+  },
+  "Cumene_Hydroperoxide": {
+    "define": "",
+    "parents": {
+      "Cumene": "air oxidation",
+      "Benzene": "cumene route via alkylation and oxidation"
+    },
+    "children": {
+      "Phenol": "acid cleavage",
+      "Acetone": "acid cleavage",
+      "Cumene_Phenol_Coproduct_Acetone": "acid cleavage"
+    }
+  },
+  "Polycarbonate": {
+    "define": "",
+    "parents": {
+      "Bisphenol_A": "phosgene or melt transesterification",
+      "Dimethyl_Carbonate": "melt transesterification with bisphenol A",
+      "Phenol": "bisphenol A route"
+    },
+    "children": {}
+  },
+  "Epoxy_Resin": {
+    "define": "",
+    "parents": {
+      "Bisphenol_A": "reaction with epichlorohydrin",
+      "Phenol": "bisphenol A and epichlorohydrin route",
+      "Bisphenol_A_Epoxy_Resin": "resin finishing",
+      "Epichlorohydrin": "reaction with bisphenol A"
+    },
+    "children": {
+      "Vinyl_Ester_Resin": "reaction with acrylic or methacrylic acid"
+    }
+  },
+  "Polystyrene": {
+    "define": "",
+    "parents": {
+      "Styrene": "bulk or suspension polymerization"
+    },
+    "children": {
+      "Expandable_Polystyrene": "impregnation with pentane"
+    }
+  },
+  "Expandable_Polystyrene": {
+    "define": "",
+    "parents": {
+      "Styrene": "suspension polymerization with blowing agent",
+      "Polystyrene": "impregnation with pentane"
+    },
+    "children": {}
+  },
+  "ABS": {
+    "define": "",
+    "parents": {
+      "Styrene": "graft copolymerization with acrylonitrile and butadiene",
+      "Acrylonitrile": "graft copolymerization with butadiene and styrene",
+      "Butadiene": "graft copolymerization with acrylonitrile and styrene",
+      "Acrylonitrile_Butadiene_Styrene": "standardized resin naming"
+    },
+    "children": {
+      "Acrylonitrile_Butadiene_Styrene": "resin finishing"
+    }
+  },
+  "SAN": {
+    "define": "",
+    "parents": {
+      "Styrene": "copolymerization with acrylonitrile",
+      "Acrylonitrile": "copolymerization with styrene"
+    },
+    "children": {}
+  },
+  "Styrene_Butadiene_Rubber": {
+    "define": "",
+    "parents": {
+      "Styrene": "emulsion or solution copolymerization",
+      "Butadiene": "emulsion or solution copolymerization",
+      "Carbon_Black": "rubber compounding",
+      "Rubber_Process_Oil": "rubber oil extension",
+      "Sulfur": "vulcanization"
+    },
+    "children": {
+      "Tire_Rubber_Compound": "compounding with carbon black and oil"
+    },
+    "category": "synthetic_rubber",
+    "description": "Synthetic rubber produced by copolymerizing styrene and butadiene.",
+    "typical_uses": "tires, footwear, belts, hoses",
+    "industry_segment": "synthetic rubbers"
+  },
+  "Styrene_Butadiene_Latex": {
+    "define": "",
+    "parents": {
+      "Styrene": "emulsion copolymerization with butadiene",
+      "Butadiene": "emulsion copolymerization with styrene"
+    },
+    "children": {}
+  },
+  "Nitrile_Rubber": {
+    "define": "",
+    "parents": {
+      "Acrylonitrile": "copolymerization with butadiene",
+      "Butadiene": "copolymerization with acrylonitrile",
+      "Carbon_Black": "rubber compounding",
+      "Sulfur": "vulcanization"
+    },
+    "children": {
+      "Oil_Resistant_Rubber_Compound": "compounding"
+    }
+  },
+  "Polybutadiene_Rubber": {
+    "define": "",
+    "parents": {
+      "Butadiene": "solution polymerization",
+      "Carbon_Black": "rubber compounding",
+      "Rubber_Process_Oil": "rubber oil extension",
+      "Sulfur": "vulcanization"
+    },
+    "children": {
+      "Tire_Rubber_Compound": "compounding with carbon black and oil"
+    }
+  },
+  "Polyisoprene_Rubber": {
+    "define": "",
+    "parents": {
+      "Isoprene": "coordination polymerization"
+    },
+    "children": {}
+  },
+  "Butyl_Rubber": {
+    "define": "",
+    "parents": {
+      "Isobutylene": "cationic copolymerization",
+      "Isoprene": "low-temperature copolymerization with isobutylene"
+    },
+    "children": {
+      "Tire_Innerliner_Compound": "compounding"
+    }
+  },
+  "Chloroprene": {
+    "define": "",
+    "parents": {
+      "Butadiene": "chlorination and dehydrochlorination",
+      "Vinyl_Acetylene": "hydrochlorination"
+    },
+    "children": {
+      "Polychloroprene": "emulsion polymerization"
+    }
+  },
+  "Polychloroprene": {
+    "define": "",
+    "parents": {
+      "Chloroprene": "emulsion polymerization"
+    },
+    "children": {}
+  },
+  "EPDM_Rubber": {
+    "define": "",
+    "parents": {
+      "Ethylene": "terpolymerization with propylene and diene",
+      "Butadiene": "diene comonomer production and terpolymerization",
+      "EP_Rubber": "diene modification and finishing",
+      "Propylene": "terpolymerization with ethylene and diene"
+    },
+    "children": {
+      "Weather_Resistant_Rubber_Compound": "compounding"
+    }
+  },
+  "Thermoplastic_Elastomers": {
+    "define": "",
+    "parents": {
+      "Styrene": "block copolymerization with dienes",
+      "Butadiene": "anion block copolymerization with styrene"
+    },
+    "children": {}
+  },
+  "Methyl_Tert_Butyl_Ether": {
+    "define": "",
+    "parents": {
+      "Isobutylene": "etherification with methanol",
+      "Methanol": "etherification with isobutylene"
+    },
+    "children": {}
+  },
+  "Methanol": {
+    "define": "",
+    "parents": {
+      "Syngas": "catalytic synthesis",
+      "Natural_Gas": "reforming to syngas followed by methanol synthesis",
+      "Carbon_Dioxide": "CO2 hydrogenation",
+      "Hydrogen": "CO2 hydrogenation or syngas synthesis"
+    },
+    "children": {
+      "MTBE": "etherification with isobutylene",
+      "Methyl_Tert_Butyl_Ether": "etherification with isobutylene",
+      "Formaldehyde": "methanol oxidation",
+      "Acetic_Acid": "carbonylation",
+      "Dimethyl_Ether": "dehydration",
+      "Olefins_From_Methanol": "MTO catalytic conversion",
+      "Methylamine": "amination with ammonia",
+      "Methyl_Methacrylate": "ACH, C4 oxidation, or ethylene route",
+      "Methyl_Tert_Amyl_Ether": "etherification with isoamylenes",
+      "DMSO": "methyl mercaptan route oxidation",
+      "Synthetic_Gasoline": "methanol-to-gasoline conversion",
+      "MMA": "esterification in MMA production",
+      "Hydrogen": "methanol steam reforming",
+      "Methyl_Acetate": "esterification",
+      "Dimethyl_Carbonate": "oxidative carbonylation"
+    },
+    "category": "basic_petrochemical",
+    "description": "C1 alcohol made from syngas and used for formaldehyde, acetic acid, MTBE, DME, methylamines, and olefins.",
+    "typical_uses": "formaldehyde, acetic acid, MTBE, MTO, solvents, fuels",
+    "industry_segment": "C1 chemistry"
+  },
+  "Syngas": {
+    "define": "",
+    "parents": {
+      "Methane": "steam methane reforming",
+      "Natural_Gas": "steam reforming",
+      "Oxygen": "partial oxidation",
+      "Water": "steam reforming feed",
+      "Steam": "steam reforming feed"
+    },
+    "children": {
+      "Methanol": "catalytic synthesis",
+      "Ammonia": "hydrogen production followed by Haber-Bosch synthesis",
+      "Fischer_Tropsch_Syngas": "syngas conditioning",
+      "Carbon_Monoxide": "gas separation",
+      "Hydrogen": "water-gas shift and PSA",
+      "Carbon_Dioxide": "water-gas shift by-product"
+    },
+    "category": "intermediate",
+    "description": "Mixture of hydrogen and carbon monoxide used for methanol, ammonia hydrogen, oxo chemicals, and Fischer-Tropsch liquids.",
+    "typical_uses": "methanol, ammonia, oxo alcohols, synthetic fuels",
+    "industry_segment": "C1 chemistry"
+  },
+  "Carbon_Monoxide": {
+    "define": "",
+    "parents": {
+      "Methane": "partial oxidation",
+      "Syngas": "gas separation"
+    },
+    "children": {
+      "Acetic_Acid": "methanol carbonylation",
+      "Phosgene": "reaction with chlorine",
+      "Dimethylformamide": "carbonylation chemistry",
+      "Methyl_Acetate": "carbonylation route integration",
+      "Fischer_Tropsch_Syngas": "syngas adjustment"
+    }
+  },
+  "Carbon_Dioxide": {
+    "define": "",
+    "parents": {
+      "Methane": "steam reforming shift by-product",
+      "Syngas": "water-gas shift by-product"
+    },
+    "children": {
+      "Urea": "reaction with ammonia",
+      "Ethylene_Carbonate": "cycloaddition with ethylene oxide",
+      "Propylene_Carbonate": "cycloaddition with propylene oxide",
+      "Methanol": "CO2 hydrogenation"
+    }
+  },
+  "Ammonia": {
+    "define": "",
+    "parents": {
+      "Syngas": "hydrogen production followed by Haber-Bosch synthesis",
+      "Hydrogen": "Haber-Bosch synthesis with nitrogen",
+      "Nitrogen": "Haber-Bosch synthesis with hydrogen",
+      "Natural_Gas": "reforming to hydrogen followed by Haber-Bosch synthesis"
+    },
+    "children": {
+      "Urea": "reaction with carbon dioxide",
+      "Nitric_Acid": "Ostwald oxidation",
+      "Ammonium_Nitrate": "neutralization with nitric acid",
+      "Ammonium_Sulfate": "sulfuric acid neutralization",
+      "Monoammonium_Phosphate": "neutralization with phosphoric acid",
+      "Diammonium_Phosphate": "neutralization with phosphoric acid",
+      "Methylamine": "amination with methanol",
+      "Monoethanolamine": "reaction with ethylene oxide",
+      "Diethanolamine": "reaction with ethylene oxide",
+      "Triethanolamine": "reaction with ethylene oxide",
+      "Acrylonitrile": "propylene ammoxidation nitrogen source",
+      "Fertilizer_Ammonia": "product refrigeration and storage",
+      "Sodium_Carbonate": "Solvay process ammonia recovery cycle"
+    },
+    "category": "basic_chemical",
+    "description": "Nitrogen chemical made from hydrogen and nitrogen, mainly used for fertilizers and nitrates.",
+    "typical_uses": "urea, ammonium nitrate, nitric acid, MAP, DAP",
+    "industry_segment": "fertilizers"
+  },
+  "Urea": {
+    "define": "",
+    "parents": {
+      "Ammonia": "reaction with carbon dioxide",
+      "Carbon_Dioxide": "reaction with ammonia",
+      "Natural_Gas": "ammonia synthesis followed by urea synthesis",
+      "Fertilizer_Ammonia": "urea synthesis"
+    },
+    "children": {
+      "Melamine": "thermal decomposition and cyclization",
+      "Urea_Formaldehyde_Resin": "condensation with formaldehyde",
+      "NPK_Fertilizer": "fertilizer blending and granulation"
+    },
+    "category": "fertilizer",
+    "description": "Nitrogen fertilizer produced from ammonia and carbon dioxide.",
+    "typical_uses": "fertilizer, urea-formaldehyde resin, melamine",
+    "industry_segment": "fertilizers"
+  },
+  "Nitric_Acid": {
+    "define": "",
+    "parents": {
+      "Ammonia": "Ostwald oxidation"
+    },
+    "children": {
+      "Ammonium_Nitrate": "neutralization with ammonia",
+      "Nitrobenzene": "benzene nitration",
+      "Nitric_Acid_Mixture": "mixed acid preparation"
+    }
+  },
+  "Ammonium_Nitrate": {
+    "define": "",
+    "parents": {
+      "Nitric_Acid": "neutralization with ammonia",
+      "Ammonia": "neutralization with nitric acid",
+      "Fertilizer_Ammonia": "neutralization with nitric acid"
+    },
+    "children": {
+      "NPK_Fertilizer": "fertilizer blending"
+    }
+  },
+  "Ammonium_Sulfate": {
+    "define": "",
+    "parents": {
+      "Ammonia": "sulfuric acid neutralization",
+      "Sulfuric_Acid": "ammonia neutralization"
+    },
+    "children": {
+      "NPK_Fertilizer": "fertilizer blending"
+    }
+  },
+  "Monoammonium_Phosphate": {
+    "define": "",
+    "parents": {
+      "Ammonia": "neutralization with phosphoric acid",
+      "Phosphoric_Acid": "partial ammoniation",
+      "Fertilizer_Ammonia": "phosphoric acid neutralization"
+    },
+    "children": {
+      "Ammonium_Phosphate": "granulation",
+      "NPK_Fertilizer": "granulation blend"
+    }
+  },
+  "Diammonium_Phosphate": {
+    "define": "",
+    "parents": {
+      "Ammonia": "neutralization with phosphoric acid",
+      "Phosphoric_Acid": "complete ammoniation",
+      "Fertilizer_Ammonia": "phosphoric acid neutralization"
+    },
+    "children": {
+      "Ammonium_Phosphate": "granulation",
+      "NPK_Fertilizer": "granulation blend"
+    }
+  },
+  "Formaldehyde": {
+    "define": "",
+    "parents": {
+      "Methanol": "methanol oxidation"
+    },
+    "children": {
+      "Urea_Formaldehyde_Resin": "urea condensation resin synthesis",
+      "Melamine_Formaldehyde_Resin": "condensation with melamine",
+      "Polyacetal": "polymerization",
+      "MDI": "condensation with aniline followed by phosgenation",
+      "Melamine": "reaction with urea-derived intermediates",
+      "Methylene_Diphenyl_Diisocyanate": "condensation with aniline and phosgenation"
+    }
+  },
+  "Urea_Formaldehyde_Resin": {
+    "define": "",
+    "parents": {
+      "Formaldehyde": "urea condensation resin synthesis",
+      "Urea": "condensation with formaldehyde"
+    },
+    "children": {
+      "Fertilizer_Coating_Resin": "resin finishing for controlled-release fertilizer"
+    }
+  },
+  "Melamine": {
+    "define": "",
+    "parents": {
+      "Formaldehyde": "reaction with urea-derived intermediates",
+      "Urea": "thermal decomposition and cyclization"
+    },
+    "children": {
+      "Melamine_Formaldehyde_Resin": "resin condensation",
+      "Laminating_Resin": "condensation with formaldehyde"
+    }
+  },
+  "Melamine_Formaldehyde_Resin": {
+    "define": "",
+    "parents": {
+      "Formaldehyde": "condensation with melamine",
+      "Melamine": "resin condensation"
+    },
+    "children": {
+      "Laminating_Resin": "resin formulation"
+    }
+  },
+  "Methylamine": {
+    "define": "",
+    "parents": {
+      "Methanol": "amination with ammonia",
+      "Ammonia": "amination with methanol"
+    },
+    "children": {
+      "Dimethylformamide": "carbonylation",
+      "Acetonitrile": "dehydration and ammoxidation route integration"
+    }
+  },
+  "Dimethylformamide": {
+    "define": "",
+    "parents": {
+      "Methylamine": "carbonylation",
+      "Carbon_Monoxide": "carbonylation chemistry"
+    },
+    "children": {}
+  },
+  "Methyl_Methacrylate": {
+    "define": "",
+    "parents": {
+      "Methanol": "ACH, C4 oxidation, or ethylene route",
+      "Hydrogen_Cyanide": "acetone cyanohydrin route"
+    },
+    "children": {
+      "MMA": "monomer purification"
+    }
+  },
+  "MMA": {
+    "define": "",
+    "parents": {
+      "Methyl_Methacrylate": "monomer purification",
+      "Hydrogen_Cyanide": "acetone cyanohydrin route",
+      "Acetone": "acetone cyanohydrin route",
+      "Methanol": "esterification in MMA production"
+    },
+    "children": {
+      "PMMA": "bulk polymerization",
+      "MMA_Resin": "polymerization and compounding",
+      "Methacrylic_Acid": "hydrolysis"
+    }
+  },
+  "PMMA": {
+    "define": "",
+    "parents": {
+      "MMA": "bulk polymerization",
+      "Methacrylic_Acid": "copolymerization modifier"
+    },
+    "children": {
+      "Acrylic_Resin": "resin compounding"
+    }
+  },
+  "Dimethyl_Ether": {
+    "define": "",
+    "parents": {
+      "Methanol": "dehydration"
+    },
+    "children": {
+      "Propylene": "oxygenate-to-olefins conversion",
+      "Ethylene": "oxygenate-to-olefins conversion"
+    }
+  },
+  "Olefins_From_Methanol": {
+    "define": "",
+    "parents": {
+      "Methanol": "MTO catalytic conversion"
+    },
+    "children": {
+      "Ethylene": "MTO product separation",
+      "Propylene": "MTO product separation",
+      "Polymer_Grade_Ethylene": "ethylene purification",
+      "Polymer_Grade_Propylene": "propylene purification"
+    }
+  },
+  "Acetic_Anhydride": {
+    "define": "",
+    "parents": {
+      "Acetic_Acid": "ketene process or carbonylation",
+      "Methyl_Acetate": "carbonylation"
+    },
+    "children": {
+      "Cellulose_Acetate": "acetylation"
+    }
+  },
+  "Methyl_Acetate": {
+    "define": "",
+    "parents": {
+      "Acetic_Acid": "esterification with methanol",
+      "Carbon_Monoxide": "carbonylation route integration",
+      "Methanol": "esterification"
+    },
+    "children": {
+      "Acetic_Anhydride": "carbonylation",
+      "Acetic_Acid": "hydrolysis"
+    }
+  },
+  "Vinyl_Acetate_Monomer": {
+    "define": "",
+    "parents": {
+      "Vinyl_Acetate": "monomer purification",
+      "Ethylene": "acetoxylation with acetic acid",
+      "Acetic_Acid": "ethylene acetoxylation"
+    },
+    "children": {
+      "Polyvinyl_Acetate": "emulsion polymerization",
+      "Vinyl_Ester_Monomers": "monomer classification"
+    }
+  },
+  "Polyvinyl_Acetate": {
+    "define": "",
+    "parents": {
+      "Vinyl_Acetate_Monomer": "emulsion polymerization",
+      "Vinyl_Acetate": "polymerization",
+      "Vinyl_Ester_Monomers": "polymerization"
+    },
+    "children": {
+      "Polyvinyl_Alcohol": "methanolysis"
+    }
+  },
+  "Polyvinyl_Alcohol": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Acetate": "methanolysis"
+    },
+    "children": {
+      "Ethylene_Vinyl_Alcohol": "copolymer hydrolysis",
+      "Polyvinyl_Butyral": "acetalization with butyral",
+      "EVOH": "copolymerization route with ethylene"
+    }
+  },
+  "Polyacetal": {
+    "define": "",
+    "parents": {
+      "Formaldehyde": "polymerization"
+    },
+    "children": {}
+  },
+  "Methyl_Tert_Amyl_Ether": {
+    "define": "",
+    "parents": {
+      "Methanol": "etherification with isoamylenes"
+    },
+    "children": {
+      "Gasoline": "oxygenate blending"
+    }
+  },
+  "Chlorine": {
+    "define": "",
+    "parents": {
+      "Hydrogen": "hydrogen chloride synthesis feed",
+      "Salt_Brine": "chlor-alkali electrolysis"
+    },
+    "children": {
+      "Phosgene": "reaction with carbon monoxide",
+      "Ethylene_Dichloride": "direct chlorination of ethylene",
+      "Hydrochloric_Acid": "hydrogen chloride synthesis",
+      "Sodium_Hypochlorite": "reaction with caustic soda",
+      "Ethyl_Chloride": "hydrochlorination of ethylene",
+      "Dichloroethane": "chlorination of ethylene"
+    }
+  },
+  "Caustic_Soda": {
+    "define": "",
+    "parents": {
+      "Salt_Brine": "chlor-alkali electrolysis"
+    },
+    "children": {
+      "Sodium_Hypochlorite": "reaction with chlorine",
+      "Epichlorohydrin": "dehydrochlorination",
+      "Sodium_Alkylbenzene_Sulfonate": "neutralization",
+      "Alpha_Olefin_Sulfonate": "neutralization",
+      "Sodium_Lauryl_Sulfate": "neutralization",
+      "Sodium_Laureth_Sulfate": "neutralization"
+    }
+  },
+  "Hydrochloric_Acid": {
+    "define": "",
+    "parents": {
+      "Chlorine": "hydrogen chloride synthesis",
+      "Hydrogen": "hydrogen chloride synthesis",
+      "Ethylene_Dichloride": "VCM cracking by-product recovery",
+      "Vinyl_Chloride": "thermal cracking by-product recovery"
+    },
+    "children": {
+      "Ethylene_Dichloride": "oxychlorination recycle"
+    }
+  },
+  "Sodium_Hypochlorite": {
+    "define": "",
+    "parents": {
+      "Chlorine": "reaction with caustic soda",
+      "Caustic_Soda": "reaction with chlorine"
+    },
+    "children": {
+      "Epichlorohydrin": "allyl chloride hypochlorination route"
+    }
+  },
+  "Soda_Ash": {
+    "define": "",
+    "parents": {
+      "Sodium_Carbonate": "calcination and purification"
+    },
+    "children": {}
+  },
+  "Ethyl_Chloride": {
+    "define": "",
+    "parents": {
+      "Chlorine": "hydrochlorination of ethylene",
+      "Ethylene": "hydrochlorination"
+    },
+    "children": {}
+  },
+  "Dichloroethane": {
+    "define": "",
+    "parents": {
+      "Chlorine": "chlorination of ethylene",
+      "Ethylene": "direct chlorination"
+    },
+    "children": {
+      "Vinyl_Chloride": "thermal cracking",
+      "Trichloroethylene": "chlorination and dehydrochlorination",
+      "Chloroethylene": "thermal cracking"
+    }
+  },
+  "Trichloroethylene": {
+    "define": "",
+    "parents": {
+      "Dichloroethane": "chlorination and dehydrochlorination"
+    },
+    "children": {
+      "Perchloroethylene": "chlorination",
+      "Chlorinated_Solvents": "solvent purification"
+    }
+  },
+  "Perchloroethylene": {
+    "define": "",
+    "parents": {
+      "Trichloroethylene": "chlorination"
+    },
+    "children": {
+      "Chlorinated_Solvents": "solvent purification"
+    }
+  },
+  "Chlorinated_Solvents": {
+    "define": "",
+    "parents": {
+      "Trichloroethylene": "solvent purification",
+      "Perchloroethylene": "solvent purification"
+    },
+    "children": {}
+  },
+  "PVC_Paste_Resin": {
+    "define": "",
+    "parents": {
+      "Vinyl_Chloride": "emulsion polymerization"
+    },
+    "children": {}
+  },
+  "Polyethylene_Terephthalate": {
+    "define": "",
+    "parents": {
+      "PET": "resin finishing",
+      "Purified_Terephthalic_Acid": "polycondensation with ethylene glycol",
+      "Ethylene_Glycol": "polycondensation with PTA"
+    },
+    "children": {
+      "PET": "standardized resin naming"
+    }
+  },
+  "PET": {
+    "define": "",
+    "parents": {
+      "Purified_Terephthalic_Acid": "polycondensation with ethylene glycol",
+      "Terephthalic_Acid": "polycondensation with ethylene glycol",
+      "Dimethyl_Terephthalate": "transesterification with ethylene glycol",
+      "Ethylene_Glycol": "polycondensation with PTA or DMT",
+      "Polyethylene_Terephthalate": "standardized resin naming"
+    },
+    "children": {
+      "Polyethylene_Terephthalate": "resin finishing",
+      "Polyester_Fiber": "melt spinning",
+      "Polyester_Film": "film extrusion and biaxial orientation",
+      "Polyester_Resin": "solid-state polycondensation",
+      "PET_Bottle_Resin": "solid-state polymerization",
+      "PET_Film": "film extrusion",
+      "Final_PET_Product": "polycondensation and conversion"
+    },
+    "category": "polymer",
+    "description": "Polyester polymer made from PTA or DMT and ethylene glycol.",
+    "typical_uses": "bottles, fibers, film, packaging",
+    "industry_segment": "polyester"
+  },
+  "Polyester_Fiber": {
+    "define": "",
+    "parents": {
+      "PET": "melt spinning",
+      "Purified_Terephthalic_Acid": "polycondensation with ethylene glycol and spinning",
+      "Ethylene_Glycol": "polycondensation with PTA followed by spinning",
+      "Para_Xylene": "PX oxidation to PTA followed by polyester polycondensation"
+    },
+    "children": {}
+  },
+  "Polyester_Film": {
+    "define": "",
+    "parents": {
+      "PET": "film extrusion and biaxial orientation"
+    },
+    "children": {}
+  },
+  "Polyester_Resin": {
+    "define": "",
+    "parents": {
+      "PET": "solid-state polycondensation",
+      "Purified_Terephthalic_Acid": "polycondensation with ethylene glycol",
+      "Ethylene_Glycol": "polycondensation with terephthalic acid",
+      "Isophthalic_Acid": "polycondensation with glycols",
+      "Diethylene_Glycol": "polycondensation modifier",
+      "Triethylene_Glycol": "polycondensation modifier"
+    },
+    "children": {}
+  },
+  "Nylon_6": {
+    "define": "",
+    "parents": {
+      "Caprolactam": "ring-opening polymerization",
+      "Cyclohexane": "oxidation to cyclohexanone followed by caprolactam route"
+    },
+    "children": {}
+  },
+  "Nylon_66": {
+    "define": "",
+    "parents": {
+      "Adipic_Acid": "polycondensation with hexamethylenediamine",
+      "Hexamethylenediamine": "polycondensation with adipic acid",
+      "Adiponitrile": "hydrogenation to hexamethylenediamine followed by polycondensation",
+      "Cyclohexane": "oxidation to adipic acid followed by polycondensation"
+    },
+    "children": {
+      "Nylon_Fiber": "melt spinning",
+      "Nylon_Resin": "pelletizing and compounding"
+    }
+  },
+  "Nylon_Fiber": {
+    "define": "",
+    "parents": {
+      "Polyamide_6": "melt spinning",
+      "Nylon_66": "melt spinning",
+      "Caprolactam": "polymerization and spinning",
+      "Adipic_Acid": "nylon 66 polycondensation and spinning",
+      "Hexamethylenediamine": "nylon 66 polycondensation and spinning"
+    },
+    "children": {}
+  },
+  "Nylon_Resin": {
+    "define": "",
+    "parents": {
+      "Polyamide_6": "pelletizing and compounding",
+      "Nylon_66": "pelletizing and compounding"
+    },
+    "children": {}
+  },
+  "Acrylonitrile_Butadiene_Styrene": {
+    "define": "",
+    "parents": {
+      "Acrylonitrile": "graft copolymerization",
+      "ABS": "resin finishing"
+    },
+    "children": {
+      "ABS": "standardized resin naming"
+    }
+  },
+  "Acrylic_Fiber": {
+    "define": "",
+    "parents": {
+      "Acrylonitrile": "polymerization and wet spinning",
+      "Polyacrylonitrile": "wet or dry spinning"
+    },
+    "children": {}
+  },
+  "Polyacrylonitrile": {
+    "define": "",
+    "parents": {
+      "Acrylonitrile": "solution polymerization"
+    },
+    "children": {
+      "Carbon_Fiber_Precursor": "spinning and stabilization",
+      "Acrylic_Fiber": "wet or dry spinning"
+    }
+  },
+  "Carbon_Fiber_Precursor": {
+    "define": "",
+    "parents": {
+      "Polyacrylonitrile": "spinning and stabilization"
+    },
+    "children": {
+      "Carbon_Fiber": "carbonization and graphitization"
+    }
+  },
+  "Polyurethane": {
+    "define": "",
+    "parents": {
+      "Polyether_Polyols": "reaction with isocyanates",
+      "Polyester_Polyols": "reaction with isocyanates",
+      "TDI": "reaction with polyols",
+      "MDI": "reaction with polyols"
+    },
+    "children": {}
+  },
+  "TDI": {
+    "define": "",
+    "parents": {
+      "Toluene": "nitration, hydrogenation, and phosgenation",
+      "Phosgene": "phosgenation of toluenediamine"
+    },
+    "children": {
+      "Polyurethane_Foam": "reaction with polyether polyols",
+      "Polyurethane": "reaction with polyols"
+    }
+  },
+  "MDI": {
+    "define": "",
+    "parents": {
+      "Aniline": "phosgenation after condensation with formaldehyde",
+      "Formaldehyde": "condensation with aniline followed by phosgenation",
+      "Phosgene": "phosgenation of methylenedianiline"
+    },
+    "children": {
+      "Polyurethane_Foam": "reaction with polyether polyols",
+      "Polyurethane_Elastomer": "reaction with polyols and chain extenders",
+      "Polyurethane": "reaction with polyols"
+    }
+  },
+  "Aniline": {
+    "define": "",
+    "parents": {
+      "Nitrobenzene": "hydrogenation"
+    },
+    "children": {
+      "MDI": "phosgenation after condensation with formaldehyde",
+      "Methylene_Diphenyl_Diisocyanate": "formaldehyde condensation and phosgenation"
+    }
+  },
+  "Nitrobenzene": {
+    "define": "",
+    "parents": {
+      "Benzene": "nitration",
+      "Nitric_Acid": "benzene nitration"
+    },
+    "children": {
+      "Aniline": "hydrogenation"
+    }
+  },
+  "Nitric_Acid_Mixture": {
+    "define": "",
+    "parents": {
+      "Toluene": "nitration feed preparation",
+      "Nitric_Acid": "mixed acid preparation",
+      "Sulfuric_Acid": "mixed acid preparation"
+    },
+    "children": {}
+  },
+  "Phosgene": {
+    "define": "",
+    "parents": {
+      "Carbon_Monoxide": "reaction with chlorine",
+      "Chlorine": "reaction with carbon monoxide"
+    },
+    "children": {
+      "TDI": "phosgenation of toluenediamine",
+      "MDI": "phosgenation of methylenedianiline"
+    }
+  },
+  "Toluene_Diisocyanate": {
+    "define": "",
+    "parents": {
+      "Toluene": "nitration, hydrogenation, and phosgenation"
+    },
+    "children": {}
+  },
+  "Methylene_Diphenyl_Diisocyanate": {
+    "define": "",
+    "parents": {
+      "Aniline": "formaldehyde condensation and phosgenation",
+      "Formaldehyde": "condensation with aniline and phosgenation"
+    },
+    "children": {
+      "Polyurethane_Foam": "reaction with polyols"
+    }
+  },
+  "Polyurethane_Foam": {
+    "define": "",
+    "parents": {
+      "Methylene_Diphenyl_Diisocyanate": "reaction with polyols",
+      "MDI": "reaction with polyether polyols",
+      "TDI": "reaction with polyether polyols",
+      "Polyether_Polyols": "reaction with TDI or MDI"
+    },
+    "children": {}
+  },
+  "Polyurethane_Elastomer": {
+    "define": "",
+    "parents": {
+      "MDI": "reaction with polyols and chain extenders",
+      "Polyester_Polyols": "reaction with MDI"
+    },
+    "children": {}
+  },
+  "Linear_Alkylbenzene": {
+    "define": "",
+    "parents": {
+      "Benzene": "alkylation with linear olefins",
+      "Chloroparaffins": "benzene alkylation after dehydrochlorination",
+      "Linear_Alpha_Olefins": "benzene alkylation",
+      "Synthetic_Detergent_Feedstock": "benzene alkylation",
+      "Normal_Dodecane": "dehydrogenation and benzene alkylation",
+      "Normal_Tetradecane": "dehydrogenation and benzene alkylation"
+    },
+    "children": {
+      "LABSA": "sulfonation",
+      "Linear_Alkylbenzene_Sulfonate": "sulfonation and neutralization",
+      "Alkylbenzene_Sulfonic_Acid": "sulfonation",
+      "Sodium_Alkylbenzene_Sulfonate": "sulfonation and neutralization"
+    },
+    "category": "surfactant_intermediate",
+    "description": "Detergent intermediate produced by alkylating benzene with linear olefins or chloroparaffins.",
+    "typical_uses": "linear alkylbenzene sulfonate detergents",
+    "industry_segment": "surfactants"
+  },
+  "Linear_Alkylbenzene_Sulfonate": {
+    "define": "",
+    "parents": {
+      "LABSA": "neutralization",
+      "Linear_Alkylbenzene": "sulfonation and neutralization",
+      "Sulfuric_Acid": "sulfonation reagent route"
+    },
+    "children": {
+      "Sodium_Alkylbenzene_Sulfonate": "sodium salt finishing"
+    }
+  },
+  "Detergent_Alcohols": {
+    "define": "",
+    "parents": {
+      "Linear_Alpha_Olefins": "oxo synthesis and hydrogenation",
+      "Synthetic_Detergent_Feedstock": "hydroformylation and hydrogenation"
+    },
+    "children": {
+      "Fatty_Alcohol_Ethoxylates": "ethoxylation",
+      "Sodium_Lauryl_Sulfate": "sulfation and neutralization",
+      "Alkyl_Sulfates": "sulfation"
+    }
+  },
+  "Fatty_Alcohol_Ethoxylates": {
+    "define": "",
+    "parents": {
+      "Detergent_Alcohols": "ethoxylation",
+      "Ethylene_Oxide": "ethoxylation of detergent alcohols",
+      "Ethoxylates": "product finishing"
+    },
+    "children": {
+      "Sodium_Laureth_Sulfate": "sulfation and neutralization",
+      "Alkyl_Ether_Sulfates": "sulfation",
+      "Ethoxylated_Alcohol_Sulfates": "sulfation"
+    }
+  },
+  "Sodium_Lauryl_Sulfate": {
+    "define": "",
+    "parents": {
+      "Detergent_Alcohols": "sulfation and neutralization",
+      "Alkyl_Sulfates": "neutralization",
+      "Caustic_Soda": "neutralization"
+    },
+    "children": {}
+  },
+  "Sodium_Laureth_Sulfate": {
+    "define": "",
+    "parents": {
+      "Fatty_Alcohol_Ethoxylates": "sulfation and neutralization",
+      "Alkyl_Ether_Sulfates": "neutralization",
+      "Ethoxylated_Alcohol_Sulfates": "neutralization",
+      "Caustic_Soda": "neutralization"
+    },
+    "children": {}
+  },
+  "Alkylphenol_Ethoxylates": {
+    "define": "",
+    "parents": {
+      "Ethoxylates": "ethoxylation of alkylphenols",
+      "Nonylphenol_Ethoxylate": "product blending"
+    },
+    "children": {}
+  },
+  "Nonylphenol": {
+    "define": "",
+    "parents": {
+      "Phenol": "alkylation with nonene",
+      "Nonene": "phenol alkylation"
+    },
+    "children": {
+      "Nonylphenol_Ethoxylate": "ethoxylation"
+    }
+  },
+  "Nonylphenol_Ethoxylate": {
+    "define": "",
+    "parents": {
+      "Nonylphenol": "ethoxylation"
+    },
+    "children": {
+      "Alkylphenol_Ethoxylates": "product blending"
+    }
+  },
+  "Ethanolamines": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "reaction with ammonia"
+    },
+    "children": {
+      "Monoethanolamine": "fractionation",
+      "Diethanolamine": "fractionation",
+      "Triethanolamine": "fractionation",
+      "Quaternary_Ammonium_Surfactants": "quaternization after amination"
+    }
+  },
+  "Monoethanolamine": {
+    "define": "",
+    "parents": {
+      "Ethanolamines": "fractionation",
+      "Ethylene_Oxide": "ammonolysis",
+      "Ammonia": "reaction with ethylene oxide"
+    },
+    "children": {
+      "Ethyleneimine": "dehydration and amination route"
+    }
+  },
+  "Diethanolamine": {
+    "define": "",
+    "parents": {
+      "Ethanolamines": "fractionation",
+      "Ethylene_Oxide": "ammonolysis",
+      "Ammonia": "reaction with ethylene oxide"
+    },
+    "children": {}
+  },
+  "Triethanolamine": {
+    "define": "",
+    "parents": {
+      "Ethanolamines": "fractionation",
+      "Ethylene_Oxide": "ammonolysis",
+      "Ammonia": "reaction with ethylene oxide"
+    },
+    "children": {}
+  },
+  "Ethyleneimine": {
+    "define": "",
+    "parents": {
+      "Monoethanolamine": "dehydration and amination route"
+    },
+    "children": {
+      "Polyethyleneimine": "cationic polymerization"
+    }
+  },
+  "Polyethyleneimine": {
+    "define": "",
+    "parents": {
+      "Ethyleneimine": "cationic polymerization"
+    },
+    "children": {}
+  },
+  "Plasticizer_Alcohols": {
+    "define": "",
+    "parents": {
+      "Propionaldehyde": "hydrogenation",
+      "Phthalic_Anhydride": "esterification feed preparation",
+      "Oxo_Alcohols": "distillation and finishing"
+    },
+    "children": {
+      "Di_2_Ethylhexyl_Phthalate": "esterification with phthalic anhydride",
+      "Diisononyl_Phthalate": "esterification with phthalic anhydride"
+    }
+  },
+  "Oxo_Alcohols": {
+    "define": "",
+    "parents": {
+      "Propylene": "hydroformylation and hydrogenation",
+      "Butene_1": "hydroformylation and hydrogenation",
+      "Butene_2": "hydroformylation and hydrogenation",
+      "Ethylene": "hydroformylation to propionaldehyde and hydrogenation",
+      "Alpha_Olefins": "hydroformylation and hydrogenation"
+    },
+    "children": {
+      "Plasticizer_Alcohols": "distillation and finishing",
+      "2_Ethylhexanol": "oxo synthesis fractionation",
+      "Iso_Nonanol": "oxo synthesis fractionation"
+    }
+  },
+  "Butyraldehyde": {
+    "define": "",
+    "parents": {
+      "Propylene": "hydroformylation"
+    },
+    "children": {
+      "Butanol": "hydrogenation",
+      "2_Ethylhexanol": "aldol condensation and hydrogenation",
+      "Polyvinyl_Butyral": "acetalization with polyvinyl alcohol"
+    }
+  },
+  "Propionaldehyde": {
+    "define": "",
+    "parents": {
+      "Ethylene": "hydroformylation"
+    },
+    "children": {
+      "Propionic_Acid": "oxidation",
+      "Plasticizer_Alcohols": "hydrogenation"
+    }
+  },
+  "2_Ethylhexanol": {
+    "define": "",
+    "parents": {
+      "Butyraldehyde": "aldol condensation and hydrogenation",
+      "Oxo_Alcohols": "oxo synthesis fractionation"
+    },
+    "children": {
+      "Di_2_Ethylhexyl_Phthalate": "esterification with phthalic anhydride",
+      "Dioctyl_Terephthalate": "esterification with terephthalic acid",
+      "Trioctyl_Trimellitate": "esterification with trimellitic anhydride",
+      "Adipate_Plasticizers": "esterification with adipic acid"
+    }
+  },
+  "Iso_Nonanol": {
+    "define": "",
+    "parents": {
+      "Oxo_Alcohols": "oxo synthesis fractionation"
+    },
+    "children": {
+      "Diisononyl_Phthalate": "esterification with phthalic anhydride"
+    }
+  },
+  "Diisononyl_Phthalate": {
+    "define": "",
+    "parents": {
+      "Iso_Nonanol": "esterification with phthalic anhydride",
+      "Phthalic_Anhydride": "esterification with isononanol",
+      "Plasticizer_Alcohols": "esterification with phthalic anhydride"
+    },
+    "children": {}
+  },
+  "Di_2_Ethylhexyl_Phthalate": {
+    "define": "",
+    "parents": {
+      "2_Ethylhexanol": "esterification with phthalic anhydride",
+      "Phthalic_Anhydride": "esterification with 2-ethylhexanol",
+      "Plasticizer_Alcohols": "esterification with phthalic anhydride"
+    },
+    "children": {}
+  },
+  "Dioctyl_Terephthalate": {
+    "define": "",
+    "parents": {
+      "2_Ethylhexanol": "esterification with terephthalic acid",
+      "Purified_Terephthalic_Acid": "esterification with 2-ethylhexanol",
+      "Terephthalic_Acid": "esterification with 2-ethylhexanol"
+    },
+    "children": {}
+  },
+  "Trimellitic_Anhydride": {
+    "define": "",
+    "parents": {
+      "Mixed_Xylenes": "oxidation of pseudocumene-rich C9 aromatics",
+      "Heavy_Aromatics": "oxidation of pseudocumene",
+      "Oxygen": "pseudocumene oxidation"
+    },
+    "children": {
+      "Trioctyl_Trimellitate": "esterification with 2-ethylhexanol"
+    }
+  },
+  "Trioctyl_Trimellitate": {
+    "define": "",
+    "parents": {
+      "2_Ethylhexanol": "esterification with trimellitic anhydride",
+      "Trimellitic_Anhydride": "esterification with 2-ethylhexanol"
+    },
+    "children": {}
+  },
+  "Adipate_Plasticizers": {
+    "define": "",
+    "parents": {
+      "2_Ethylhexanol": "esterification with adipic acid",
+      "Adipic_Acid": "esterification with plasticizer alcohols"
+    },
+    "children": {}
+  },
+  "Polyvinyl_Butyral": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Alcohol": "acetalization with butyral",
+      "Butyraldehyde": "acetalization with polyvinyl alcohol"
+    },
+    "children": {}
+  },
+  "Solvent_Naphtha": {
+    "define": "",
+    "parents": {
+      "Toluene": "aromatic solvent blending",
+      "Heavy_Aromatics": "solvent fractionation",
+      "Naphtha": "hydrotreating and fractionation",
+      "Gas_Condensate": "fractionation and hydrotreating"
+    },
+    "children": {
+      "Aromatic_Solvents": "aromatic solvent blending"
+    }
+  },
+  "Hexane": {
+    "define": "",
+    "parents": {
+      "Naphtha": "fractionation"
+    },
+    "children": {
+      "Aliphatic_Solvents": "solvent blending"
+    }
+  },
+  "Heptane": {
+    "define": "",
+    "parents": {
+      "Naphtha": "fractionation"
+    },
+    "children": {
+      "Aliphatic_Solvents": "solvent blending"
+    }
+  },
+  "Cyclohexane_Solvent": {
+    "define": "",
+    "parents": {
+      "Cyclohexane": "solvent-grade purification",
+      "Benzene": "hydrogenation and solvent purification"
+    },
+    "children": {}
+  },
+  "Mineral_Spirits": {
+    "define": "",
+    "parents": {
+      "Kerosene": "hydrotreating and distillation"
+    },
+    "children": {
+      "Aliphatic_Solvents": "solvent blending"
+    }
+  },
+  "Toluene_Solvent": {
+    "define": "",
+    "parents": {
+      "Toluene": "solvent-grade purification"
+    },
+    "children": {
+      "Aromatic_Solvents": "solvent blending"
+    }
+  },
+  "Xylene_Solvent": {
+    "define": "",
+    "parents": {
+      "Mixed_Xylenes": "solvent-grade fractionation"
+    },
+    "children": {
+      "Aromatic_Solvents": "solvent blending"
+    }
+  },
+  "Acetone_Solvent": {
+    "define": "",
+    "parents": {
+      "Acetone": "solvent-grade purification",
+      "Propylene": "cumene process coproduct and purification"
+    },
+    "children": {}
+  },
+  "MEK": {
+    "define": "",
+    "parents": {
+      "Butene_1": "hydration and dehydrogenation",
+      "Methyl_Ethyl_Ketone": "solvent-grade purification"
+    },
+    "children": {
+      "Ketone_Solvents": "solvent blending"
+    }
+  },
+  "Methyl_Ethyl_Ketone": {
+    "define": "",
+    "parents": {
+      "Butene_2": "hydration and dehydrogenation"
+    },
+    "children": {
+      "MEK": "solvent-grade purification"
+    }
+  },
+  "Ethyl_Acetate": {
+    "define": "",
+    "parents": {
+      "Acetaldehyde": "Tishchenko reaction",
+      "Ethanol": "esterification with acetic acid",
+      "Acetic_Acid": "esterification with ethanol"
+    },
+    "children": {
+      "Acetic_Ester_Solvents": "solvent blending",
+      "Acetate_Solvents": "solvent blending"
+    }
+  },
+  "Butyl_Acetate": {
+    "define": "",
+    "parents": {
+      "Acetic_Acid": "esterification with butanol",
+      "Butanol": "esterification with acetic acid"
+    },
+    "children": {
+      "Acetic_Ester_Solvents": "solvent blending",
+      "Acetate_Solvents": "solvent blending"
+    }
+  },
+  "Isopropyl_Acetate": {
+    "define": "",
+    "parents": {
+      "Acetic_Acid": "esterification with isopropanol",
+      "Isopropanol": "esterification with acetic acid"
+    },
+    "children": {
+      "Acetic_Ester_Solvents": "solvent blending",
+      "Acetate_Solvents": "solvent blending"
+    }
+  },
+  "Glycol_Ethers": {
+    "define": "",
+    "parents": {
+      "Ethylene_Glycol": "etherification",
+      "Propylene_Glycol": "etherification",
+      "Ethylene_Glycol_Monomethyl_Ether": "solvent blending",
+      "Ethylene_Glycol_Monobutyl_Ether": "solvent blending",
+      "Propylene_Glycol_Monomethyl_Ether": "solvent blending",
+      "Propylene_Glycol_Monomethyl_Ether_Acetate": "solvent blending"
+    },
+    "children": {}
+  },
+  "Ethylene_Glycol_Monomethyl_Ether": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "reaction with methanol",
+      "Ethylene_Glycol": "etherification with methanol"
+    },
+    "children": {
+      "Glycol_Ethers": "solvent blending"
+    }
+  },
+  "Ethylene_Glycol_Monobutyl_Ether": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "reaction with butanol",
+      "Ethylene_Glycol": "etherification with butanol"
+    },
+    "children": {
+      "Glycol_Ethers": "solvent blending"
+    }
+  },
+  "Propylene_Glycol_Monomethyl_Ether": {
+    "define": "",
+    "parents": {
+      "Propylene_Oxide": "reaction with methanol",
+      "Propylene_Glycol": "etherification with methanol"
+    },
+    "children": {
+      "Propylene_Glycol_Monomethyl_Ether_Acetate": "esterification with acetic acid",
+      "Glycol_Ethers": "solvent blending"
+    }
+  },
+  "Propylene_Glycol_Monomethyl_Ether_Acetate": {
+    "define": "",
+    "parents": {
+      "Propylene_Glycol_Monomethyl_Ether": "esterification with acetic acid",
+      "Acetic_Acid": "esterification with propylene glycol monomethyl ether"
+    },
+    "children": {
+      "Glycol_Ethers": "solvent blending"
+    }
+  },
+  "DMSO": {
+    "define": "",
+    "parents": {
+      "Methanol": "methyl mercaptan route oxidation"
+    },
+    "children": {
+      "Dimethyl_Sulfoxide": "purification"
+    }
+  },
+  "Dimethyl_Sulfoxide": {
+    "define": "",
+    "parents": {
+      "DMSO": "purification"
+    },
+    "children": {}
+  },
+  "Carbon_Black": {
+    "define": "",
+    "parents": {
+      "Slurry_Oil": "partial combustion carbon black process",
+      "Pyrolysis_Fuel_Oil": "partial combustion carbon black process"
+    },
+    "children": {
+      "Styrene_Butadiene_Rubber": "rubber compounding",
+      "Polybutadiene_Rubber": "rubber compounding",
+      "Nitrile_Rubber": "rubber compounding"
+    }
+  },
+  "Rubber_Process_Oil": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "solvent extraction and refining",
+      "Aromatic_Process_Oil": "product finishing",
+      "Hydrocarbon_Resin": "rubber compounding additive blending"
+    },
+    "children": {
+      "Styrene_Butadiene_Rubber": "rubber oil extension",
+      "Polybutadiene_Rubber": "rubber oil extension"
+    }
+  },
+  "Bitumen": {
+    "define": "",
+    "parents": {
+      "Vacuum_Residue": "air blowing and blending"
+    },
+    "children": {}
+  },
+  "Needle_Coke": {
+    "define": "",
+    "parents": {
+      "Petroleum_Coke": "premium coking of aromatic feedstock"
+    },
+    "children": {}
+  },
+  "Anode_Coke": {
+    "define": "",
+    "parents": {
+      "Petroleum_Coke": "calcination and grading"
+    },
+    "children": {}
+  },
+  "Green_Coke": {
+    "define": "",
+    "parents": {
+      "Petroleum_Coke": "delayed coking"
+    },
+    "children": {
+      "Calcined_Coke": "rotary kiln calcination"
+    }
+  },
+  "Calcined_Coke": {
+    "define": "",
+    "parents": {
+      "Green_Coke": "rotary kiln calcination"
+    },
+    "children": {
+      "Anode_Grade_Coke": "sizing and blending"
+    }
+  },
+  "Anode_Grade_Coke": {
+    "define": "",
+    "parents": {
+      "Calcined_Coke": "sizing and blending"
+    },
+    "children": {}
+  },
+  "Needle_Coke_Pitch": {
+    "define": "",
+    "parents": {
+      "Slurry_Oil": "aromatic concentration"
+    },
+    "children": {}
+  },
+  "Aromatic_Process_Oil": {
+    "define": "",
+    "parents": {
+      "Light_Cycle_Oil": "hydrotreating and extraction"
+    },
+    "children": {
+      "Rubber_Process_Oil": "product finishing"
+    }
+  },
+  "Olefin_Polymerization_Catalyst": {
+    "define": "",
+    "parents": {
+      "Naphtha": "catalyst carrier preparation"
+    },
+    "children": {
+      "Polyethylene": "coordination polymerization catalyst use",
+      "Polypropylene": "coordination polymerization catalyst use"
+    }
+  },
+  "Refinery_Hydrogen": {
+    "define": "",
+    "parents": {
+      "Hydrogen": "refinery hydrogen network purification"
+    },
+    "children": {
+      "Hydrotreated_Naphtha": "hydrotreating hydrogen supply",
+      "Hydrotreated_Diesel": "hydrotreating hydrogen supply",
+      "Sulfur": "hydrodesulfurization and sulfur recovery",
+      "Hydrogen": "hydrogen purification"
+    }
+  },
+  "Blue_Hydrogen": {
+    "define": "",
+    "parents": {
+      "Methane": "steam methane reforming with carbon capture"
+    },
+    "children": {
+      "Hydrogen": "pressure swing adsorption"
+    }
+  },
+  "Grey_Hydrogen": {
+    "define": "",
+    "parents": {
+      "Methane": "steam methane reforming"
+    },
+    "children": {
+      "Hydrogen": "pressure swing adsorption"
+    }
+  },
+  "Steam": {
+    "define": "",
+    "parents": {
+      "Water": "boiler steam generation"
+    },
+    "children": {
+      "Hydrogen": "steam reforming participation",
+      "Syngas": "steam reforming feed"
+    }
+  },
+  "Water": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Hydrogen": "electrolysis",
+      "Ethylene_Glycol": "ethylene oxide hydration",
+      "Propylene_Glycol": "propylene oxide hydration",
+      "Syngas": "steam reforming feed",
+      "Steam": "boiler steam generation"
+    }
+  },
+  "Oxygen": {
+    "define": "",
+    "parents": {
+      "Air": "cryogenic air separation"
+    },
+    "children": {
+      "Syngas": "partial oxidation",
+      "Ethylene_Oxide": "ethylene oxidation",
+      "Propylene_Oxide": "HPPO or oxidation route",
+      "Acetic_Acid": "acetaldehyde oxidation",
+      "Acrylic_Acid": "propylene oxidation",
+      "Maleic_Anhydride": "butane oxidation",
+      "Phthalic_Anhydride": "o-xylene oxidation",
+      "Purified_Terephthalic_Acid": "p-xylene oxidation",
+      "Isophthalic_Acid": "m-xylene oxidation",
+      "Trimellitic_Anhydride": "pseudocumene oxidation",
+      "Acrylonitrile": "propylene ammoxidation oxidant",
+      "Hydrogen_Peroxide": "anthraquinone process oxidation"
+    }
+  },
+  "Nitrogen": {
+    "define": "",
+    "parents": {
+      "Air": "cryogenic air separation"
+    },
+    "children": {
+      "Ammonia": "Haber-Bosch synthesis with hydrogen"
+    }
+  },
+  "Air": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Nitrogen": "cryogenic air separation",
+      "Oxygen": "cryogenic air separation"
+    }
+  },
+  "Phosphoric_Acid": {
+    "define": "",
+    "parents": {
+      "Sulfuric_Acid": "wet-process phosphate acidulation"
+    },
+    "children": {
+      "Monoammonium_Phosphate": "partial ammoniation",
+      "Diammonium_Phosphate": "complete ammoniation",
+      "NPK_Fertilizer": "fertilizer granulation"
+    }
+  },
+  "Sulfuric_Acid": {
+    "define": "",
+    "parents": {
+      "Sulfur": "contact process"
+    },
+    "children": {
+      "Ammonium_Sulfate": "ammonia neutralization",
+      "Nitric_Acid_Mixture": "mixed acid preparation",
+      "Oleum": "SO3 absorption",
+      "Phosphoric_Acid": "wet-process phosphate acidulation",
+      "Sodium_Sulfate": "neutralization by-product route",
+      "Linear_Alkylbenzene_Sulfonate": "sulfonation reagent route"
+    }
+  },
+  "Potash": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "NPK_Fertilizer": "potassium nutrient blending"
+    }
+  },
+  "Ammonium_Phosphate": {
+    "define": "",
+    "parents": {
+      "Monoammonium_Phosphate": "granulation",
+      "Diammonium_Phosphate": "granulation"
+    },
+    "children": {
+      "NPK_Fertilizer": "granulation with potash and nitrogen sources"
+    }
+  },
+  "NPK_Fertilizer": {
+    "define": "",
+    "parents": {
+      "Ammonium_Phosphate": "granulation with potash and nitrogen sources",
+      "Potash": "potassium nutrient blending",
+      "Urea": "fertilizer blending and granulation",
+      "Ammonium_Nitrate": "fertilizer blending",
+      "Phosphoric_Acid": "fertilizer granulation",
+      "Ammonium_Sulfate": "fertilizer blending",
+      "Monoammonium_Phosphate": "granulation blend",
+      "Diammonium_Phosphate": "granulation blend"
+    },
+    "children": {}
+  },
+  "Hydrogen_Sulfide": {
+    "define": "",
+    "parents": {
+      "Natural_Gas": "acid gas removal"
+    },
+    "children": {
+      "Claus_Sulfur": "Claus sulfur recovery",
+      "Sulfur": "Claus sulfur recovery"
+    }
+  },
+  "Claus_Sulfur": {
+    "define": "",
+    "parents": {
+      "Hydrogen_Sulfide": "Claus sulfur recovery"
+    },
+    "children": {
+      "Sulfur": "sulfur degassing and forming"
+    }
+  },
+  "Sodium_Sulfate": {
+    "define": "",
+    "parents": {
+      "Sodium_Carbonate": "sulfate process by-product route",
+      "Sulfuric_Acid": "neutralization by-product route"
+    },
+    "children": {}
+  },
+  "Sodium_Carbonate": {
+    "define": "",
+    "parents": {
+      "Sodium_Chloride": "Solvay process",
+      "Limestone": "Solvay process calcination and carbonation",
+      "Ammonia": "Solvay process ammonia recovery cycle"
+    },
+    "children": {
+      "Soda_Ash": "calcination and purification",
+      "Sodium_Sulfate": "sulfate process by-product route"
+    }
+  },
+  "Cumene_Phenol_Coproduct_Acetone": {
+    "define": "",
+    "parents": {
+      "Cumene_Hydroperoxide": "acid cleavage"
+    },
+    "children": {
+      "Phenol": "product fractionation",
+      "Acetone": "product fractionation"
+    }
+  },
+  "Benzene_Cumene_Stream": {
+    "define": "",
+    "parents": {
+      "Benzene": "benzene feed purification",
+      "Propylene": "propylene feed purification"
+    },
+    "children": {
+      "Cumene": "benzene alkylation with propylene"
+    }
+  },
+  "Xylene_Isomerate": {
+    "define": "",
+    "parents": {
+      "Mixed_Xylenes": "xylene isomerization"
+    },
+    "children": {
+      "Para_Xylene": "adsorptive separation and crystallization",
+      "Ortho_Xylene": "fractional distillation",
+      "Mixed_Xylenes": "isomerization product recycle"
+    }
+  },
+  "Hydrogenated_Pyrolysis_Gasoline": {
+    "define": "",
+    "parents": {
+      "Pyrolysis_Gasoline": "selective hydrogenation"
+    },
+    "children": {
+      "Pygas_Benzene": "aromatics extraction",
+      "Pygas_Toluene": "aromatics extraction",
+      "Pygas_Xylenes": "aromatics extraction",
+      "BTX_Aromatics": "aromatics extraction"
+    }
+  },
+  "Hydrotreated_Naphtha": {
+    "define": "",
+    "parents": {
+      "Naphtha": "naphtha hydrotreating",
+      "Refinery_Hydrogen": "hydrotreating hydrogen supply",
+      "Coker_Naphtha": "hydrotreating"
+    },
+    "children": {
+      "Reformate": "catalytic reforming",
+      "Naphtha": "naphtha blending",
+      "Steam_Cracker_Feed": "feedstock preparation"
+    }
+  },
+  "Hydrotreated_Diesel": {
+    "define": "",
+    "parents": {
+      "Diesel": "diesel hydrotreating",
+      "Refinery_Hydrogen": "hydrotreating hydrogen supply"
+    },
+    "children": {
+      "Diesel": "diesel product finishing"
+    }
+  },
+  "Hydrocracked_Naphtha": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "hydrocracking"
+    },
+    "children": {
+      "Naphtha": "naphtha product blending"
+    }
+  },
+  "Hydrocracked_Diesel": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "hydrocracking"
+    },
+    "children": {
+      "Diesel": "diesel product blending"
+    }
+  },
+  "Hydrocracked_Jet_Fuel": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "hydrocracking"
+    },
+    "children": {
+      "Jet_Fuel": "jet fuel finishing"
+    }
+  },
+  "Olefinic_Gasoline": {
+    "define": "",
+    "parents": {
+      "Naphtha": "steam cracking gasoline hydrogenation"
+    },
+    "children": {
+      "Gasoline": "gasoline blending"
+    }
+  },
+  "BTX_Aromatics": {
+    "define": "",
+    "parents": {
+      "Benzene": "aromatics extraction",
+      "Aromatic_Extract": "fractionation",
+      "Reformate": "aromatics extraction",
+      "Hydrogenated_Pyrolysis_Gasoline": "aromatics extraction"
+    },
+    "children": {
+      "Benzene": "BTX fractionation",
+      "Toluene": "BTX fractionation",
+      "Mixed_Xylenes": "BTX fractionation"
+    }
+  },
+  "Aromatic_Extract": {
+    "define": "",
+    "parents": {
+      "Reformate": "solvent extraction"
+    },
+    "children": {
+      "BTX_Aromatics": "fractionation"
+    }
+  },
+  "Heavy_Aromatics": {
+    "define": "",
+    "parents": {
+      "Mixed_Xylenes": "xylene fractionation bottoms",
+      "C9_Aromatics": "heavy aromatics blending"
+    },
+    "children": {
+      "Solvent_Naphtha": "solvent fractionation",
+      "C9_Aromatics": "aromatics fractionation",
+      "Trimellitic_Anhydride": "oxidation of pseudocumene"
+    }
+  },
+  "Light_Cycle_Oil": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "fluid catalytic cracking"
+    },
+    "children": {
+      "Aromatic_Process_Oil": "hydrotreating and extraction"
+    }
+  },
+  "Heavy_Cycle_Oil": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "fluid catalytic cracking"
+    },
+    "children": {}
+  },
+  "Slurry_Oil": {
+    "define": "",
+    "parents": {
+      "Vacuum_Gas_Oil": "fluid catalytic cracking"
+    },
+    "children": {
+      "Carbon_Black": "partial combustion carbon black process",
+      "Needle_Coke_Pitch": "aromatic concentration"
+    }
+  },
+  "Ethane_Ethylene_Stream": {
+    "define": "",
+    "parents": {
+      "Ethane": "steam cracking"
+    },
+    "children": {
+      "Polymer_Grade_Ethylene": "ethylene purification",
+      "Ethane": "cryogenic separation and recycle"
+    }
+  },
+  "Propane_Propylene_Stream": {
+    "define": "",
+    "parents": {
+      "Propane": "propane dehydrogenation"
+    },
+    "children": {
+      "Polymer_Grade_Propylene": "propylene purification",
+      "Propane": "propane recycle separation"
+    }
+  },
+  "Mixed_C4_Stream": {
+    "define": "",
+    "parents": {
+      "Naphtha": "steam cracking C4 recovery"
+    },
+    "children": {
+      "Butadiene": "extractive distillation",
+      "C4_Raffinate": "butadiene extraction raffinate separation"
+    }
+  },
+  "Pygas_Benzene": {
+    "define": "",
+    "parents": {
+      "Hydrogenated_Pyrolysis_Gasoline": "aromatics extraction"
+    },
+    "children": {
+      "Benzene": "benzene purification"
+    }
+  },
+  "Pygas_Toluene": {
+    "define": "",
+    "parents": {
+      "Hydrogenated_Pyrolysis_Gasoline": "aromatics extraction"
+    },
+    "children": {
+      "Toluene": "toluene purification"
+    }
+  },
+  "Pygas_Xylenes": {
+    "define": "",
+    "parents": {
+      "Hydrogenated_Pyrolysis_Gasoline": "aromatics extraction"
+    },
+    "children": {
+      "Mixed_Xylenes": "xylene purification"
+    }
+  },
+  "Polymer_Grade_Ethylene": {
+    "define": "",
+    "parents": {
+      "Ethane_Ethylene_Stream": "ethylene purification",
+      "Ethylene": "cryogenic purification",
+      "Olefins_From_Methanol": "ethylene purification"
+    },
+    "children": {
+      "Polyethylene": "polymerization",
+      "Ethylene_Oxide": "oxidation",
+      "Ethylene_Dichloride": "chlorination"
+    }
+  },
+  "Polymer_Grade_Propylene": {
+    "define": "",
+    "parents": {
+      "Propane_Propylene_Stream": "propylene purification",
+      "Propylene": "propylene purification",
+      "Chemical_Grade_Propylene": "deep purification",
+      "Olefins_From_Methanol": "propylene purification"
+    },
+    "children": {
+      "Polypropylene": "polymerization",
+      "Propylene_Oxide": "oxidation",
+      "Acrylonitrile": "ammoxidation",
+      "Acrylic_Acid": "oxidation"
+    }
+  },
+  "Chemical_Grade_Propylene": {
+    "define": "",
+    "parents": {
+      "Propylene": "fractionation",
+      "Refinery_Grade_Propylene": "C3 splitter purification"
+    },
+    "children": {
+      "Polymer_Grade_Propylene": "deep purification",
+      "Isopropanol": "hydration",
+      "Cumene": "benzene alkylation"
+    }
+  },
+  "Refinery_Grade_Propylene": {
+    "define": "",
+    "parents": {
+      "FCC_LPG": "refinery propylene recovery"
+    },
+    "children": {
+      "Chemical_Grade_Propylene": "C3 splitter purification",
+      "Alkylate": "alkylation feed"
+    }
+  },
+  "Normal_Paraffins": {
+    "define": "",
+    "parents": {
+      "Kerosene_Paraffins": "paraffin purification",
+      "Paraffin": "urea dewaxing or molecular sieve separation"
+    },
+    "children": {
+      "Linear_Paraffins": "molecular sieve separation",
+      "Linear_Alpha_Olefins": "dehydrogenation",
+      "Normal_Dodecane": "fractionation",
+      "Normal_Tetradecane": "fractionation"
+    }
+  },
+  "Linear_Alpha_Olefins": {
+    "define": "",
+    "parents": {
+      "Ethylene": "oligomerization",
+      "Normal_Paraffins": "dehydrogenation"
+    },
+    "children": {
+      "Polyalphaolefin": "oligomerization and hydrogenation",
+      "Alpha_Olefin_Sulfonate": "sulfonation and neutralization",
+      "Linear_Alkylbenzene": "benzene alkylation",
+      "Detergent_Alcohols": "oxo synthesis and hydrogenation"
+    }
+  },
+  "Synthetic_Lubricants": {
+    "define": "",
+    "parents": {
+      "Polyalphaolefin": "blending and finishing",
+      "Fischer_Tropsch_Lubes": "hydrofinishing"
+    },
+    "children": {}
+  },
+  "Polyalphaolefin": {
+    "define": "",
+    "parents": {
+      "Linear_Alpha_Olefins": "oligomerization and hydrogenation"
+    },
+    "children": {
+      "Synthetic_Lubricants": "blending and finishing"
+    }
+  },
+  "Detergent_Alkylate": {
+    "define": "",
+    "parents": {
+      "Alkylbenzenes": "detergent-range alkylation"
+    },
+    "children": {}
+  },
+  "Alkylbenzene_Sulfonic_Acid": {
+    "define": "",
+    "parents": {
+      "Linear_Alkylbenzene": "sulfonation",
+      "Sulfonic_Acids": "sulfonation of alkylbenzene"
+    },
+    "children": {
+      "Sodium_Alkylbenzene_Sulfonate": "caustic neutralization"
+    }
+  },
+  "Sodium_Alkylbenzene_Sulfonate": {
+    "define": "",
+    "parents": {
+      "Alkylbenzene_Sulfonic_Acid": "caustic neutralization",
+      "Linear_Alkylbenzene_Sulfonate": "sodium salt finishing",
+      "Caustic_Soda": "neutralization",
+      "Linear_Alkylbenzene": "sulfonation and neutralization"
+    },
+    "children": {}
+  },
+  "Sulfonated_Alpha_Olefins": {
+    "define": "",
+    "parents": {
+      "Alpha_Olefins": "sulfonation"
+    },
+    "children": {
+      "Alpha_Olefin_Sulfonate": "neutralization"
+    }
+  },
+  "Alpha_Olefin_Sulfonate": {
+    "define": "",
+    "parents": {
+      "Linear_Alpha_Olefins": "sulfonation and neutralization",
+      "Sulfonated_Alpha_Olefins": "neutralization",
+      "Oleum": "sulfonation of alpha olefins",
+      "Caustic_Soda": "neutralization"
+    },
+    "children": {}
+  },
+  "LABSA": {
+    "define": "",
+    "parents": {
+      "Linear_Alkylbenzene": "sulfonation",
+      "Oleum": "sulfonation of linear alkylbenzene"
+    },
+    "children": {
+      "Linear_Alkylbenzene_Sulfonate": "neutralization"
+    }
+  },
+  "Ethylene_Carbonate": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "carbon dioxide cycloaddition",
+      "Carbon_Dioxide": "cycloaddition with ethylene oxide"
+    },
+    "children": {
+      "Dimethyl_Carbonate": "transesterification with methanol",
+      "Electrolyte_Solvents": "purification"
+    }
+  },
+  "Dimethyl_Carbonate": {
+    "define": "",
+    "parents": {
+      "Ethylene_Carbonate": "transesterification with methanol",
+      "Bisphenol_A": "melt polycarbonate feed preparation",
+      "Methanol": "oxidative carbonylation",
+      "Propylene_Carbonate": "transesterification with methanol"
+    },
+    "children": {
+      "Polycarbonate": "melt transesterification with bisphenol A",
+      "Propylene_Carbonate": "transesterification route integration",
+      "Electrolyte_Solvents": "purification"
+    }
+  },
+  "Propylene_Carbonate": {
+    "define": "",
+    "parents": {
+      "Propylene_Oxide": "carbon dioxide cycloaddition",
+      "Carbon_Dioxide": "cycloaddition with propylene oxide",
+      "Dimethyl_Carbonate": "transesterification route integration"
+    },
+    "children": {
+      "Dimethyl_Carbonate": "transesterification with methanol",
+      "Electrolyte_Solvents": "purification"
+    }
+  },
+  "Polyethylene_Glycol": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "ring-opening polymerization"
+    },
+    "children": {}
+  },
+  "Polypropylene_Glycol": {
+    "define": "",
+    "parents": {
+      "Propylene_Oxide": "ring-opening polymerization"
+    },
+    "children": {}
+  },
+  "Polyester_Polyols": {
+    "define": "",
+    "parents": {
+      "Maleic_Anhydride": "esterification with glycols",
+      "Adipic_Acid": "esterification with glycols",
+      "Propylene_Glycol": "esterification with diacids",
+      "Diethylene_Glycol": "esterification with diacids",
+      "Ethylene_Glycol": "esterification with diacids"
+    },
+    "children": {
+      "Polyurethane": "reaction with isocyanates",
+      "Polyurethane_Elastomer": "reaction with MDI"
+    }
+  },
+  "Unsaturated_Polyester_Resin": {
+    "define": "",
+    "parents": {
+      "Maleic_Anhydride": "polycondensation",
+      "Phthalic_Anhydride": "polycondensation modifier",
+      "Diethylene_Glycol": "polycondensation with maleic anhydride",
+      "Propylene_Glycol": "polycondensation",
+      "Isophthalic_Acid": "polycondensation modifier"
+    },
+    "children": {
+      "Vinyl_Ester_Resin": "reaction with epoxy resin"
+    }
+  },
+  "Vinyl_Ester_Resin": {
+    "define": "",
+    "parents": {
+      "Unsaturated_Polyester_Resin": "reaction with epoxy resin",
+      "Vinyl_Ester_Monomers": "free-radical curing",
+      "Bisphenol_A_Epoxy_Resin": "methacrylation",
+      "Epoxy_Resin": "reaction with acrylic or methacrylic acid"
+    },
+    "children": {}
+  },
+  "Isophthalic_Acid": {
+    "define": "",
+    "parents": {
+      "Meta_Xylene": "oxidation",
+      "Oxygen": "m-xylene oxidation"
+    },
+    "children": {
+      "Polyester_Resin": "polycondensation with glycols",
+      "Unsaturated_Polyester_Resin": "polycondensation modifier"
+    }
+  },
+  "Terephthalic_Acid": {
+    "define": "",
+    "parents": {
+      "Para_Xylene": "oxidation"
+    },
+    "children": {
+      "PET": "polycondensation with ethylene glycol",
+      "Sodium_Terephthalate": "neutralization",
+      "Dioctyl_Terephthalate": "esterification with 2-ethylhexanol"
+    }
+  },
+  "Sodium_Terephthalate": {
+    "define": "",
+    "parents": {
+      "Terephthalic_Acid": "neutralization"
+    },
+    "children": {}
+  },
+  "Benzoic_Acid": {
+    "define": "",
+    "parents": {
+      "Benzene": "toluene oxidation route integration",
+      "Benzaldehyde": "oxidation",
+      "Toluene": "liquid-phase oxidation"
+    },
+    "children": {
+      "Phenol": "oxidative decarboxylation route"
+    }
+  },
+  "Benzyl_Chloride": {
+    "define": "",
+    "parents": {
+      "Toluene": "side-chain chlorination"
+    },
+    "children": {
+      "Benzyl_Alcohol": "hydrolysis",
+      "Benzaldehyde": "controlled oxidation"
+    }
+  },
+  "Benzyl_Alcohol": {
+    "define": "",
+    "parents": {
+      "Benzyl_Chloride": "hydrolysis"
+    },
+    "children": {}
+  },
+  "Benzaldehyde": {
+    "define": "",
+    "parents": {
+      "Benzyl_Chloride": "controlled oxidation"
+    },
+    "children": {
+      "Benzoic_Acid": "oxidation"
+    }
+  },
+  "Anisole": {
+    "define": "",
+    "parents": {
+      "Benzene": "methylation of phenol route integration",
+      "Phenol": "methylation with methanol"
+    },
+    "children": {}
+  },
+  "Alkylbenzenes": {
+    "define": "",
+    "parents": {
+      "Benzene": "alkylation"
+    },
+    "children": {
+      "Detergent_Alkylate": "detergent-range alkylation"
+    }
+  },
+  "Cumene_Process_Alpha_Methylstyrene": {
+    "define": "",
+    "parents": {
+      "Cumene": "cumene oxidation by-product recovery"
+    },
+    "children": {
+      "Alpha_Methylstyrene": "distillation"
+    }
+  },
+  "Alpha_Methylstyrene": {
+    "define": "",
+    "parents": {
+      "Cumene_Process_Alpha_Methylstyrene": "distillation"
+    },
+    "children": {}
+  },
+  "Acetonitrile": {
+    "define": "",
+    "parents": {
+      "Methylamine": "dehydration and ammoxidation route integration",
+      "Acrylonitrile": "ammoxidation by-product recovery"
+    },
+    "children": {}
+  },
+  "Hydrogen_Cyanide": {
+    "define": "",
+    "parents": {
+      "Propylene": "ammoxidation by-product recovery",
+      "Acrylonitrile": "ammoxidation by-product recovery"
+    },
+    "children": {
+      "MMA": "acetone cyanohydrin route",
+      "Adiponitrile": "hydrocyanation of butadiene",
+      "Methyl_Methacrylate": "acetone cyanohydrin route"
+    }
+  },
+  "Acetylene": {
+    "define": "",
+    "parents": {
+      "Methane": "partial oxidation and high-temperature cracking"
+    },
+    "children": {
+      "Vinyl_Chloride": "hydrochlorination",
+      "Vinyl_Acetate": "acetoxylation",
+      "Vinyl_Acetylene": "dimerization"
+    }
+  },
+  "Vinyl_Acetylene": {
+    "define": "",
+    "parents": {
+      "Acetylene": "dimerization"
+    },
+    "children": {
+      "Chloroprene": "hydrochlorination"
+    }
+  },
+  "Vinylidene_Chloride": {
+    "define": "",
+    "parents": {
+      "Vinyl_Chloride": "chlorination and dehydrochlorination"
+    },
+    "children": {
+      "Polyvinylidene_Chloride": "polymerization"
+    }
+  },
+  "Polyvinylidene_Chloride": {
+    "define": "",
+    "parents": {
+      "Vinylidene_Chloride": "polymerization"
+    },
+    "children": {}
+  },
+  "Chlorinated_Polyethylene": {
+    "define": "",
+    "parents": {
+      "Polyethylene": "chlorination"
+    },
+    "children": {}
+  },
+  "Chlorinated_PVC": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Chloride": "post-chlorination"
+    },
+    "children": {}
+  },
+  "Chloroparaffins": {
+    "define": "",
+    "parents": {
+      "Paraffin": "chlorination"
+    },
+    "children": {
+      "Linear_Alkylbenzene": "benzene alkylation after dehydrochlorination"
+    }
+  },
+  "Paraffin": {
+    "define": "",
+    "parents": {
+      "Paraffin_Wax": "deoiling and refining"
+    },
+    "children": {
+      "Chloroparaffins": "chlorination",
+      "Normal_Paraffins": "urea dewaxing or molecular sieve separation"
+    }
+  },
+  "Normal_Dodecane": {
+    "define": "",
+    "parents": {
+      "Normal_Paraffins": "fractionation"
+    },
+    "children": {
+      "Linear_Alkylbenzene": "dehydrogenation and benzene alkylation",
+      "Synthetic_Detergent_Feedstock": "dehydrogenation"
+    }
+  },
+  "Normal_Tetradecane": {
+    "define": "",
+    "parents": {
+      "Normal_Paraffins": "fractionation"
+    },
+    "children": {
+      "Linear_Alkylbenzene": "dehydrogenation and benzene alkylation",
+      "Synthetic_Detergent_Feedstock": "dehydrogenation"
+    }
+  },
+  "Kerosene_Paraffins": {
+    "define": "",
+    "parents": {
+      "Kerosene": "molecular sieve extraction"
+    },
+    "children": {
+      "Normal_Paraffins": "paraffin purification"
+    }
+  },
+  "Synthetic_Detergent_Feedstock": {
+    "define": "",
+    "parents": {
+      "Linear_Paraffins": "dehydrogenation and purification",
+      "Normal_Dodecane": "dehydrogenation",
+      "Normal_Tetradecane": "dehydrogenation"
+    },
+    "children": {
+      "Linear_Alkylbenzene": "benzene alkylation",
+      "Detergent_Alcohols": "hydroformylation and hydrogenation"
+    }
+  },
+  "Linear_Paraffins": {
+    "define": "",
+    "parents": {
+      "Normal_Paraffins": "molecular sieve separation"
+    },
+    "children": {
+      "Synthetic_Detergent_Feedstock": "dehydrogenation and purification"
+    }
+  },
+  "Oleum": {
+    "define": "",
+    "parents": {
+      "Sulfuric_Acid": "SO3 absorption"
+    },
+    "children": {
+      "Sulfonic_Acids": "sulfonation reagent preparation",
+      "LABSA": "sulfonation of linear alkylbenzene",
+      "Alpha_Olefin_Sulfonate": "sulfonation of alpha olefins"
+    }
+  },
+  "Sulfonic_Acids": {
+    "define": "",
+    "parents": {
+      "Oleum": "sulfonation reagent preparation"
+    },
+    "children": {
+      "Alkylbenzene_Sulfonic_Acid": "sulfonation of alkylbenzene"
+    }
+  },
+  "Alkyl_Sulfates": {
+    "define": "",
+    "parents": {
+      "Detergent_Alcohols": "sulfation"
+    },
+    "children": {
+      "Sodium_Lauryl_Sulfate": "neutralization"
+    }
+  },
+  "Alkyl_Ether_Sulfates": {
+    "define": "",
+    "parents": {
+      "Fatty_Alcohol_Ethoxylates": "sulfation"
+    },
+    "children": {
+      "Sodium_Laureth_Sulfate": "neutralization"
+    }
+  },
+  "Quaternary_Ammonium_Surfactants": {
+    "define": "",
+    "parents": {
+      "Ethanolamines": "quaternization after amination"
+    },
+    "children": {}
+  },
+  "Ethoxylated_Alcohol_Sulfates": {
+    "define": "",
+    "parents": {
+      "Ethylene_Oxide": "ethoxylation followed by sulfation",
+      "Fatty_Alcohol_Ethoxylates": "sulfation"
+    },
+    "children": {
+      "Sodium_Laureth_Sulfate": "neutralization"
+    }
+  },
+  "Vinyl_Ester_Monomers": {
+    "define": "",
+    "parents": {
+      "Ethylene": "acetoxylation route",
+      "Vinyl_Acetate_Monomer": "monomer classification"
+    },
+    "children": {
+      "Vinyl_Ester_Resin": "free-radical curing",
+      "Polyvinyl_Acetate": "polymerization"
+    }
+  },
+  "Ethylene_Vinyl_Alcohol": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Alcohol": "copolymer hydrolysis",
+      "Ethylene": "copolymerization and hydrolysis",
+      "Vinyl_Acetate": "copolymerization and hydrolysis"
+    },
+    "children": {
+      "EVOH": "resin finishing"
+    }
+  },
+  "EVOH": {
+    "define": "",
+    "parents": {
+      "Ethylene_Vinyl_Alcohol": "resin finishing",
+      "Polyvinyl_Alcohol": "copolymerization route with ethylene"
+    },
+    "children": {}
+  },
+  "Polyamide_6": {
+    "define": "",
+    "parents": {
+      "Caprolactam": "ring-opening polymerization"
+    },
+    "children": {
+      "Nylon_Fiber": "melt spinning",
+      "Nylon_Resin": "pelletizing and compounding"
+    }
+  },
+  "Hexamethylenediamine": {
+    "define": "",
+    "parents": {
+      "Adiponitrile": "hydrogenation"
+    },
+    "children": {
+      "Nylon_66": "polycondensation with adipic acid",
+      "Nylon_Fiber": "nylon 66 polycondensation and spinning"
+    }
+  },
+  "Adiponitrile": {
+    "define": "",
+    "parents": {
+      "Acrylonitrile": "electrohydrodimerization",
+      "Butadiene": "hydrocyanation",
+      "Hydrogen_Cyanide": "hydrocyanation of butadiene"
+    },
+    "children": {
+      "Hexamethylenediamine": "hydrogenation",
+      "Nylon_66": "hydrogenation to hexamethylenediamine followed by polycondensation"
+    }
+  },
+  "Acrylamide": {
+    "define": "",
+    "parents": {
+      "Acrylonitrile": "hydration"
+    },
+    "children": {
+      "Polyacrylamide": "solution polymerization"
+    }
+  },
+  "Polyacrylamide": {
+    "define": "",
+    "parents": {
+      "Acrylamide": "solution polymerization"
+    },
+    "children": {}
+  },
+  "Superabsorbent_Polymer": {
+    "define": "",
+    "parents": {
+      "Sodium_Acrylate": "crosslinked polymerization",
+      "Acrylic_Acid": "neutralization and crosslinked polymerization"
+    },
+    "children": {}
+  },
+  "Sodium_Acrylate": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "neutralization"
+    },
+    "children": {
+      "Superabsorbent_Polymer": "crosslinked polymerization"
+    }
+  },
+  "Methyl_Acrylate": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "esterification with methanol"
+    },
+    "children": {
+      "Acrylic_Resin": "copolymerization"
+    }
+  },
+  "Ethyl_Acrylate": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "esterification with ethanol"
+    },
+    "children": {
+      "Acrylic_Resin": "copolymerization"
+    }
+  },
+  "Butyl_Acrylate": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "esterification with butanol"
+    },
+    "children": {
+      "Acrylic_Resin": "copolymerization"
+    }
+  },
+  "2_Ethylhexyl_Acrylate": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "esterification with 2-ethylhexanol"
+    },
+    "children": {
+      "Acrylic_Resin": "copolymerization"
+    }
+  },
+  "Acrylic_Emulsion": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "emulsion polymerization"
+    },
+    "children": {}
+  },
+  "Acrylic_Resin": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "polymerization and formulation",
+      "Acrylates": "polymerization",
+      "Methyl_Acrylate": "copolymerization",
+      "Ethyl_Acrylate": "copolymerization",
+      "Butyl_Acrylate": "copolymerization",
+      "2_Ethylhexyl_Acrylate": "copolymerization",
+      "PMMA": "resin compounding"
+    },
+    "children": {}
+  },
+  "Methacrylic_Acid": {
+    "define": "",
+    "parents": {
+      "MMA": "hydrolysis"
+    },
+    "children": {
+      "Butyl_Methacrylate": "esterification with butanol",
+      "PMMA": "copolymerization modifier"
+    }
+  },
+  "Butyl_Methacrylate": {
+    "define": "",
+    "parents": {
+      "Methacrylic_Acid": "esterification with butanol"
+    },
+    "children": {}
+  },
+  "MMA_Resin": {
+    "define": "",
+    "parents": {
+      "MMA": "polymerization and compounding"
+    },
+    "children": {}
+  },
+  "Synthetic_Gasoline": {
+    "define": "",
+    "parents": {
+      "Methanol": "methanol-to-gasoline conversion",
+      "Fischer_Tropsch_Naphtha": "isomerization and blending"
+    },
+    "children": {}
+  },
+  "Synthetic_Diesel": {
+    "define": "",
+    "parents": {
+      "Fischer_Tropsch_Diesel": "hydroisomerization and blending"
+    },
+    "children": {}
+  },
+  "Fischer_Tropsch_Wax": {
+    "define": "",
+    "parents": {
+      "Fischer_Tropsch_Syngas": "Fischer-Tropsch synthesis"
+    },
+    "children": {
+      "Fischer_Tropsch_Naphtha": "hydrocracking and fractionation",
+      "Fischer_Tropsch_Diesel": "hydrocracking and fractionation",
+      "Fischer_Tropsch_Lubes": "isomerization and hydrofinishing",
+      "Wax": "wax refining"
+    }
+  },
+  "Fischer_Tropsch_Naphtha": {
+    "define": "",
+    "parents": {
+      "Fischer_Tropsch_Wax": "hydrocracking and fractionation"
+    },
+    "children": {
+      "Synthetic_Gasoline": "isomerization and blending"
+    }
+  },
+  "Fischer_Tropsch_Diesel": {
+    "define": "",
+    "parents": {
+      "Fischer_Tropsch_Wax": "hydrocracking and fractionation"
+    },
+    "children": {
+      "Synthetic_Diesel": "hydroisomerization and blending"
+    }
+  },
+  "Fischer_Tropsch_Lubes": {
+    "define": "",
+    "parents": {
+      "Fischer_Tropsch_Wax": "isomerization and hydrofinishing"
+    },
+    "children": {
+      "Synthetic_Lubricants": "hydrofinishing"
+    }
+  },
+  "Ethylene_Propylene_Copolymer": {
+    "define": "",
+    "parents": {
+      "Ethylene": "coordination copolymerization"
+    },
+    "children": {}
+  },
+  "Propylene_Random_Copolymer": {
+    "define": "",
+    "parents": {
+      "Propylene": "copolymerization with ethylene",
+      "Polypropylene": "grade classification"
+    },
+    "children": {}
+  },
+  "Propylene_Impact_Copolymer": {
+    "define": "",
+    "parents": {
+      "Propylene": "impact copolymerization with ethylene rubber phase",
+      "Polypropylene": "grade classification"
+    },
+    "children": {}
+  },
+  "BOPP_Film": {
+    "define": "",
+    "parents": {
+      "Polypropylene": "biaxial orientation"
+    },
+    "children": {}
+  },
+  "Polyolefin_Elastomer": {
+    "define": "",
+    "parents": {
+      "Propylene": "copolymerization with ethylene and alpha olefins",
+      "Ethylene": "metallocene copolymerization"
+    },
+    "children": {}
+  },
+  "EP_Rubber": {
+    "define": "",
+    "parents": {
+      "Ethylene": "copolymerization with propylene and diene"
+    },
+    "children": {
+      "EPDM_Rubber": "diene modification and finishing"
+    }
+  },
+  "Polyisobutylene": {
+    "define": "",
+    "parents": {
+      "Isobutylene": "cationic polymerization"
+    },
+    "children": {}
+  },
+  "Methyl_Chloride": {
+    "define": "",
+    "parents": {
+      "Methane": "chlorination"
+    },
+    "children": {
+      "Dimethyldichlorosilane": "direct synthesis with silicon",
+      "Silicone_Monomers": "direct process with silicon"
+    }
+  },
+  "Silicone_Monomers": {
+    "define": "",
+    "parents": {
+      "Dimethyldichlorosilane": "hydrolysis and condensation",
+      "Methyl_Chloride": "direct process with silicon"
+    },
+    "children": {
+      "Silicone_Oil": "polymerization and end-capping",
+      "Silicone_Rubber": "polymerization and vulcanization",
+      "Silicone_Resin": "hydrolysis and crosslinking"
+    }
+  },
+  "Dimethyldichlorosilane": {
+    "define": "",
+    "parents": {
+      "Methyl_Chloride": "direct synthesis with silicon"
+    },
+    "children": {
+      "Silicone_Monomers": "hydrolysis and condensation"
+    }
+  },
+  "Silicone_Oil": {
+    "define": "",
+    "parents": {
+      "Silicone_Monomers": "polymerization and end-capping"
+    },
+    "children": {}
+  },
+  "Silicone_Rubber": {
+    "define": "",
+    "parents": {
+      "Silicone_Monomers": "polymerization and vulcanization"
+    },
+    "children": {}
+  },
+  "Silicone_Resin": {
+    "define": "",
+    "parents": {
+      "Silicone_Monomers": "hydrolysis and crosslinking"
+    },
+    "children": {}
+  },
+  "Acetic_Ester_Solvents": {
+    "define": "",
+    "parents": {
+      "Acetic_Acid": "esterification",
+      "Ethyl_Acetate": "solvent blending",
+      "Butyl_Acetate": "solvent blending",
+      "Isopropyl_Acetate": "solvent blending"
+    },
+    "children": {}
+  },
+  "Ketone_Solvents": {
+    "define": "",
+    "parents": {
+      "Acetone": "solvent blending",
+      "MEK": "solvent blending",
+      "Methyl_Isobutyl_Ketone": "solvent blending"
+    },
+    "children": {}
+  },
+  "Alcohol_Solvents": {
+    "define": "",
+    "parents": {
+      "Ethanol": "solvent blending",
+      "Isopropanol": "solvent blending",
+      "Butanol": "solvent blending"
+    },
+    "children": {}
+  },
+  "Aromatic_Solvents": {
+    "define": "",
+    "parents": {
+      "Xylene_Solvent": "solvent blending",
+      "Solvent_Naphtha": "aromatic solvent blending",
+      "Toluene_Solvent": "solvent blending",
+      "Toluene": "solvent blending",
+      "Mixed_Xylenes": "solvent blending"
+    },
+    "children": {}
+  },
+  "Aliphatic_Solvents": {
+    "define": "",
+    "parents": {
+      "Hexane": "solvent blending",
+      "Heptane": "solvent blending",
+      "Mineral_Spirits": "solvent blending"
+    },
+    "children": {}
+  },
+  "Polyethylene_Wax": {
+    "define": "",
+    "parents": {
+      "Polyethylene": "thermal degradation or low-molecular-weight polymerization",
+      "Ethylene": "low molecular weight polymerization"
+    },
+    "children": {}
+  },
+  "Fischer_Tropsch_Syngas": {
+    "define": "",
+    "parents": {
+      "Syngas": "syngas conditioning",
+      "Carbon_Monoxide": "syngas adjustment",
+      "Hydrogen": "syngas adjustment"
+    },
+    "children": {
+      "Fischer_Tropsch_Wax": "Fischer-Tropsch synthesis"
+    }
+  },
+  "Wax": {
+    "define": "",
+    "parents": {
+      "Paraffin_Wax": "wax blending",
+      "Fischer_Tropsch_Wax": "wax refining"
+    },
+    "children": {
+      "Petroleum_Jelly": "blending and finishing"
+    }
+  },
+  "Petroleum_Resin": {
+    "define": "",
+    "parents": {
+      "Dicyclopentadiene": "cationic polymerization",
+      "Pyrolysis_Fuel_Oil": "thermal polymerization"
+    },
+    "children": {
+      "Hydrocarbon_Resin": "resin fractionation and finishing"
+    }
+  },
+  "C5_Resin": {
+    "define": "",
+    "parents": {
+      "C5_Fraction": "cationic polymerization"
+    },
+    "children": {
+      "Hydrogenated_Resin": "hydrogenation",
+      "Hydrocarbon_Resin": "resin blending",
+      "Adhesive_Resin": "tackifier formulation"
+    }
+  },
+  "C9_Resin": {
+    "define": "",
+    "parents": {
+      "C9_Aromatics": "cationic polymerization"
+    },
+    "children": {
+      "Hydrogenated_Resin": "hydrogenation",
+      "Hydrocarbon_Resin": "resin blending",
+      "Adhesive_Resin": "tackifier formulation"
+    }
+  },
+  "Hydrogenated_Resin": {
+    "define": "",
+    "parents": {
+      "C5_Resin": "hydrogenation",
+      "C9_Resin": "hydrogenation",
+      "Hydrocarbon_Resin": "hydrogenation"
+    },
+    "children": {
+      "Hydrocarbon_Resin": "resin finishing"
+    }
+  },
+  "Hydrocarbon_Resin": {
+    "define": "",
+    "parents": {
+      "Hydrogenated_Resin": "resin finishing",
+      "Petroleum_Resin": "resin fractionation and finishing",
+      "C5_Resin": "resin blending",
+      "C9_Resin": "resin blending"
+    },
+    "children": {
+      "Hydrogenated_Resin": "hydrogenation",
+      "Rubber_Process_Oil": "rubber compounding additive blending",
+      "Adhesive_Resin": "tackifier formulation"
+    }
+  },
+  "Epoxy_Chloropropane": {
+    "define": "",
+    "parents": {
+      "Epichlorohydrin": "purification"
+    },
+    "children": {
+      "Bisphenol_A_Epoxy_Resin": "reaction with bisphenol A"
+    }
+  },
+  "Bisphenol_A_Epoxy_Resin": {
+    "define": "",
+    "parents": {
+      "Epoxy_Chloropropane": "reaction with bisphenol A"
+    },
+    "children": {
+      "Vinyl_Ester_Resin": "methacrylation",
+      "Epoxy_Resin": "resin finishing"
+    }
+  },
+  "Propionic_Acid": {
+    "define": "",
+    "parents": {
+      "Propionaldehyde": "oxidation"
+    },
+    "children": {}
+  },
+  "Cellulose_Acetate": {
+    "define": "",
+    "parents": {
+      "Acetic_Anhydride": "acetylation",
+      "Acetic_Acid": "acetylation with acetic anhydride"
+    },
+    "children": {}
+  },
+  "Alkyd_Resin": {
+    "define": "",
+    "parents": {
+      "Phthalic_Anhydride": "esterification with polyols and fatty acids"
+    },
+    "children": {}
+  },
+  "Acetate_Solvents": {
+    "define": "",
+    "parents": {
+      "Acetic_Acid": "esterification",
+      "Ethyl_Acetate": "solvent blending",
+      "Butyl_Acetate": "solvent blending",
+      "Isopropyl_Acetate": "solvent blending"
+    },
+    "children": {}
+  },
+  "Carbon_Fiber": {
+    "define": "",
+    "parents": {
+      "Carbon_Fiber_Precursor": "carbonization and graphitization"
+    },
+    "children": {}
+  },
+  "Fertilizer_Coating_Resin": {
+    "define": "",
+    "parents": {
+      "Urea_Formaldehyde_Resin": "resin finishing for controlled-release fertilizer"
+    },
+    "children": {}
+  },
+  "White_Oil": {
+    "define": "",
+    "parents": {
+      "Base_Oil": "hydrotreating and dewaxing"
+    },
+    "children": {}
+  },
+  "Petroleum_Jelly": {
+    "define": "",
+    "parents": {
+      "Paraffin_Wax": "deoiling and blending",
+      "Wax": "blending and finishing"
+    },
+    "children": {}
+  },
+  "Cyclododecatriene": {
+    "define": "",
+    "parents": {
+      "Butadiene": "trimerization"
+    },
+    "children": {
+      "Lauryl_Lactam": "oxidation and oximation route"
+    }
+  },
+  "Lauryl_Lactam": {
+    "define": "",
+    "parents": {
+      "Cyclododecatriene": "oxidation and oximation route"
+    },
+    "children": {
+      "Nylon_12": "ring-opening polymerization"
+    }
+  },
+  "Nylon_12": {
+    "define": "",
+    "parents": {
+      "Lauryl_Lactam": "ring-opening polymerization"
+    },
+    "children": {}
+  },
+  "Peroxide": {
+    "define": "",
+    "parents": {
+      "Hydrogen": "anthraquinone process hydrogenation and oxidation"
+    },
+    "children": {}
+  },
+  "Hydrogen_Peroxide": {
+    "define": "",
+    "parents": {
+      "Hydrogen": "anthraquinone process hydrogenation",
+      "Oxygen": "anthraquinone process oxidation"
+    },
+    "children": {
+      "Propylene_Oxide": "HPPO oxidation"
+    }
+  },
+  "Adhesive_Resin": {
+    "define": "",
+    "parents": {
+      "Hydrocarbon_Resin": "tackifier formulation",
+      "C5_Resin": "tackifier formulation",
+      "C9_Resin": "tackifier formulation"
+    },
+    "children": {}
+  },
+  "Polypropylene_Fiber": {
+    "define": "",
+    "parents": {
+      "Polypropylene": "melt spinning"
+    },
+    "children": {}
+  },
+  "Polyethylene_Film": {
+    "define": "",
+    "parents": {
+      "Polyethylene": "film extrusion",
+      "LDPE": "film blowing",
+      "LLDPE": "film blowing"
+    },
+    "children": {}
+  },
+  "Polyethylene_Pipe": {
+    "define": "",
+    "parents": {
+      "HDPE": "pipe extrusion"
+    },
+    "children": {}
+  },
+  "PVC_Pipe": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Chloride": "extrusion"
+    },
+    "children": {}
+  },
+  "PVC_Profile": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Chloride": "profile extrusion"
+    },
+    "children": {}
+  },
+  "PVC_Film": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Chloride": "calendering"
+    },
+    "children": {}
+  },
+  "PET_Bottle_Resin": {
+    "define": "",
+    "parents": {
+      "PET": "solid-state polymerization"
+    },
+    "children": {}
+  },
+  "PET_Film": {
+    "define": "",
+    "parents": {
+      "PET": "film extrusion"
+    },
+    "children": {}
+  },
+  "Antifreeze": {
+    "define": "",
+    "parents": {
+      "Ethylene_Glycol": "formulation",
+      "Propylene_Glycol": "formulation"
+    },
+    "children": {}
+  },
+  "Gas_Dehydration_Solvent": {
+    "define": "",
+    "parents": {
+      "Diethylene_Glycol": "solvent formulation",
+      "Triethylene_Glycol": "solvent formulation"
+    },
+    "children": {}
+  },
+  "Polybutene": {
+    "define": "",
+    "parents": {
+      "Butene_1": "cationic polymerization",
+      "Butene_2": "cationic polymerization",
+      "Isobutylene": "cationic polymerization"
+    },
+    "children": {}
+  },
+  "Electrolyte_Solvents": {
+    "define": "",
+    "parents": {
+      "Ethylene_Carbonate": "purification",
+      "Propylene_Carbonate": "purification",
+      "Dimethyl_Carbonate": "purification"
+    },
+    "children": {}
+  },
+  "Laminating_Resin": {
+    "define": "",
+    "parents": {
+      "Melamine": "condensation with formaldehyde",
+      "Melamine_Formaldehyde_Resin": "resin formulation"
+    },
+    "children": {}
+  },
+  "Tire_Rubber_Compound": {
+    "define": "",
+    "parents": {
+      "Polybutadiene_Rubber": "compounding with carbon black and oil",
+      "Styrene_Butadiene_Rubber": "compounding with carbon black and oil"
+    },
+    "children": {}
+  },
+  "Oil_Resistant_Rubber_Compound": {
+    "define": "",
+    "parents": {
+      "Nitrile_Rubber": "compounding"
+    },
+    "children": {}
+  },
+  "Weather_Resistant_Rubber_Compound": {
+    "define": "",
+    "parents": {
+      "EPDM_Rubber": "compounding"
+    },
+    "children": {}
+  },
+  "Fertilizer_Ammonia": {
+    "define": "",
+    "parents": {
+      "Ammonia": "product refrigeration and storage"
+    },
+    "children": {
+      "Urea": "urea synthesis",
+      "Ammonium_Nitrate": "neutralization with nitric acid",
+      "Monoammonium_Phosphate": "phosphoric acid neutralization",
+      "Diammonium_Phosphate": "phosphoric acid neutralization"
+    }
+  },
+  "Ethylene_Acrylic_Acid_Copolymer": {
+    "define": "",
+    "parents": {
+      "Acrylic_Acid": "copolymerization",
+      "Ethylene": "copolymerization"
+    },
+    "children": {}
+  },
+  "Stretch_Film": {
+    "define": "",
+    "parents": {
+      "LLDPE": "film extrusion"
+    },
+    "children": {}
+  },
+  "Steam_Cracker_Feed": {
+    "define": "",
+    "parents": {
+      "Hydrotreated_Naphtha": "feedstock preparation",
+      "Ethane": "feedstock preparation",
+      "Propane": "feedstock preparation"
+    },
+    "children": {
+      "Ethylene": "steam cracking",
+      "Propylene": "steam cracking",
+      "Butadiene": "steam cracking",
+      "Pyrolysis_Gasoline": "steam cracking by-product recovery"
+    }
+  },
+  "Petrochemical_Feed_Naphtha": {
+    "define": "",
+    "parents": {
+      "Crude_Oil": "refinery naphtha production"
+    },
+    "children": {
+      "Ethylene": "steam cracking",
+      "Propylene": "steam cracking",
+      "Butadiene": "steam cracking",
+      "Benzene": "pyrolysis gasoline hydrogenation and extraction",
+      "Toluene": "pyrolysis gasoline hydrogenation and extraction",
+      "Mixed_Xylenes": "pyrolysis gasoline hydrogenation and extraction"
+    }
+  },
+  "Petrochemical_Feed_Ethane": {
+    "define": "",
+    "parents": {
+      "Natural_Gas_Liquids": "ethane recovery"
+    },
+    "children": {
+      "Ethylene": "steam cracking"
+    }
+  },
+  "Petrochemical_Feed_Propane": {
+    "define": "",
+    "parents": {
+      "Natural_Gas_Liquids": "propane recovery"
+    },
+    "children": {
+      "Propylene": "dehydrogenation or steam cracking"
+    }
+  },
+  "Final_Polypropylene_Product": {
+    "define": "",
+    "parents": {
+      "Polypropylene": "compounding and conversion"
+    },
+    "children": {}
+  },
+  "Final_PVC_Product": {
+    "define": "",
+    "parents": {
+      "Polyvinyl_Chloride": "compounding and conversion"
+    },
+    "children": {}
+  },
+  "Tire_Innerliner_Compound": {
+    "define": "",
+    "parents": {
+      "Butyl_Rubber": "compounding"
+    },
+    "children": {}
+  },
+  "Final_Polyethylene_Product": {
+    "define": "",
+    "parents": {
+      "Ethylene": "polymerization and conversion"
+    },
+    "children": {}
+  },
+  "Final_PET_Product": {
+    "define": "",
+    "parents": {
+      "PET": "polycondensation and conversion"
+    },
+    "children": {}
+  },
+  "Nonene": {
+    "define": "",
+    "parents": {
+      "Propylene": "propylene trimerization"
+    },
+    "children": {
+      "Nonylphenol": "phenol alkylation"
+    }
+  },
+  "Salt_Brine": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Caustic_Soda": "chlor-alkali electrolysis",
+      "Chlorine": "chlor-alkali electrolysis",
+      "Hydrogen": "chlor-alkali electrolysis"
+    }
+  },
+  "Sodium_Chloride": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Sodium_Carbonate": "Solvay process"
+    }
+  },
+  "Limestone": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Sodium_Carbonate": "Solvay process calcination and carbonation"
+    }
+  }
+}
