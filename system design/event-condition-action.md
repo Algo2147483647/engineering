@@ -64,11 +64,35 @@ Special Events can be used to drive the transition of an ECA Graph from one node
 
 ### Conditions Evaluation
 
+**Conditions** are the decision-making component of an ECA Node, to determine whether the action is eligible to run. In a configurable strategy system, conditions are usually represented by a structured rule expression or a domain-specific language (DSL). This allows business rules to be configured and executed dynamically without changing application code.
+
+At the most basic level, a condition describes a predicate over event attributes, runtime context, and business state. A condition expression is usually composed of several fundamental elements:
+
+1. **Operands.** Operands are the values participating in the condition expression. They may come from event attributes, graph context, entity state, external systems, or static configuration.
+2. **Operators.** Operators define how operands are compared or combined.
+3. **Logical Connectors.** Multiple predicates can be combined into a compound condition using logical connectors.
+4. **Functions.** A condition DSL may also support built-in or custom functions for common business logic. Functions should be carefully controlled because they may introduce external dependencies, non-deterministic behavior, or performance costs.
+5. **Aggregations.** Some conditions require aggregation over a collection or time window. Aggregation conditions are more complex than simple predicates because they depend on historical data, time windows, and consistency guarantees.
+6. **Quantifiers.** For collection-based data, the DSL may support quantifiers such as `any`, `all`, or `none`. These allow the condition system to express rules over lists, sets, and related entities.
+
+**Atomic vs. Composite.** A condition can be either atomic or composite. An **atomic condition** is the smallest independently evaluable predicate. A **composite condition** is composed of multiple atomic conditions connected by logical operators. This distinction is important because the rule engine may evaluate, trace, optimize, or short-circuit each atomic condition independently.
+
+#### Condition Lifecycle
+
 The full lifecycle from rule-template configuration to final resolution of rules is a process of progressively aggregating information and refining conditions.
 
-- **System**: Starting from a predefined condition template and static configuration, the system produces a set of baseline conditions that form the foundational framework. It then enriches these baseline conditions with dynamic contextual information to derive the final, complete condition set.
+1. **Condition Definition**. A condition is usually defined from a reusable condition template. The template describes the logical structure of the condition, the required input attributes, supported operators, and configurable parameters. At this stage, the condition is still abstract. It does not yet contain the concrete threshold value, event data, or runtime state required for execution.
 
-- **Rule Engine**: Rule Engine performs the final condition evaluation and emit resolution results.. Taking the complete condition as input and incorporating external system data (for example, payment status from third-party systems), it translates the condition into an executable internal representation (e.g., an abstract syntax tree and symbol table) that the rule engine can interpret. The engine then evaluates the logic and returns the result (decision, flags, or computed outputs).
+2. **Condition binding.** After the strategy is configured, the system binds the condition template with static configuration values to produce a concrete condition definition. Condition binding converts reusable templates into strategy-specific rules. This stage also allows the system to validate whether the required attributes of the condition can be provided by the triggering event, graph context, or external data source. If the condition requires an attribute that cannot be resolved, the ECA Node should be considered invalid during configuration validation rather than failing at runtime.
+
+3. **Context Resolution.** When an event triggers an ECA Node, the system builds an evaluation context for the condition. The evaluation context is the complete data environment used by the rule engine to evaluate the condition. This stage is critical because an event may only represent a local occurrence, while condition evaluation may require a globally consistent business state. Therefore, the system must clearly define which business moment should be treated as the reliable point for evaluation. If the required state is not ready, the node should either wait, retry, or be triggered by a later state-ready event.
+4. **Expression Compilation.** Before evaluation, the bound condition is translated into an executable internal representation. Depending on the implementation of the rule engine, this representation may be an abstract syntax tree, bytecode, decision table, predicate chain, or another optimized structure. Compilation separates rule authoring from rule execution. It allows condition definitions to be validated before runtime and enables the runtime engine to evaluate conditions efficiently and deterministically.
+5. **Condition Evaluation.** The rule engine evaluates the compiled condition against the resolved context and produces an evaluation result. In a complex strategy system, the evaluation result should also include structured metadata that explains how the decision was made. This makes condition evaluation observable and explainable, which is especially important for business rules, rewards, risk control, and financial operations.
+6. **Result Emission.** After evaluation, the ECA runtime uses the condition result to determine the next state of the ECA Node. The result may also be written back to the graph context so that downstream ECA Nodes can consume it during their own condition evaluation. In this way, condition evaluation is not merely a local boolean check. It is a structured decision process that connects rule configuration, event data, runtime state, external dependencies, and graph-level execution control.
+
+**System**: Starting from a predefined condition template and static configuration, the system produces a set of baseline conditions that form the foundational framework. It then enriches these baseline conditions with dynamic contextual information to derive the final, complete condition set.
+
+**Rule Engine**: Rule Engine performs the final condition evaluation and emit resolution results.. Taking the complete condition as input and incorporating external system data (for example, payment status from third-party systems), it translates the condition into an executable internal representation (e.g., an abstract syntax tree and symbol table) that the rule engine can interpret. The engine then evaluates the logic and returns the result (decision, flags, or computed outputs).
 
 ![condition](./assets/condition.svg)
 
@@ -115,6 +139,8 @@ While a single ECA rule represents an isolated event response, complex business 
 2. **ECA Node:** The basic node within a Strategy, encapsulating a complete ECA logical unit. It receives inputs, evaluates its internal Conditions, executes the specified Action when those conditions are met, and produces outputs. The dependency relationships between ECA Nodes determine the topological execution order and make the ECA Node the smallest building block of an executable workflow.
 
 ### Strategy Group
+
+When a business scenario becomes too large to be represented by a single ECA Graph, the system can introduce a higher-level composition model and orchestration boundary called a Strategy Group. A Strategy Group is a container that organizes multiple Strategies and defines how they interact with each other. From the perspective of the Strategy Group, each Strategy is treated as a black-box execution unit with explicit inputs, outputs, trigger rules, and completion semantics.
 
 ![202602060036](./assets/202602060036.svg)
 
