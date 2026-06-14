@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Event-Condition-Action
+## ECA Basic Model
 
 > **WHEN**  <*event*>  **IF**  <*condition*>  **THEN**  <*action*>.
 
@@ -30,7 +30,33 @@ The event-driven model is a architecture paradigm that places events at its core
 
 #### Special Events
 
+Because an ECA Graph is not only driven by external business events, but also by internal runtime state changes, some special events are necessary. Multiple ECA Nodes are composed into a DAG, the runtime must react to internal execution milestones, such as a predecessor node being completed, a dependency being satisfied, a branch being selected, or an asynchronous action callback being received. Without Special Events, these internal transitions would have to be implemented as implicit control logic inside the scheduler. This would make the execution model harder to observe, debug, replay, and reason about. By representing important runtime changes as explicit events, the system can treat internal graph progression in the same event-driven manner as external business triggers.
 
+| Special Event           | Triggered When                                               | Runtime Semantics                                            | Typical Use Case                                             |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `GraphInstantiated`     | A Meta ECA Graph is instantiated into a runtime execution instance. | Marks the creation of a new executable graph instance.       | Initialize graph context, create node instances, assign idempotency keys. |
+| `GraphStarted`          | A graph instance begins execution.                           | Indicates that the graph is ready to evaluate its initial executable nodes. | Start source ECAs or compute the initial frontier node set.  |
+| `NodeReady`             | A node’s upstream dependency conditions are satisfied.       | Moves a node from `Pending` to `Ready`.                      | Enable a successor node after all required parent nodes are completed. |
+| `NodeStarted`           | A ready node is selected for execution.                      | Marks the beginning of condition evaluation and action execution for a node. | Track node execution lifecycle and prevent duplicate execution. |
+| `NodeCompleted`         | A node successfully finishes its condition evaluation and action execution. | The most common internal event for directly triggering downstream nodes. | Automatically activate successor nodes after a predecessor node completes. |
+| `NodeSkipped`           | A node is intentionally skipped because its condition is not satisfied or its branch is not selected. | Marks the node as non-executable without treating it as a failure. | Continue graph execution when a node is optional or conditionally bypassed. |
+| `NodeInvalidated`       | A node becomes invalid due to branch exclusion or graph-level control logic. | Prevents the node from being executed in the current graph instance. | Implement mutual exclusion between sibling branches.         |
+| `NodeFailed`            | A node fails during condition evaluation or action execution. | Marks the node as failed and triggers retry, compensation, or graph failure policy. | Handle rule evaluation errors, action failures, or external service errors. |
+| `NodeTimedOut`          | A node or its asynchronous action does not complete within the configured timeout. | Converts long-running or unresolved execution into a controlled timeout event. | Trigger retry, mark failure, or continue with fallback logic. |
+| `DependencySatisfied`   | The required parent-node transition condition is satisfied.  | Indicates that a child node can become ready based on `AND`, `OR`, or `M-of-N` dependency rules. | Decouple dependency calculation from actual node execution.  |
+| `JoinSatisfied`         | A join node receives enough completed upstream branches to proceed. | Resolves convergence semantics for multiple upstream paths.  | Start a downstream node after all or some parallel branches complete. |
+| `BranchSelected`        | One branch among multiple candidate branches is selected.    | Commits the graph to a specific branch.                      | Implement exclusive branching, such as choosing one reward path among many. |
+| `BranchInvalidated`     | Non-selected sibling branches are invalidated after a branch is selected. | Closes mutually exclusive paths that should no longer be executable. | Prevent duplicate rewards or conflicting actions across sibling branches. |
+| `ActionSubmitted`       | An action is sent to an internal or external executor.       | Marks that the action has been dispatched but may not have completed yet. | Track asynchronous actions and correlate callbacks.          |
+| `ActionCompleted`       | A synchronous action returns successfully or an asynchronous callback confirms success. | Confirms that the action side effect has succeeded.          | Allow the node to complete and trigger downstream ECAs.      |
+| `ActionFailed`          | An action fails synchronously or an asynchronous callback reports failure. | Converts action failure into a node-level failure or retry decision. | Trigger retry, compensation, fallback, or graph failure.     |
+| `CallbackReceived`      | An external system sends a callback for a previously submitted asynchronous action. | Resumes a paused node or action execution.                   | Continue graph execution after payment confirmation, reward issuance, or third-party approval. |
+| `RetryScheduled`        | A failed or timed-out node/action is scheduled for another attempt. | Defers execution according to retry policy.                  | Handle transient failures without immediately failing the graph. |
+| `CompensationRequested` | A completed side effect must be reversed because a later step failed. | Starts a compensating action for already completed effects.  | Support Saga-like rollback semantics.                        |
+| `RoundStarted`          | A new execution round begins for the same graph and instance key. | Separates repeated business executions under the same logical entity. | Support multi-round campaigns, repeated tasks, or recurring reward flows. |
+| `RoundCompleted`        | All executable nodes in the current round reach a terminal state. | Marks the end of one execution round.                        | Determine whether another round can start or the graph should terminate. |
+| `GraphCompleted`        | All required paths in the graph instance are completed, skipped, or invalidated according to graph completion policy. | Marks the graph instance as successfully completed.          | Emit final strategy result, persist execution summary, notify downstream systems. |
+| `GraphFailed`           | The graph can no longer proceed due to unrecoverable node failure, timeout, or policy violation. | Marks the graph instance as failed.                          | Trigger alerting, manual intervention, compensation, or failure reporting. |
 
 ### Conditions Evaluation
 
@@ -59,8 +85,6 @@ While a single ECA rule represents an isolated event response, complex business 
 
 2. **ECA Node:** The basic node within a Strategy, encapsulating a complete ECA logical unit. It receives inputs, evaluates its internal Conditions, executes the specified Action when those conditions are met, and produces outputs. The dependency relationships between ECA Nodes determine the topological execution order and make the ECA Node the smallest building block of an executable workflow.
 
-![202602052353](./assets/202602052353.svg)
-
 ### Strategy Group
 
 ![202602060036](./assets/202602060036.svg)
@@ -73,6 +97,8 @@ An ECA rule or an ECA graph exists in two different phases: the **definition pha
 
 1. In the **definition phase**, the graph describes the static structure of the strategy and the rule used to generate the instance. At this stage, the graph is only a blueprint. It does not represent any specific execution and does not carry runtime state.
 2. In the **runtime phase**, when a triggering event is received, the system instantiates the definition ECA graph into a concrete runtime instance. Each graph instance represents one logical execution of the strategy for a specific business context, such as a user, an order, a campaign, or a callback request. Since the same event may be delivered multiple times due to retries, network retransmission, repeated user operations, or duplicated callbacks, the runtime must be able to determine whether two trigger requests refer to the same logical graph execution.
+
+![202602052353](./assets/202602052353.svg)
 
 #### Instance idempotency key
 
@@ -88,7 +114,7 @@ The key should be designed according to the following principles:
 
 #### Multiple Instantiations: Rounds
 
-To support multiple instantiations and executions of a single *ECA Graph* in definition phase in a instantiating idempotency key, we introduce a instantiating idempotency key dimension, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating idempotency key. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
+To support multiple instantiations and executions of a single definition ECA Graph in a instantiating idempotency key, we introduce a instantiating idempotency key dimension, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating idempotency key. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
 
 ### Execution flow
 
@@ -101,7 +127,7 @@ To support multiple instantiations and executions of a single *ECA Graph* in def
 
 
 
-#### Transitions between ECAs
+#### Transitions between nodes
 
 **Transitions between parent and child nodes (vertical transitions)**: This defines how a child node can be initiated. Conditions can be set for when the current ECA can be activated, such as after all parent nodes are completed or when specific criteria are met.
 
@@ -117,13 +143,13 @@ To support multiple instantiations and executions of a single *ECA Graph* in def
 
 ### Communication
 
-Cross-ECA Node Communication
+#### Cross-Node Communication
 
 Communication by event:
 
 Communication to condition: 
 
-Cross-Strategy Communication
+#### Cross-Strategy Communication
 
 
 
