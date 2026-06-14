@@ -28,9 +28,13 @@ The event-driven model is a architecture paradigm that places events at its core
 
 **Consistency issues in data dependencies between Events and Conditions**. Events may indicate the occurrence of a “local event” within the system, whereas Condition evaluation requires the “global state to be ready.” The essence of the problem lies in the temporal misalignment between the “local event” and the “global state readiness”: when a event occurs, other related data required for subsequent condition evaluation may not yet have been generated, persisted, or may still be in an inconsistent intermediate state. Because different system components process data at different speeds, a time gap emerges between cross-component state consistency and the requirements of business logic. Therefore, the key to system design is to clearly identify and define the true business moment at which “all required data are ready and consistent,” and to use that moment as a reliable triggering signal.
 
-#### Special Events
+#### Special Events: Runtime Events
 
-Because an ECA Graph is not only driven by external business events, but also by internal runtime state changes, some special events are necessary. Multiple ECA Nodes are composed into a DAG, the runtime must react to internal execution milestones, such as a predecessor node being completed, a dependency being satisfied, a branch being selected, or an asynchronous action callback being received. Without Special Events, these internal transitions would have to be implemented as implicit control logic inside the scheduler. This would make the execution model harder to observe, debug, replay, and reason about. By representing important runtime changes as explicit events, the system can treat internal graph progression in the same event-driven manner as external business triggers.
+Because an ECA Graph is not only driven by external business events, but also by internal runtime state changes, some special events are necessary. Multiple ECA Nodes are composed into a DAG, the runtime must react to internal execution milestones, such as a predecessor node being completed, a dependency being satisfied, a branch being selected, or an asynchronous action callback being received. Without Special Events, these internal transitions would have to be implemented as implicit control logic inside the scheduler. By representing important runtime changes as explicit events, the system can treat internal graph progression in the same event-driven manner as external business triggers.
+
+Special Events can be used to drive the transition of an ECA Graph from one node to its successor nodes. When an upstream ECA Node completes, the runtime emits a lifecycle event such as `NodeCompleted`. This event does not only indicate that the node has reached a terminal state; it can also carry the business data produced or consumed by that node, so that downstream nodes can use the data during their own condition evaluation and action execution. This mechanism allows the ECA Graph to support data propagation between nodes without relying on hidden control flow. Each transition is represented by an explicit event, and each downstream node receives a well-defined input context derived from upstream execution results.
+
+
 
 | Special Event           | Triggered When                                               | Runtime Semantics                                            | Typical Use Case                                             |
 | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -70,12 +74,37 @@ The full lifecycle from rule-template configuration to final resolution of rules
 
 ### Action Execution
 
+After the Condition of an ECA Node is evaluated as satisfied, the runtime enters the Action Execution phase. An Action represents the concrete side effect or business operation produced by the ECA Node. When an ECA Node contains multiple actions, the runtime may support different execution strategies depending on the dependencies among actions. Actions can be executed in three common modes:
+
+- **Sequential Execution**: Actions are executed one after another according to their configured order. This mode is used when a later action depends on the output or side effect of a previous action.
+- **Parallel Execution**: Multiple actions are executed concurrently when they are independent and do not depend on each other’s outputs. The ECA Node proceeds only after all required parallel actions have reached their expected terminal states.
+- **DAG-based Execution**: Actions are organized as an internal directed acyclic graph, where edges represent data dependencies, side-effect dependencies, or execution ordering constraints. This allows the node to combine sequential and parallel execution within the same action plan.
+
+
 When multiple actions are executed sequentially, the processing mechanism operates in two distinct modes:
 
-- **Synchronous Action**: Due to the execution results of synchronous actions are immediately available, triggers subsequent actions automatically upon completion.
-- **Asynchronous Action**: After initiation, the current execution flow pauses, awaiting a completion notification from an external system via the callback interface. The process resumes and proceeds to subsequent actions only after receiving the confirmation signal.
+- **Synchronous Action**: A synchronous action completes within the current execution context. Its result is immediately available to the runtime, allowing the system to persist the action result, update the ECA node status, and continue scheduling downstream ECA nodes without waiting for an external signal.
+- **Asynchronous Action**: An asynchronous action is submitted during the current execution context, but its final result is not immediately available. The action usually depends on an external system, long-running task, or delayed business process. After submission, the ECA Node enters a waiting state. The runtime resumes the node only after receiving a correlated completion event, callback, or timeout signal.
 
 ![202505252226](./assets/202505252226.svg)
+
+**Idempotency.** Because actions often produce side effects, every action execution should be protected by an idempotency mechanism. This is especially important when the system receives duplicate events, retries failed operations, or processes duplicate callbacks from external systems. The runtime should ensure that the same logical action is executed only once for the same business context. If a duplicate execution request is received, the system should return the previously persisted result instead of performing the side effect again.
+
+**Output Propagation.** An action may produce structured outputs that are written into the execution context of the current ECA Node or the broader ECA Graph instance. These outputs can be used by: subsequent actions within the same ECA node, downstream ECA nodes in the graph, condition evaluation of later ECA nodes, event generation for cross-node or cross-strategy communication.
+
+**Callback and Correlation.** For asynchronous actions, the system must be able to correlate external completion signals back to the correct graph instance, ECA Node, and action execution. Therefore, every asynchronous action should generate a correlation identifier when submitted. When a callback is received, the runtime validates the correlation identifier, checks whether the callback has already been processed, updates the action state, persists the result, and resumes the suspended execution flow if appropriate. This prevents duplicate callbacks, out-of-order callbacks, and unrelated external events from corrupting the graph execution state.
+
+
+
+#### Failure Handling
+
+Action failures should be handled according to explicit failure policies. Common policies include:
+
+- **Retry**: The action is retried according to a configured retry strategy, such as fixed interval, exponential backoff, or maximum retry count.
+- **Skip**: The action is skipped when failure is acceptable and does not block the ECA node.
+- **Fail**: The current ECA node is marked as failed, preventing downstream ECAs from being executed.
+- **Compensate**: A compensating action is triggered to undo or neutralize previous side effects.
+- **Manual Intervention**: The execution is suspended and requires human review or operational handling.
 
 ## Relationship: ECA Graph
 
