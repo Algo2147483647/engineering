@@ -34,7 +34,7 @@ In this process, the form is responsible for expressing and carrying business co
 
 
 
-![The compilation chain from business policy configuration to runtime policy](./assets/ChatGPT Image Jun 4, 2026, 03_39_37 AM.png)
+![The compilation chain from business policy configuration to runtime policy](./assets/img1.png)
 
 To make it easier to understand the complete transformation process from business configuration to executable strategies, the following section provides a unified explanation of the core concepts involved in this process.
 

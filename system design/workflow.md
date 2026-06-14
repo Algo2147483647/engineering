@@ -1,10 +1,10 @@
-# Workflow
+# Workflow / Process Orchestration
 
 [TOC]
 
 ## Workflow
 
-A workflow divides a complete work process into independent task units, each with defined inputs, outputs, and execution conditions. These tasks are then linked sequentially or in parallel to form an overall process. Managers coordinate these task nodes by scheduling, which includes allocating resources, starting and stopping execution, and monitoring execution status.
+A workflow (Process Orchestration) divides a complete work process into independent task units, each with defined inputs, outputs, and execution conditions. These tasks are then linked sequentially or in parallel to form an overall process. Managers coordinate these task nodes by scheduling, which includes allocating resources, starting and stopping execution, and monitoring execution status.
 
 ### Task units
 

@@ -2,11 +2,11 @@
 
 [TOC]
 
-## Basic model: ECA
+## Event-Condition-Action
 
 > **WHEN**  <*event*>  **IF**  <*condition*>  **THEN**  <*action*>.
 
-The event-driven model is a software architecture paradigm that places events at its core. Its central idea is that the occurrence of events drives the program’s execution flow, rather than relying on traditional sequential control flow. In this model, the system’s behavior revolves around event generation, detection, dispatch, and handling, thereby enabling a highly decoupled, asynchronous, and reactive system design.
+The event-driven model is a architecture paradigm that places events at its core. Its central idea is that the occurrence of events drives the program’s execution flow, rather than relying on traditional sequential control flow. In this model, the system’s behavior revolves around event generation, detection, dispatch, and handling, thereby enabling a highly decoupled, asynchronous, and reactive system design.
 
 - **Events**: A detectable occurrence, which carries the attribute parameters and type of the event, and defines specific events or signals that can cause a change in the system state or require a system response. It is the starting point of the entire model’s execution and may originate from external inputs (such as user clicks), internal state changes (such as data updates), or time-based conditions (such as a timer expiring).
 - **Conditions**: After the event is triggered, this consists of the logical rules or preconditions used to determine whether the corresponding action should be executed. The execution prerequisites ensure that subsequent actions are performed only when specific conditions are met.
@@ -20,11 +20,17 @@ The event-driven model is a software architecture paradigm that places events at
 
 **Attributes** are data fields carried by a specific business event, containing explicit business information. When an identifiable event occurs in the system (such as “user login” or “order payment success”), the event object is not merely a signal—it is a data packet. The various pieces of information contained in this packet are the event attributes. These attributes give the event concrete business meaning, transforming it from an abstract notification into a contextual object that can be used for logical decisions and business processing.
 
-**Core issue: Which Events can be combined with which Conditions and Actions?** Each Event, when fired, provides a set of event attributes carrying specific business information (e.g., user ID, order amount). Each Condition and Action, in turn, declares the set of attributes it requires for execution (for example, “check amount” requires order amount; “grant reward” requires user ID). The system automatically determines whether a combination is valid and executable by checking whether the attributes provided by the Event satisfy the requirements of the Condition and Action. This mechanism allows Events, Conditions, and Actions to automatically adapt based on their data interfaces, supporting a flexible, reliable, and dynamically configurable business rules system.
+**Which Events can be combined with which Conditions and Actions?** Each Event, when fired, provides a set of event attributes carrying specific business information (e.g., user ID, order amount). Each Condition and Action, in turn, declares the set of attributes it requires for execution (for example, “check amount” requires order amount; “grant reward” requires user ID). The system automatically determines whether a combination is valid and executable by checking whether the attributes provided by the Event satisfy the requirements of the Condition and Action. This mechanism allows Events, Conditions, and Actions to automatically adapt based on their data interfaces, supporting a flexible, reliable, and dynamically configurable business rules system.
 
-#### Design Considerations
+1. **Schema Matching.** Each event defines an output schema, while a condition or action defines an input schema. The system compares the Event’s output schema with the required input schemas of the selected Conditions and Actions. A composition is considered valid only when all required attributes can be resolved from the Event attributes or other explicitly declared data sources.
+2. **Type Checking.** It verifies whether the attributes used by conditions and actions have compatible data types. Meanwhile, a robust ECA system should validate not only primitive types, but also semantic types. This avoids accidental misuse of fields that share the same primitive type but represent different business concepts.
+3. **Data Contract Validation.** It helps ensure that the schema evolution of event/condition/action do not silently break existing rule configurations (schema is part of data contract), and ensure the system must verify existing rules remain compatible. Therefore, each event/condition/action should be versioned, while rule configurations should reference specific schema versions to ensure deterministic execution.
 
-**Consistency issues in data dependencies between Events and Conditions**: Events may indicate the occurrence of a “local event” within the system, whereas Condition evaluation requires the “global state to be ready.” The essence of the problem lies in the temporal misalignment between the “local event” and the “global state readiness”: when a event occurs, other related data required for subsequent condition evaluation may not yet have been generated, persisted, or may still be in an inconsistent intermediate state. Because different system components process data at different speeds, a time gap emerges between cross-component state consistency and the requirements of business logic. Therefore, the key to system design is to clearly identify and define the true business moment at which “all required data are ready and consistent,” and to use that moment as a reliable triggering signal.
+**Consistency issues in data dependencies between Events and Conditions**. Events may indicate the occurrence of a “local event” within the system, whereas Condition evaluation requires the “global state to be ready.” The essence of the problem lies in the temporal misalignment between the “local event” and the “global state readiness”: when a event occurs, other related data required for subsequent condition evaluation may not yet have been generated, persisted, or may still be in an inconsistent intermediate state. Because different system components process data at different speeds, a time gap emerges between cross-component state consistency and the requirements of business logic. Therefore, the key to system design is to clearly identify and define the true business moment at which “all required data are ready and consistent,” and to use that moment as a reliable triggering signal.
+
+#### Special Events
+
+
 
 ### Conditions Evaluation
 
@@ -45,35 +51,51 @@ When multiple actions are executed sequentially, the processing mechanism operat
 
 ![202505252226](./assets/202505252226.svg)
 
-## Relationship Model: ECA Graph
+## Relationship: ECA Graph
 
-The most common approach to designing associations among ECAs is to use a **directed acyclic graph (DAG)** to model the relationships between multiple ECAs. Each ECA can be encapsulated as a node in the graph, making it the most fundamental execution unit—referred to as a **ECA Node**—within the system. The dependencies and execution order among these units are defined by the edges of the DAG, ensuring that all ECAs are executed in topological order while also enabling scheduling opportunities for nodes that can run in parallel.
+While a single ECA rule represents an isolated event response, complex business strategies often require multiple ECA rules to be composed. In such cases,  a approach to designing associations among ECA rules is to use a **directed acyclic graph (DAG)** to model the relationships between multiple ECA rules. Each ECA rule can be encapsulated as a node in the graph, making it the most fundamental execution unit—referred to as a **ECA Node**—within the system. The dependencies and execution order among these units are defined by the edges of the DAG, ensuring that all ECA rules are executed in topological order while also enabling scheduling opportunities for nodes that can run in parallel.
 
-1. **Strategy (ECA Graph):** A directed acyclic graph composed of multiple ECA Nodes and their dependency relationships. It defines the complete execution flow in complex scenarios. By orchestrating ECA Nodes—such as sequencing, parallel execution, and conditional branching—it describes the system’s overall behavior and decision paths.
+1. **Strategy (ECA Graph):** A directed acyclic graph composed of multiple ECA nodes and their dependency relationships. It defines the complete execution flow in complex scenarios. By orchestrating ECA nodes—such as sequencing, parallel execution, and conditional branching—it describes the system’s overall behavior and decision paths.
 
 2. **ECA Node:** The basic node within a Strategy, encapsulating a complete ECA logical unit. It receives inputs, evaluates its internal Conditions, executes the specified Action when those conditions are met, and produces outputs. The dependency relationships between ECA Nodes determine the topological execution order and make the ECA Node the smallest building block of an executable workflow.
 
 ![202602052353](./assets/202602052353.svg)
 
-### Instantiating idempotency key
+### Strategy Group
 
-> **Instantiating idempotency key = event attribute A + event attribute B + …**
+![202602060036](./assets/202602060036.svg)
 
-ECA graphs themselves, as well as each ECA within them, can be executed concurrently. To clearly track and isolate each independent instantiating, the system needs to assign a **globally unique execution key** to every complete graph execution instance for identification.
+## Runtime Execution
 
-1. **Idempotency of ECA graph transitions**: For the same user’s single transition request, whether the system receives it once or multiple times (for example due to network retransmission or repeated user clicks), the system will produce exactly one correct transition effect (such as a state update, points credit, or reward issuance) and will not cause duplicate payouts or state inconsistencies.
-2. **Instantiating idempotency key**: This is designed to realize idempotency for ECA graph transitions; it is formed by a combination of event attributes: event attribute A + event attribute B + …. Event attributes are typically parameters carried within the triggering event (Trigger). In real scenarios, you may choose appropriate dimensions as the basis for idempotency according to the product’s specifics — for example user UID, order ID, estimated-call ID (used for callback operations), etc.
+### Definition phase and Runtime phase
+
+An ECA rule or an ECA graph exists in two different phases: the **definition phase** and the **runtime phase**. (We'll use a ECA graph as an example, and the ECA rule works the same way.)
+
+1. In the **definition phase**, the graph describes the static structure of the strategy and the rule used to generate the instance. At this stage, the graph is only a blueprint. It does not represent any specific execution and does not carry runtime state.
+2. In the **runtime phase**, when a triggering event is received, the system instantiates the definition ECA graph into a concrete runtime instance. Each graph instance represents one logical execution of the strategy for a specific business context, such as a user, an order, a campaign, or a callback request. Since the same event may be delivered multiple times due to retries, network retransmission, repeated user operations, or duplicated callbacks, the runtime must be able to determine whether two trigger requests refer to the same logical graph execution.
+
+#### Instance idempotency key
+
+The **Instance Idempotency Key** is the deterministic key used to identify one unique ECA graph instance. It is generated at runtime according to the key-generation rule defined in the definition ECA graph. The key is usually composed of stable attributes carried by the triggering event or derived from the execution context. The purpose of the instance idempotency key is to guarantee **graph-level idempotency**. For the same logical transition request, whether the system receives the trigger once or multiple times, it should create or resume exactly one graph instance and produce only one correct transition effect. This prevents duplicated state transitions, repeated reward issuance, duplicated points crediting, repeated message sending, or inconsistent graph execution state. 
+
+The key should be designed according to the following principles:
+
+1. **Deterministic**: The same logical trigger must always produce the same key.
+2. **Business-stable**: The key should be based on stable business identifiers, such as user ID, order ID, campaign ID, task ID, callback ID, or transaction ID.
+3. **Scoped**: The key should include the strategy or graph identity, such as `strategy_id` and `graph_version`, to avoid collisions between different strategies or graph definitions.
+4. **Round-aware**: If the same business object is allowed to enter the same definition graph multiple times, the key should include a `round` or execution sequence number.
+5. **Side-effect safe**: The graph-level key identifies the graph instance, but actions that produce external side effects should also define their own action-level idempotency keys.
 
 #### Multiple Instantiations: Rounds
 
-To support multiple instantiations and executions of a single *Meta ECA Graph* in a instantiating idempotency key, we introduce a instantiating idempotency key dimension, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating idempotency key. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
+To support multiple instantiations and executions of a single *ECA Graph* in definition phase in a instantiating idempotency key, we introduce a instantiating idempotency key dimension, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating idempotency key. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
 
 ### Execution flow
 
-1. **Triggering and Initial ECA Selection**: When the system receives this event, it first retrieves all ECAs that are currently in the “in progress” state. Then, based on the trigger conditions, it traverses these ECAs to select the first ECA in each ECA path (i.e., the Head ECA) and aggregates them into a Head ECA set. The core purpose of this step is to focus on the starting ECA of each path, avoiding repeated processing of ECAs within the same path, thereby ensuring process efficiency and logical clarity.
-2. **Iterate over Head ECAs and Execute Calculation Logic**: The system processes each ECA in the Head ECA set sequentially. For each Head ECA, the rule engine is first invoked to execute the calculation logic for the ECA—this is the core computational step, determining the that the ECA should receive. Next, the system checks whether the ECA has been completed: if the ECA is not completed, subsequent processing is skipped, and the system moves directly to the next Head ECA; if the ECA is completed, it proceeds to handle subsequent ECAs, advancing the ECA status forward.
-3. **Recursive Processing of Subsequent ECAs (Core Logic)**: After the current Head ECA is completed, the system retrieves all ECAs associated as its subsequent ECAs and evaluates each one. It first checks whether the subsequent ECA currently meets its start conditions; if it cannot start, it is temporarily skipped. If it can start, its status is updated to “in progress,” and the system immediately executes the full “ECA Calculation Logic” recursively for this ECA. This loop continues, forming a recursive processing mechanism that allows the ECA chain to automatically and coherently advance step by step until the path ends.
-4. **Process Completion**: Once the last ECA in the Head ECA set has been processed—that is, all starting ECAs and their triggered subsequent recursive chains have completed calculation and status evaluation—the entire calculation process concludes. At this point, the system has completed all ECA computations and status updates driven by the triggering event for this round.
+1. **Triggering and Executable Frontier Selection**: When the system receives an event, it first retrieves all ECA nodes that are currently in the executable state. Then, based on the trigger conditions, it traverses these nodes to select the first executable node in each node path and aggregates them into a frontier node set. The core purpose of this step is to focus on the starting of each path, avoiding repeated processing of nodes within the same path, thereby ensuring process efficiency and logical clarity.
+2. **Iterate over Frontier Nodes and Execute Calculation Logic**: The system processes each node in the frontier node set sequentially. For each frontier node, the rule engine is first invoked to execute the calculation logic for the node—this is the core computational step, determining the that the node should receive. Next, the system checks whether the node has been completed: if the node is not completed, subsequent processing is skipped, and the system moves directly to the next frontier node; if the node is completed, it proceeds to handle subsequent nodes, advancing the node status forward.
+3. **Recursive Processing of Subsequent nodes (Core Logic)**: After the current frontier node is completed, the system retrieves all nodes associated as its subsequent nodes and evaluates each one. It first checks whether the subsequent node currently meets its start conditions; if it cannot start, it is temporarily skipped. If it can start, its status is updated to the executable state and the system immediately executes the full “node calculation logic” recursively for this node. This loop continues, forming a recursive processing mechanism that allows the node chain to automatically and coherently advance step by step until the path ends.
+4. **Process Completion**: Once the last node in the frontier node set has been processed—that is, all starting nodes and their triggered subsequent recursive chains have completed calculation and status evaluation—the entire calculation process concludes. At this point, the system has completed all node computations and status updates driven by the triggering event for this round.
 
 ![202512310127](./assets/202512310127.svg)
 
@@ -93,20 +115,17 @@ To support multiple instantiations and executions of a single *Meta ECA Graph* i
 - **Parallel**: All sibling nodes are independent of each other and can individually become Ready based on the parent-child ECAs.
 - **Dependency**: There is an implicit sequential dependency among sibling nodes.
 
-### Cross-ECA Node Communication
+### Communication
+
+Cross-ECA Node Communication
 
 Communication by event:
 
 Communication to condition: 
 
-### Scope of DAG Support Capabilities
-
-## Complex System: Strategy Group
+Cross-Strategy Communication
 
 
 
-![202602060036](./assets/202602060036.svg)
 
-### Cross-Strategy Communication
 
-## Core implementation: Rule Engine
