@@ -182,19 +182,29 @@ To support multiple instantiations and executions of a single definition ECA Gra
 
 
 
-#### Transitions between nodes
+#### Transitions between Nodes
 
-**Transitions between parent and child nodes (vertical transitions)**: This defines how a child node can be initiated. Conditions can be set for when the current ECA can be activated, such as after all parent nodes are completed or when specific criteria are met.
+In an ECA Graph, transitions define how the completion, failure, or invalidation of one ECA Node affects the execution eligibility of other nodes. A transition does not directly execute the target node. Instead, it determines whether the target node can move from a non-executable state, such as `Pending` or `Blocked`, into the `Ready` state. Once a node becomes `Ready`, it can be scheduled by the runtime and then enter the normal ECA lifecycle: condition evaluation, action execution, and result emission.
 
-- **All Completed (AND)**: The current node is set to Ready when all parent nodes are in the Completed state. Suitable for strict linear processes or scenarios where all prerequisite ECAs must be completed.
-- **Any One Completed (OR)**: The current node is set to Ready when any one of the parent nodes is in the Completed state. Suitable for multi-path selection scenarios, where completing any prerequisite ECA can initiate subsequent ECAs.
-- **Custom Quantity (M-of-N)**: The current node is set to Ready when M out of N parent nodes are in the Completed state. Suitable for scenarios that require a certain proportion of prerequisite conditions to be met.
+Transitions can be divided into two categories: **vertical transitions**, which describe dependency relationships between parent and child nodes, and **horizontal transitions**, which describe coordination rules among sibling nodes under the same parent or branch group.
 
-**Transitions between sibling nodes (horizontal transitions)**: This defines the mutual influence between child nodes under the same parent node. ECAs can be established for transitions between child nodes under the same parent node.
+##### Vertical transitions: parent-to-child dependency
 
-- **Mutual Exclusion**: Multiple branches where only one can be selected. Once one path is chosen, the others are closed. When one sibling node is unlocked (becomes Ready) or activated (becomes Active), all other sibling nodes immediately become Invalid.
-- **Parallel**: All sibling nodes are independent of each other and can individually become Ready based on the parent-child ECAs.
-- **Dependency**: There is an implicit sequential dependency among sibling nodes.
+A vertical transition defines when a child node is allowed to start based on the execution results of its parent nodes. In a DAG, a child node may depend on one or more parent nodes. The transition policy determines how many parent nodes must reach a terminal state before the child node becomes eligible for execution. The most common vertical transition policies are:
+
+- **All Completed (AND)**: The child node becomes Ready only after all of its parent nodes have reached the Completed state. This policy is suitable for strict dependency scenarios where every prerequisite must be satisfied before the next step can begin.
+- **Any One Completed (OR)**: The child node becomes Ready as soon as any one of its parent nodes reaches the Completed state. This policy is suitable for alternative-path scenarios where multiple upstream branches can independently unlock the same downstream node. Once the child node has been activated, later completion events from other parent nodes should normally be treated as late signals and must not trigger duplicate execution unless the node is explicitly configured as re-entrant.
+- **Custom Quantity (M-of-N)**: The child node becomes Ready when at least M out of N parent nodes have reached the Completed state. This policy is useful when a business process requires a minimum number of prerequisites to be satisfied, but does not require all of them. For example, a qualification node may start once any two out of three verification methods have passed.
+- **Custom Predicate:** The child node becomes Ready when a user-defined transition predicate evaluates to true over the parent node results, graph context, and event attributes. This is useful for complex dependency logic that cannot be expressed by simple AND, OR, or M-of-N policies.
+
+##### Branch-level Coordination Policy
+
+Branch-level Coordination Policy defines how sibling nodes under the same parent or branch group interact with each other. Unlike vertical transitions, which determine whether a child node can start, branch-level coordination  determine how multiple candidate branches are coordinated once they become eligible. The most common policies are:
+
+- **Mutual Exclusion**: Only one sibling branch may be selected. Once one sibling node is selected according to the branch selection rule, the remaining sibling nodes are marked as Invalid or Skipped and will no longer be scheduled in the current graph instance. The selection moment must be clearly defined, such as when a node first becomes Ready, when its condition evaluates to true, when it enters Running, or when it reaches Completed. In most business scenarios, mutual exclusion should be resolved at condition-match time or branch-selection time to avoid multiple branches producing conflicting side effects.
+- **Parallel**: All sibling nodes are independent and may become Ready according to their own vertical transition rules. The execution of one sibling does not prevent the others from executing.
+- **Priority Selection**: Sibling nodes are evaluated in a predefined priority order, and the first node whose condition is satisfied is selected for execution. Lower-priority siblings are invalidated or skipped. This policy is useful when multiple branches may be valid at the same time but the business requires deterministic selection.
+- **Sequential Dependency**: Sibling nodes are logically ordered even though they share the same parent. A later sibling can start only after the previous sibling has completed. This policy is useful when the graph structure groups several related child nodes under the same parent for modeling convenience, but the runtime must still execute them in a deterministic sequence.
 
 ### Communication
 
