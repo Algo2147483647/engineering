@@ -186,8 +186,6 @@ To support multiple instantiations and executions of a single definition ECA Gra
 
 In an ECA Graph, transitions define how the completion, failure, or invalidation of one ECA Node affects the execution eligibility of other nodes. A transition does not directly execute the target node. Instead, it determines whether the target node can move from a non-executable state, such as `Pending` or `Blocked`, into the `Ready` state. Once a node becomes `Ready`, it can be scheduled by the runtime and then enter the normal ECA lifecycle: condition evaluation, action execution, and result emission.
 
-Transitions can be divided into two categories: **vertical transitions**, which describe dependency relationships between parent and child nodes, and **horizontal transitions**, which describe coordination rules among sibling nodes under the same parent or branch group.
-
 ##### Vertical transitions: parent-to-child dependency
 
 A vertical transition defines when a child node is allowed to start based on the execution results of its parent nodes. In a DAG, a child node may depend on one or more parent nodes. The transition policy determines how many parent nodes must reach a terminal state before the child node becomes eligible for execution. The most common vertical transition policies are:
@@ -208,15 +206,19 @@ Branch-level Coordination Policy defines how sibling nodes under the same parent
 
 ### Communication
 
+In an ECA-based strategy execution model, communication defines how execution results, state changes, and contextual data are propagated across ECA Nodes and across Strategies.
+
 #### Cross-Node Communication
 
-Communication by event:
+Cross-node communication describes how one ECA Node influences another node within the same ECA Graph. There are three common communication mechanisms between ECA Nodes.
 
-Communication to condition: 
+1. **Communication by event**:
+
+2. **Communication to condition**: 
 
 #### Cross-Strategy Communication
 
-
+Cross-strategy communication describes how one Strategy interacts with another Strategy.
 
 
 
