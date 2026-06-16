@@ -2,13 +2,11 @@
 
 [TOC]
 
-## Workflow
+**Workflow / Process Orchestration** is a architectural paradigm used to model, coordinate, and execute a multi-step business or system process. A complex and complete work process/workflow is decomposed into a sequence or graph of independent tasks (steps), each with defined inputs, outputs, and execution conditions. Orchestration is the control layer that coordinate these tasks by scheduling, which includes allocating resources, starting and stopping execution, and monitoring execution states.
 
-A workflow (Process Orchestration) divides a complete work process into independent task units, each with defined inputs, outputs, and execution conditions. These tasks are then linked sequentially or in parallel to form an overall process. Managers coordinate these task nodes by scheduling, which includes allocating resources, starting and stopping execution, and monitoring execution status.
+## Tasks
 
-### Task units
-
-Task units are the fundamental building blocks of a workflow. Each task unit represents a distinct, self-contained piece of work.
+Tasks are the fundamental building blocks of a workflow. Each task represents a distinct, self-contained piece of work.
 
 - **Input & Output:** The data or resources required for the task to begin execution.
 - **Process Logic:** The specific operation, calculation, or action performed within the task.
@@ -16,9 +14,9 @@ Task units are the fundamental building blocks of a workflow. Each task unit rep
 - **Resources**
 - **Error/Exception Handling**
 
-#### Status of task units & Status transition
+### State of tasks & State transition
 
-The state of a task units represents its entire lifecycle and potential abnormal situations it may encounter.
+The state of a tasks represents its entire lifecycle and potential abnormal situations it may encounter.
 
 - Pending: The task is defined but has not started yet.
 - Ready: The task is prepared to execute because all dependencies and conditions are met.
@@ -30,13 +28,13 @@ The state of a task units represents its entire lifecycle and potential abnormal
 - Skipped: No execution is performed, but the workflow continues with other tasks.
 - Retrying: The task is re-executing after a previous failure.
 
-### Relationship between task units
+## Relationship between Tasks
 
 - Sequential Dependency: One task can only begin after the completion of another.
 - Parallel Execution: Multiple tasks execute simultaneously without depending on each other.
 - Iterative Relationship (Loops): A task or group of tasks is repeatedly executed until a specific condition is met.
 
-### Management
+### Orchestration
 
 - Workflow collection & Task units collection
 
@@ -46,3 +44,10 @@ The state of a task units represents its entire lifecycle and potential abnormal
 
 
 ![Workflow](assets/Workflow.svg)
+
+Process Definition, The **process definition** is the static template of the workflow.
+
+Process Instance, A **process instance** is one runtime execution of a process definition.
+
+Error Handling
+
