@@ -6,13 +6,13 @@ A task-based incentive *commitment* can be understood as a conditional incentive
 
 > **Offer Configuration → Offer Presentation → User Enrollment → Behavioral Completion → Progress Measurement → Reward Fulfillment → Re-Engagement**
 
-This mechanism transforms the behaviors desired by the platform into tasks that users are motivated to complete in exchange for rewards. It is commonly used as a long-term engagement strategy to shape user expectations, reinforce behavioral routines, and foster habitual platform use.
-
-From the user perspective, the mechanism reduces uncertainty by clarifying the required action, the associated reward, and the user’s progress toward completion. From the platform perspective, incentives shift from indiscriminate distribution to targeted, outcome-based reward allocation, thereby improving incentive efficiency and increasing conversion into desired user behaviors.
+This mechanism transforms the behaviors desired by the platform into tasks that users are motivated to complete in exchange for rewards. It is commonly used as a long-term engagement strategy to shape user expectations, reinforce behavioral routines, and foster habitual platform use. From the user perspective, the mechanism reduces uncertainty by clarifying the required action, the associated reward, and the user’s progress toward completion. From the platform perspective, incentives shift from indiscriminate distribution to targeted, outcome-based reward allocation, thereby improving incentive efficiency and increasing conversion into desired user behaviors.
 
 ## Offer
 
 An Offer is a core domain entity in the system and serves as the primary object that users see, interpret, and decide whether to accept. It specifies a conditional commitment: what action the user is expected to complete and what reward the user will receive in return. Meanwhile, an offer also defines the eligibility conditions under which the user may participate.
+
+**Offer Snapshots and Protection of User Fulfillment Rights**. Once a user confirms participation in an Offer, the applicable rules become the platform’s commitment to that user’s entitlements. Later changes to the Offer should not arbitrarily affect existing participants or undermine their legitimate expectations. Accordingly, the system should capture and persist a rule snapshot at the time of participation, and fulfillment for existing participants should continue based on that snapshot even if the Offer is later modified. When an Offer is suspended, taken offline, or otherwise changed in status, the system should clearly distinguish between closing the Offer to new participants and altering fulfillment for existing participants, and explicitly specify whether existing users remain entitled to normal fulfillment under the original rules.
 
 ### Participation Policy & Runtime
 
