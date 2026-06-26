@@ -22,25 +22,28 @@ This formulation yields four fundamental structural dimensions:
 
 ### User State Transition
 
-Treat users as a state machine, any meaningful change along any dimension can only occur at state-transition nodes. Marketing can act on only three categories of critical nodes:
+Treat users as a state machine, any meaningful change along any dimension can only occur at state-transition nodes. Marketing can act on only three categories of critical nodes.
 
-1. **Before entering the system** (not yet a user)
-2. **Positive transitions within the system** (value increases)
-3. **Negative transitions within the system** (degradation / churn)
+| User Lifecycle |              | Target                 |
+| :--------------: | ------------ | :----------------------: |
+| Visitor        | Before entering the system (not yet a user) | Acquisition / Register |
+| Registered     |  | Activation             |
+| Activated      |  | Retention              |
+| Active         | Positive transitions within the system (value increases) | Conversion             |
+| Paying         |        | Monetization           |
+| Loyal          |                                                          | Referral               |
+| Dormant        | Negative transitions within the system | Reactivation       |
+| Churned        | Negative transitions within the system | Reactivation           |
 
-
-
-| Growth Module | Essence | Core Metrics |
-| ------------------ | ---- | ---- |
-| ***Acquisition***  |   Outside system → Inside system<br />Whether the user enters at all (existence problem).   | New users, signup conversion rate, CAC |
-| ***Activation***   | Registered but unused → First use<br />Whether the first key action occurs. | Week-1 activation rate, first-order conversion, key path completion |
-| ***Retention***    | Used → Repeated usage<br />Usage probability does not decay over time | D1 / D7 / D30 retention, DAU/WAU/MAU |
-| ***Conversion***   | Intent present → Action completed<br />Increase state-transition success rate | Order conversion rate, completion rate, GMV |
-| ***Engagement***   | Stable usage → High-frequency usage<br />Amplify actions per unit time | Avg. usage frequency, active days per user, engagement depth |
-| ***Monetization / LTV*** | Action occurred → Higher-value action<br />Amplify value per action | ARPU, LTV, AOV, repeat purchase rate |
-| ***Reactivation*** | Dormant / churned → Returned<br />Reverse state transition | Reactivation rate, post-return retention |
-|                    |      |      |
-|                    |      |      |
+| Growth Module |  | Essence | Core Metrics |
+| ------------------ | ---- | ---- | ---- |
+| ***Acquisition***  |   Outside system → Inside system   |   Whether the user enters at all (existence problem).   | New users, signup conversion rate, CAC |
+| ***Activation***   | Registered but unused → First use | Whether the first key action occurs. | Week-1 activation rate, first-order conversion, key path completion |
+| ***Retention***    | Used → Repeated usage | Usage probability does not decay over time | D1 / D7 / D30 retention, DAU/WAU/MAU |
+| ***Conversion***   | Intent present → Action completed | Increase state-transition success rate | Order conversion rate, completion rate, GMV |
+| ***Engagement***   | Stable usage → High-frequency usage | Amplify actions per unit time | Avg. usage frequency, active days per user, engagement depth |
+| ***Monetization*** | Action occurred → Higher-value action | Amplify value per action | ARPU, LTV, AOV, repeat purchase rate |
+| ***Reactivation*** | Dormant / Churned → Returned | Reverse state transition | Reactivation rate, post-return retention |
 
 ![202602252152](./assets/202602252152.svg)
 
@@ -57,7 +60,23 @@ Here is the reverse application of the same framework. Use it to falsify whether
 5. **Does this behavior compound long-term value for the platform?**
     → If it does not improve retention, frequency, or LTV, it is a one-off spike, not growth.
 
-## C-end Subsidy System
+### User-growth Operational Actions
+
+
+
+| Growth Module      |                                                              | Core Metrics                                                 |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ***Acquisition***  | Outside system → Inside system. Acquire new users and bring them to the platform. | New users, signup conversion rate, CAC                       |
+| ***Activation***   | Unused → First use. Let users truly experience the value of the product for the first time. | Week-1 activation rate, first-order conversion, key path completion |
+| ***Retention***    | Used → Repeated usage                                        | D1 / D7 / D30 retention, DAU/WAU/MAU                         |
+| ***Conversion***   | Intent present → Action completed                            | Order conversion rate, completion rate, GMV                  |
+| ***Engagement***   | Stable usage → High-frequency usage                          | Avg. usage frequency, active days per user, engagement depth |
+| ***Monetization*** | Action occurred → Higher-value action                        | ARPU, LTV, AOV, repeat purchase rate                         |
+| ***Reactivation*** | Dormant / churned → Returned                                 | Reactivation rate, post-return retention                     |
+
+## Examples
+
+
 
 
 

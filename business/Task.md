@@ -1,8 +1,8 @@
-# Task-Based Incentive Commitment
+# Task
 
 [TOC]
 
-A task-based incentive commitment can be understood as a conditional incentive arrangement between a platform and its users. Based on its operational objectives, the platform designs and issues conditional `offers`, specifying that users will receive corresponding `rewards` if they complete designated `objectives` within a defined time frame, through prescribed paths, and under specified rules. After the offer is presented, users may decide whether to `enroll`. Once enrolled, the system continuously tracks their `progress` and evaluates objective completion according to predefined criteria. When the objective is fulfilled, the platform delivers the reward subject to budgetary and risk-control constraints. The platform may then guide users to the next task or another offer, thereby creating an ongoing incentive loop.
+A task-based incentive *commitment* can be understood as a conditional incentive arrangement between a platform and its users. Based on its operational objectives, the platform designs and issues conditional `offers`, specifying that users will receive corresponding `rewards` if they complete designated `objectives` within a defined time frame, through prescribed paths, and under specified rules. After the offer is presented, users may decide whether to `enroll`. Once enrolled, the system continuously tracks their `progress` and evaluates objective completion according to predefined criteria. When the objective is fulfilled, the platform delivers the reward subject to budgetary and risk-control constraints. The platform may then guide users to the next task or another offer, thereby creating an ongoing incentive loop.
 
 > **Offer Configuration → Offer Presentation → User Enrollment → Behavioral Completion → Progress Measurement → Reward Fulfillment → Re-Engagement**
 
@@ -98,5 +98,4 @@ The `Reward` mechanism can be divided into three layers:
 3. `Reward Fulfillment`: actual fulfillment. This is the stage at which the platform invokes the benefit or entitlement system to complete the reward delivery.
 
 Risk control is embedded throughout the `Reward` lifecycle rather than being an external component. First, pre-promise risk control determines whether a user is allowed to view or participate in a reward offer. Second, qualification-stage risk control evaluates whether the user should actually receive reward eligibility after completing the objective. Third, pre-fulfillment risk control serves as the final checkpoint before the reward is issued.
-
 
