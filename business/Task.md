@@ -12,11 +12,48 @@ This mechanism transforms the behaviors desired by the platform into tasks that 
 
 An Offer is a core domain entity in the system and serves as the primary object that users see, interpret, and decide whether to accept. It specifies a conditional commitment: what action the user is expected to complete and what reward the user will receive in return. Meanwhile, an offer also defines the eligibility conditions under which the user may participate.
 
+### Definition-Runtime 
+
+An offer is a design-time *definition*, whereas users participate in a *runtime instance* generated from the offer, namely an opportunity / enrollment. 
+
 **Offer Snapshots and Protection of User Fulfillment Rights**. Once a user confirms participation in an Offer, the applicable rules become the platform’s commitment to that user’s entitlements. Later changes to the Offer should not arbitrarily affect existing participants or undermine their legitimate expectations. Accordingly, the system should capture and persist a rule snapshot at the time of participation, and fulfillment for existing participants should continue based on that snapshot even if the Offer is later modified. When an Offer is suspended, taken offline, or otherwise changed in status, the system should clearly distinguish between closing the Offer to new participants and altering fulfillment for existing participants, and explicitly specify whether existing users remain entitled to normal fulfillment under the original rules.
 
-### Participation Policy & Runtime
+**Personalized Runtime Materialization**. An Offer may be defined as a general design-time template, while its concrete runtime form is materialized differently for each user at the moment of participation. Based on user attributes, and business context, the system may derive personalized participation rules, reward terms, objective detail, or display content for a specific user. Once materialized and accepted, this personalized runtime configuration becomes part of the user’s participation snapshot and serves as the authoritative basis for subsequent progress computation and fulfillment.
 
-**Participation Policy.** An offer is a design-time definition, whereas users participate in a runtime instance generated from the offer, namely an opportunity / enrollment. The participation eligibility policy defines when a user is entitled to a new participation opportunity. It may incorporate constraints such as city, user segment, time window, participation frequency, eligibility criteria, and business context. The system evaluates these constraints to determine whether a new opportunity / enrollment should be created for the user.
+### Participation Policy
+
+**Participation Policy.** The participation eligibility policy defines when a user is entitled to a new participation opportunity. It may incorporate constraints such as city, user segment, time window, participation frequency, eligibility criteria, and business context. The system evaluates these constraints to determine whether a new opportunity / enrollment should be created for the user.
+
+#### Timing of participation
+
+Timing of participation determines *when the platform’s commitment is formed*, *whether the user perceives the commitment before acting*, and *whether the reward can causally influence subsequent behavior*. In a task-based incentive commitment, the timing of enrollment defines the nature of the incentive. 
+
+**Prospective incentive vs. Retrospective reward.** (1) When enrollment occurs before the target behavior and the user clearly understands the task, the offer functions as a **prospective incentive commitment**. (2) When enrollment occurs after the behavior has already happened, the mechanism is closer to a **retrospective subsidy or recognition**, rather than a true behavioral incentive. The most important distinction: A prospective incentive changes user behavior before it happens; A retrospective reward mainly affects user satisfaction, future expectations, or subsequent retention. Therefore, one business consideration for the enrollment timing is whether the platform wants "behavior driven by tasks" or "users to receive surprise rewards after the behavior occurs".
+
+> Prospective Incentive: Awareness moment → Commitment moment → Behavior moment
+>
+> Retrospective reward: Behavior moment → Commitment moment
+
+The design of enrollment involves a trade-off among three dimensions. 
+
+| Dimension      | Meaning                                                      |
+| -------------- | ------------------------------------------------------------ |
+| Salience       | Whether the user clearly perceives the task and reward before acting. |
+| Friction       | The cognitive or operational cost required for the user to participate. |
+| Incrementality | Whether the platform can reasonably attribute subsequent behavior to the incentive commitment. |
+
+Different timing of participation resolve this trade-off differently:
+
+| Timing                                     | Advantages                                                   | Potential drawbacks                                          |
+| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| User-initiated enrollment                  | Users are more likely to have clear intent and a stronger sense of commitment. | The conversion funnel becomes longer. Exposure → Understanding → Click → Registration → Action → Completion. Each additional step results in the loss of a group of users. |
+| Automatic enrollment                       | Achieves broader coverage and reduces participation friction. | Users may not develop sufficient awareness of the task. Default commitment + in-process reminder + post-event fulfillment. Its capacity to operate as a genuine incentive depends on whether the system prompts users before the relevant behavioral decision point. |
+| Condition-triggered enrollment invitation  | Targets users more precisely.                                | The challenge is to trigger intervention early yet precisely, before the optimal moment for motivation is missed. Condition-triggered invitations are often actually incentives only for the remaining uncompleted behaviors. |
+| Post-behavior enrollment                   | Feels less intrusive and more user-friendly.                 | It is perceived as a retrospective subsidy rather than a prospective incentive. |
+| Default display with explicit confirmation | Balances salience with user commitment.                      | Users may still face cognitive costs in understanding the mechanism. The core design goal is to help users quickly assess whether joining offers immediate personal value. |
+
+
+#### Repeated Participation
 
 **Repeated Participation Policy.** It defines how and when users may participate again for the same incentive offer. 
 
@@ -54,7 +91,7 @@ An Objective can be modeled as either an atomic node or a composite structure, a
 | `Repeat`            | The same objective can be completed repeatedly, typically on a periodic basis. |
 | `Conditional`       | Different users are routed to different objective paths based on predefined conditions. |
 
-### Progress
+### Progress: Behavioral Attribution and Evidence
 
 `Progress` addresses one of the most complex and potentially disputed issues in task-based incentive systems: how user behavior can be measured accurately. Based on traceable records of user actions, it calculates a user’s progress toward a specific objective within a defined time window, business context, and rule scope. Progress needs to be distinguished at least as follows:
 
@@ -97,5 +134,5 @@ The `Reward` mechanism can be divided into three layers:
 2. `Reward Qualification`: reward eligibility. This refers to the qualification or entitlement obtained by the user after the objective has been completed.
 3. `Reward Fulfillment`: actual fulfillment. This is the stage at which the platform invokes the benefit or entitlement system to complete the reward delivery.
 
-Risk control is embedded throughout the `Reward` lifecycle rather than being an external component. First, pre-promise risk control determines whether a user is allowed to view or participate in a reward offer. Second, qualification-stage risk control evaluates whether the user should actually receive reward eligibility after completing the objective. Third, pre-fulfillment risk control serves as the final checkpoint before the reward is issued.
+**Reward and Risk.** Risk control is embedded throughout the `Reward` lifecycle rather than being an external component. First, pre-promise risk control determines whether a user is allowed to view or participate in a reward offer. Second, qualification-stage risk control evaluates whether the user should actually receive reward eligibility after completing the objective. Third, pre-fulfillment risk control serves as the final checkpoint before the reward is issued.
 
