@@ -63,7 +63,13 @@ Different timing of participation resolve this trade-off differently:
 
 ### Objective
 
-An **objective** is the operational specification of the user action required by an offer. It defines the expected behavior, completion criteria, evaluation constraints, and resulting business outcome. It typically includes the following components:
+An **objective** is the operational specification of the user action required by an offer. It defines the expected behavior, completion criteria, evaluation constraints, and resulting business outcome. 
+
+**Platform-Side Constraints and the Need for Fallback Protection**. Some objectives are not determined solely by user action. Even when users make reasonable efforts to comply with stated requirements, task completion may depend on platform capacity, merchant cooperation, supply availability, fulfillment processes, or system stability. Where platform-side constraints prevent completion, promised benefits should not be denied without a fallback mechanism; otherwise, the risk of platform failure is unfairly shifted onto users.
+
+#### Composition of Objective
+
+It typically includes the following components:
 
 | Component                | Definition                                                   | Examples                                                     |
 | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -83,13 +89,13 @@ An Objective can be modeled as either an atomic node or a composite structure, a
 
 | Composition Pattern | Business Meaning                                             |
 | ------------------- | ------------------------------------------------------------ |
-| `Sequence`          | Sub-objectives must be completed in a specified order.       |
-| `Ladder`            | Different reward tiers are unlocked by completing different levels. |
-| `Parallel`          | Multiple objectives can progress simultaneously.             |
-| `Any-of`            | Completing any one of the sub-objectives is sufficient.      |
-| `All-of`            | All sub-objectives must be completed for the overall objective to be considered complete. |
-| `Repeat`            | The same objective can be completed repeatedly, typically on a periodic basis. |
-| `Conditional`       | Different users are routed to different objective paths based on predefined conditions. |
+| Sequence            | Sub-objectives must be completed in a specified order.       |
+| Ladder              | Different reward tiers are unlocked by completing different levels. |
+| Parallel            | Multiple objectives can progress simultaneously.             |
+| Any-of              | Completing any one of the sub-objectives is sufficient.      |
+| All-of              | All sub-objectives must be completed for the overall objective to be considered complete. |
+| Repeat              | The same objective can be completed repeatedly, typically on a periodic basis. |
+| Conditional         | Different users are routed to different objective paths based on predefined conditions. |
 
 ### Progress: Behavioral Attribution and Evidence
 
@@ -136,3 +142,9 @@ The `Reward` mechanism can be divided into three layers:
 
 **Reward and Risk.** Risk control is embedded throughout the `Reward` lifecycle rather than being an external component. First, pre-promise risk control determines whether a user is allowed to view or participate in a reward offer. Second, qualification-stage risk control evaluates whether the user should actually receive reward eligibility after completing the objective. Third, pre-fulfillment risk control serves as the final checkpoint before the reward is issued.
 
+
+## Business challenges
+
+**Incentive campaigns may train users to wait for rewards.** When task-based commitments are sustained over time, they can reshape users’ price expectations toward the platform. Users may gradually develop a new behavioral pattern: they make purchases only when tasks are available, remain active only when rewards are offered, and return only when subsidies are provided. This phenomenon can be described as incentive dependence, whereby users are conditioned into becoming task-driven participants. This effect is particularly salient in task-based commitment mechanisms, because tasks explicitly signal that the platform is willing to compensate users for a given behavior. Once users recognize that the platform is willing to pay for an action, they may reassess whether they should continue performing that action without compensation. The key managerial challenge, therefore, is how to shift task-based incentives from subsidy-driven participation toward habit-driven engagement.
+
+**Near-Miss Failure and User–Platform Relational Repair**. When users are told that they are “only one order away from receiving ¥20,” the reward ceases to be a generic benefit and becomes part of a salient mental account. Having already incurred behavioral costs, users become more vulnerable to loss aversion: the closer they are to the goal, the more aversive failure becomes. This is especially evident in near-miss situations. Users may interpret failure not as their own inability to complete the task, but as the platform’s failure to honor the promised reward. This creates a critical business challenge: repairing the user–platform relationship after task failure. The challenge is inherent to task-based commitment. Because task rewards bind expectations, effort costs, and psychological investment, task failure requires platforms to address not only the absence of a reward but also users’ reassessment of fairness, credibility, and relational commitment.
