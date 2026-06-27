@@ -22,9 +22,9 @@ The platform must also define whether a user is eligible to participate in the t
 
 A task can be understood at two levels.
 
-The first is the **definition state**, namely the task rules configured by the platform. This level serves operational objectives and specifies the task content, reward content, participation conditions, and completion criteria.
+1. **Definition state**, namely the task rules configured by the platform. This level serves operational objectives and specifies the task content, reward content, participation conditions, and completion criteria.
 
-The second is the **runtime state**, namely the participation record generated after a user joins the task. This level is user-specific and records which task the user participated in, when the user joined, which rules applied at that time, what the current progress is, and whether the user ultimately completed the task and received the reward.
+2. **Runtime state**, namely the participation record generated after a user joins the task. This level is user-specific and records which task the user participated in, when the user joined, which rules applied at that time, what the current progress is, and whether the user ultimately completed the task and received the reward.
 
 This distinction is crucial. The platform may later modify how a task is displayed or may stop making the task available to new users. However, this does not necessarily mean that users who have already joined the task should automatically be subject to the updated rules.
 
@@ -41,7 +41,7 @@ In general, users who have already participated should not have their expected b
 
 ### 1.3 Personalized Tasks
 
-Tasks may also be generated on a personalized basis. The platform may configure different task objectives, reward content, or display copy for different users according to their city, user segment, historical behavior, business scenario, or acquisition channel. For example, the platform may show new users a “coupon return after first order” task, show inactive users a “return and place an order to receive a coupon” task, or show high-frequency users a “complete three orders this week to unlock a higher reward” task.
+Tasks may also be generated on a personalized basis. The platform may configure different task objectives, reward content, or display copy for different users according to their city, user segment, historical behavior, business scenario, or acquisition channel. For example, when users at different membership tiers participate in the same task, the target thresholds they are required to meet may vary by tier; for instance, the required cumulative mileage can be dynamically adjusted according to membership level.
 
 Once a personalized task is displayed to a user and the user confirms participation, it should become part of that user’s participation record. Thereafter, the system should calculate progress and issue rewards according to the personalized rules that the user accepted at that time.
 
@@ -105,7 +105,7 @@ Repeat participation rules determine whether users may participate in the same t
 
 1. **One-time participation.** Each user may participate only once, as in a new-user first-order task.
 2. **Periodic participation.** The system refreshes the task by calendar day, calendar week, calendar month, or a customized cycle, such as daily check-in or completing three orders per week.
-3. **Progressive participation.** The user must complete the current task before unlocking the next one. For example, completing one order unlocks a three-order task, and completing three orders unlocks a higher reward.
+3. **Progressive participation.** The user must complete the current task before unlocking the next one. For example, the platform may allocate each user 12 annual entries into the train-travel cashback program. After one entry has been used, the next entry becomes available on the following calendar day.
 
 Progressive participation is suitable for constructing a continuous behavioral path, but the rules for generating subsequent tasks must be clear. These include participation limits, unlocking conditions, waiting intervals, and the logic of reward escalation.
 
@@ -146,8 +146,8 @@ A **composite task** consists of multiple sub-objectives and is suitable for mor
 | Parallel            | Multiple objectives can progress at the same time.           |
 | Any-satisfied       | Completing any one sub-objective constitutes completion of the overall task. |
 | All-satisfied       | All sub-objectives must be completed before the overall task is considered complete. |
-| Repetitive          | The same objective can be completed repeatedly, usually in periodic tasks. |
-| Conditional routing | The system directs different users into different task paths according to user conditions. |
+| Repetitive          | The same objective can be completed repeatedly, with repetition here referring to recurring processes within a single participation task and thus reflecting a lower-level capacity for repetition. |
+| Conditional routing | Users are assigned to the appropriate task pathway according to their previous completion status. |
 
 Composite tasks are more flexible but also more likely to generate disputes over comprehension and calculation. Therefore, the user-facing presentation, progress calculation, and reward rules of composite tasks must remain consistent, so as to avoid discrepancies between the task logic displayed to users and the logic actually used by the system.
 
