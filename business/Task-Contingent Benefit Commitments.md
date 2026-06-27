@@ -141,7 +141,7 @@ A **composite task** consists of multiple sub-objectives and is suitable for mor
 
 | Composition Pattern | Meaning                                                      |
 | ------------------- | ------------------------------------------------------------ |
-| Sequential          | The user must complete multiple steps in a specified order, such as browsing first, then placing an order, and then paying. |
+| Sequential          | The user must complete multiple steps in a specified order.  |
 | Tiered              | The user obtains different reward tiers after reaching different levels of completion. |
 | Parallel            | Multiple objectives can progress at the same time.           |
 | Any-satisfied       | Completing any one sub-objective constitutes completion of the overall task. |
