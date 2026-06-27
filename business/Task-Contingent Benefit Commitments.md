@@ -104,8 +104,8 @@ Task-based incentive mechanisms usually need to balance three objectives:
 Repeat participation rules determine whether users may participate in the same type of task again. Common models include:
 
 1. **One-time participation.** Each user may participate only once, as in a new-user first-order task.
-2. **Periodic participation.** The system refreshes the task by calendar day, calendar week, calendar month, or a customized cycle, such as daily check-in or completing three orders per week.
-3. **Progressive participation.** The user must complete the current task before unlocking the next one. For example, the platform may allocate each user 12 annual entries into the train-travel cashback program. After one entry has been used, the next entry becomes available on the following calendar day.
+2. **Periodic participation.** The system refreshes the task by calendar day, week, month, or a customized cycle, such as daily check-in or completing three orders per week.
+3. **Progressive participation.** The user must complete the current task before proceeding to the next round. For example, the platform may allocate each user 12 annual entries into the train-travel cashback program. After one entry has been used, the next entry becomes available on the following calendar day.
 
 Progressive participation is suitable for constructing a continuous behavioral path, but the rules for generating subsequent tasks must be clear. These include participation limits, unlocking conditions, waiting intervals, and the logic of reward escalation.
 
